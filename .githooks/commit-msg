@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# Rejects a commit whose message carries AI attribution. Enabled via
+# `git config core.hooksPath .githooks`. The same pattern is checked in CI.
+set -euo pipefail
+
+MSG_FILE="$1"
+
+if grep -qiE '(co-authored-by:.*(claude|anthropic|noreply@anthropic\.com))|generated with .*claude|claude-session|🤖' "$MSG_FILE"; then
+  echo "commit-msg hook: commit message contains AI attribution (Co-Authored-By/Generated with/session link)." >&2
+  echo "This repo's policy (AGENTS.md) is zero AI attribution in commits or PRs. Remove it and retry." >&2
+  exit 1
+fi

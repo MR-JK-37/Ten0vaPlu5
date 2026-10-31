@@ -1,5 +1,21 @@
 # Progress
 
+## A10.0 — Git identity, attribution, and history cleanup
+- [x] Confirmed `gh auth status` authenticates as `MR-JK-37`; local `user.name`/`user.email`
+      was already the owner's, never an AI identity, on every existing commit.
+- [x] Pushed `backup/pre-attribution-cleanup` (original history) before rewriting anything.
+- [x] Stripped `Co-Authored-By: Claude …` trailers from the 7 affected commits via
+      `git filter-branch --msg-filter`; verified zero file-content diff against the backup
+      and force-pushed with `--force-with-lease`.
+- [x] Verified via `gh api repos/MR-JK-37/Ten0vaPLu5/contributors` and the commits API: only
+      `MR-JK-37` listed, no commit message contains AI attribution.
+- [x] `.githooks/commit-msg` hook installed and enabled (`core.hooksPath .githooks`);
+      `.claude/settings.json` sets `attribution.commit`/`attribution.pr` to `""`;
+      `AGENTS.md` states the no-attribution policy; CI `identity-check` job added.
+- [ ] GitHub's web Contributors *panel* (distinct from the API) re-checked after the cache
+      lag mentioned in `docs/BLOCKERS.md` clears — needs a human to look again later.
+
+
 Checklist mirrors §16 of the master prompt. A box is ticked only after the test was actually
 run (not just "should work"); see the note under each ticked item for how it was verified.
 

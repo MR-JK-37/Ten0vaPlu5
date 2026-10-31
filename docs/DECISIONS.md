@@ -2,6 +2,24 @@
 
 Running log of non-obvious choices and why, newest first.
 
+## One-time git history rewrite to strip AI attribution trailers (A10.0)
+Author/committer identity on every existing commit was already the repo owner
+(`Ten0vaP!us <jaikiranjaikiran37@gmail.com>`, confirmed via `gh auth status` as GitHub
+account `MR-JK-37`) — never an AI identity. The only thing causing `claude` to appear as a
+GitHub contributor was a `Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>` trailer
+in 7 of the 8 existing commit messages. Fix: pushed a backup branch
+(`backup/pre-attribution-cleanup`, holds the original history, safe to delete once
+confirmed), used `git filter-branch --msg-filter` to strip only those trailer lines
+(content, author, committer, and dates all unchanged — verified with
+`git diff <backup>..HEAD --stat` returning empty), then
+`git push --force-with-lease origin master`. Verified afterward via
+`gh api repos/MR-JK-37/Ten0vaPLu5/contributors` and the commits API that only `MR-JK-37`
+remains and no commit message contains AI attribution. Going forward: `.claude/settings.json`
+sets `attribution.commit`/`attribution.pr` to empty strings, `.githooks/commit-msg` rejects
+any commit message matching AI-attribution patterns, and `.github/workflows/ci.yml`'s
+`identity-check` job re-checks both the message pattern and the author/committer identity on
+every push/PR.
+
 ## Discount stacking: non-stackable, best single saving wins
 Per §7, discounts apply before tax. `compute_invoice_totals` picks the single eligible,
 applicable discount with the highest absolute saving and ignores the rest. This is simpler

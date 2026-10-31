@@ -5,6 +5,15 @@ Each stays blocked on `mock`/local alternatives per AGENTS rule 4 — never stop
 
 ## Open
 
+- **GitHub Contributors panel / integration lag.** The commit history was rewritten to
+  strip `Co-Authored-By: Claude …` trailers (see A10.0) and `gh api repos/.../contributors`
+  now returns only `MR-JK-37`. GitHub's Contributors *panel* in the web UI is a separate,
+  cached view and can lag the API by minutes to hours after a history rewrite. If `claude`
+  still appears there after checking again later, go to **Settings → Integrations →
+  Applications** (account-level) and the repo's **Settings → Collaborators** / **GitHub
+  Apps** and revoke any Claude/Anthropic GitHub App or token with access — this is an
+  account-level setting the agent cannot change from code.
+
 - **Hosted Supabase project.** No project has been created at supabase.com. Needed for the
   deployed demo URL. Local dev uses the Supabase CLI's dockerized stack instead
   (`supabase start`). When ready: create a free-tier project, run
