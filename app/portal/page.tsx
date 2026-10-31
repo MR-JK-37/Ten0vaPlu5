@@ -15,9 +15,9 @@ import {
   Eye,
   Bell,
   ChevronRight,
-  CheckCircle2
 } from "lucide-react";
 import { toast } from "sonner";
+import { downloadCSV } from "@/lib/export/csv";
 
 export default function PortalDashboardPage() {
   const [renewed, setRenewed] = useState(false);
@@ -52,7 +52,21 @@ export default function PortalDashboardPage() {
   ];
 
   const handleDownloadInvoice = (invNo: string) => {
-    toast.success(`Downloading PDF for ${invNo}...`);
+    const inv = latestInvoices.find(i => i.no === invNo) || { no: invNo, date: "Nov 05, 2026", amount: "₹1,180", status: "Paid" };
+    const data = [
+      {
+        "Invoice No": inv.no,
+        "Customer": "Rahul Kumar",
+        "Issue Date": inv.date,
+        "Amount": inv.amount,
+        "Status": inv.status,
+        "Currency": "INR",
+        "Tax Rate": "18% GST",
+        "Billing Period": "Monthly",
+      },
+    ];
+    downloadCSV(inv.no, data);
+    toast.success(`Downloaded ${inv.no}.csv successfully!`);
   };
 
   const handleRenew = () => {
@@ -114,14 +128,12 @@ export default function PortalDashboardPage() {
             <text x="35" y="36" fontSize="9" fill="#94a3b8" textAnchor="end">₹900</text>
             <text x="35" y="10" fontSize="9" fill="#94a3b8" textAnchor="end">₹1.5K</text>
 
-            {/* Billed line (blue) */}
             <path
               d="M 60 125 C 130 110, 200 85, 270 75 C 340 65, 410 40, 480 25"
               fill="none"
               stroke="#3b82f6"
               strokeWidth="2.5"
             />
-            {/* Paid line (violet) */}
             <path
               d="M 60 128 C 130 115, 200 90, 270 80 C 340 70, 410 45, 480 25"
               fill="none"
@@ -167,7 +179,7 @@ export default function PortalDashboardPage() {
             >
               <div className="flex items-center gap-2.5">
                 <Download className="w-4 h-4 text-[#7C3AED]" />
-                <span className="text-xs font-semibold text-gray-700 group-hover:text-violet-700">Download Latest Invoice</span>
+                <span className="text-xs font-semibold text-gray-700 group-hover:text-violet-700">Download Latest Invoice (CSV)</span>
               </div>
               <ChevronRight className="w-3.5 h-3.5 text-gray-400 group-hover:text-violet-600" />
             </button>
@@ -241,7 +253,7 @@ export default function PortalDashboardPage() {
                     <button
                       onClick={() => handleDownloadInvoice(inv.no)}
                       className="p-1 rounded-lg text-gray-400 hover:text-[#7C3AED] hover:bg-violet-50 transition"
-                      title="Download PDF"
+                      title="Download as CSV"
                     >
                       <Download className="w-3.5 h-3.5" />
                     </button>

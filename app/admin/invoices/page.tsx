@@ -1,8 +1,9 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { Search, Plus, Download } from "lucide-react";
+import { Search, Plus, Download, FileSpreadsheet } from "lucide-react";
 import { toast } from "sonner";
+import { downloadCSV } from "@/lib/export/csv";
 
 export default function AdminInvoicesPage() {
   const [invoices, setInvoices] = useState([
@@ -24,8 +25,36 @@ export default function AdminInvoicesPage() {
     });
   }, [invoices, search, statusFilter]);
 
-  const handleDownload = (id: string) => {
-    toast.success(`Downloaded official PDF for invoice ${id}`);
+  const handleDownloadSingle = (inv: typeof invoices[0]) => {
+    const data = [
+      {
+        "Invoice No": inv.id,
+        "Customer": inv.customer,
+        "Amount": inv.amount,
+        "Due Date": inv.dueDate,
+        "Status": inv.status,
+        "Currency": "INR",
+        "Issue Date": "Nov 01, 2026",
+        "Tax Rate": "GST 18%",
+      },
+    ];
+    downloadCSV(inv.id, data);
+    toast.success(`Downloaded ${inv.id}.csv successfully!`);
+  };
+
+  const handleExportAll = () => {
+    const data = filtered.map(inv => ({
+      "Invoice No": inv.id,
+      "Customer": inv.customer,
+      "Amount": inv.amount,
+      "Due Date": inv.dueDate,
+      "Status": inv.status,
+      "Currency": "INR",
+      "Issue Date": "Nov 01, 2026",
+      "Tax Rate": "GST 18%",
+    }));
+    downloadCSV("admin_invoices_export", data);
+    toast.success("Downloaded all invoices as CSV!");
   };
 
   return (
@@ -36,13 +65,23 @@ export default function AdminInvoicesPage() {
           <h1 className="text-2xl font-bold text-gray-900 tracking-tight">Invoices</h1>
           <p className="text-gray-500 text-xs mt-1">Create or track customer invoices, payment statuses and tax receipts.</p>
         </div>
-        <button
-          onClick={() => setShowAddModal(true)}
-          className="flex items-center gap-2 bg-[#7C3AED] hover:bg-[#6D28D9] text-white px-4 py-2.5 rounded-xl text-xs font-semibold shadow-sm transition active:scale-95"
-        >
-          <Plus size={15} />
-          <span>Create Invoice</span>
-        </button>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={handleExportAll}
+            className="flex items-center gap-1.5 bg-violet-50 hover:bg-violet-100 text-violet-700 border border-violet-200 px-3.5 py-2.5 rounded-xl text-xs font-semibold shadow-xs transition"
+            title="Export all visible invoices to CSV"
+          >
+            <FileSpreadsheet size={15} />
+            <span>Export CSV</span>
+          </button>
+          <button
+            onClick={() => setShowAddModal(true)}
+            className="flex items-center gap-2 bg-[#7C3AED] hover:bg-[#6D28D9] text-white px-4 py-2.5 rounded-xl text-xs font-semibold shadow-sm transition active:scale-95"
+          >
+            <Plus size={15} />
+            <span>Create Invoice</span>
+          </button>
+        </div>
       </div>
 
       <div className="bg-white rounded-2xl shadow-xs border border-violet-200/80 overflow-hidden">
@@ -95,9 +134,9 @@ export default function AdminInvoicesPage() {
                   </td>
                   <td className="px-5 py-3.5 text-right">
                     <button
-                      onClick={() => handleDownload(inv.id)}
+                      onClick={() => handleDownloadSingle(inv)}
                       className="p-1.5 rounded-xl text-gray-400 hover:text-[#7C3AED] hover:bg-violet-50 transition border border-transparent hover:border-violet-200"
-                      title="Download PDF"
+                      title="Download as CSV file"
                     >
                       <Download className="w-4 h-4" />
                     </button>
