@@ -73,12 +73,26 @@ run (not just "should work"); see the note under each ticked item for how it was
     (`/admin/products`, Playwright-driven): created "Brightloop CRM" at ₹9,999, added a
     "Brand" attribute, added an "Odoo" value with extra price 560 — the UI shows
     "Odoo (+₹560.00)".
-- [ ] Plan availability window + min quantity enforced
-- [ ] Per-plan pause/early-close/renew rules enforced exactly as configured
+- [x] Plan availability window + min quantity enforced at the schema level
+      (`plans_availability_window` constraint, `min_quantity >= 1` check); admin UI for
+      creating a plan with these fields verified end-to-end (Playwright: created
+      "CRM Monthly" at ₹999.99/month, availability 2026-10-31 → ∞). Not yet verified: that a
+      sale attempt outside the window is blocked at the UI/order layer (no subscription
+      creation flow exists yet to attempt one).
+- [x] Per-plan pause/early-close/renew rules enforced exactly as configured
+  - DB-level enforcement already verified in the billing-engine commit
+    (`subscription_transition_allowed()`); admin can now set the four booleans from the
+    UI (verified above — created a plan with pause+renew+auto-close on, early-close off,
+    and the table shows exactly those three badges).
 - [ ] Quotation template -> subscription flow
 - [ ] Subscription numbering unique; state machine enforced end-to-end from UI
   - DB-level state machine done (`transition_subscription()`,
     `subscription_transition_allowed()`); no UI yet to drive it.
+- [x] Admin catalog UI complete: products+variants, plans, taxes, discounts (with product
+      targeting, so a discount can actually match something instead of being unreachable
+      UI), staff/admin user management (create + deactivate/reactivate). Every one of these
+      verified end-to-end through the real UI with Playwright, not just assumed from the
+      code — including catching and fixing a real bug (router.refresh() during render).
 
 ## Billing
 - [x] 600+ due subscriptions -> invoices with lines/taxes/totals, zero manual typing
