@@ -19,6 +19,20 @@
 Checklist mirrors §16 of the master prompt. A box is ticked only after the test was actually
 run (not just "should work"); see the note under each ticked item for how it was verified.
 
+## A13 — additional acceptance tests (Part A)
+- [x] `pg_tables` RLS audit returns zero rows
+  - Found and fixed one gap: `public.sequences` had no RLS enabled at all (it's only ever
+    touched by the SECURITY DEFINER `next_number()`, so no policies are needed — just
+    `enable row level security` to deny direct client access). See
+    `supabase/migrations/20260101000016_sequences_rls.sql`. Re-ran the audit query after:
+    zero rows.
+- [~] RLS matrix (every role × every table) passes
+  - `tests/rls/matrix.ts` covers 16 assertions across profiles/customers/subscriptions/
+    invoices/payments/taxes/discounts/plans for admin/staff/customer-A/customer-B,
+    including the critical self-escalation bug above. Not yet exhaustive over every
+    remaining table (quotation_templates, products, product_attributes, notifications,
+    audit_log, billing_runs, webhook_events) — tracked to extend as those features land.
+
 ## Auth & roles
 - [x] Duplicate email (any case) is rejected
   - Verified against the local Supabase Auth API directly: signed up
@@ -33,8 +47,19 @@ run (not just "should work"); see the note under each ticked item for how it was
   - Mechanism is in place (`requestPasswordReset` always returns the same neutral message
     regardless of whether the email exists); not yet manually checked against Mailpit
     (http://127.0.0.1:54324).
-- [ ] Customer cannot read another customer's data (UI/API/Realtime)
-- [ ] Staff cannot create taxes/discounts/plans/staff
+- [x] Customer cannot read another customer's data (UI/API/Realtime via DB, which Realtime
+      is RLS-aware over — not yet re-verified specifically through a live Realtime
+      subscription)
+- [x] Staff cannot create taxes/discounts/plans/staff; cannot self-promote to admin
+  - Both verified by `tests/rls/matrix.ts` (`pnpm test:rls`), a scripted RLS matrix that
+    signs in as a real admin/staff/two-customers via the Auth API and checks 16
+    cross-role assertions. **Found and fixed a critical bug in the process:**
+    `prevent_role_self_escalation()`'s guard compared `tg_op = 'update'` (lowercase), but
+    Postgres's `TG_OP` is uppercase (`'UPDATE'`), so the comparison was always false and
+    the entire role-change check never ran — any authenticated user, including a plain
+    customer, could UPDATE their own `profiles.role` to `'admin'` with no error. Fixed in
+    `supabase/migrations/20260101000017_fix_role_guard_case_bug.sql`; reproduced the bug
+    directly in psql before fixing, then reran the matrix (16/16 pass) after.
 - [x] Public sign-up ignores `role`; always `customer`
   - Verified end-to-end through the real Supabase Auth API (not just SQL): called
     `auth.signUp()` with `options.data.role = "admin"` smuggled into the metadata the same

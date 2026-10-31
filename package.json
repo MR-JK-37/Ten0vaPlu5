@@ -11,6 +11,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "e2e": "playwright test",
+    "test:rls": "tsx --env-file=.env.local tests/rls/matrix.ts",
     "seed:admin": "tsx --env-file=.env.local scripts/seed-admin.ts",
     "seed:demo": "tsx scripts/seed-demo.ts"
   },
