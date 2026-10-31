@@ -8,7 +8,7 @@ zero=0000000000000000000000000000000000000000
 while read lref lsha rref rsha; do
   [ "$lsha" = "$zero" ] && continue
   if [ "$rsha" = "$zero" ]; then range="$lsha"; else range="$rsha..$lsha"; fi
-  other=$(git log --format='%ae%n%ce' "$range" | sort -u | grep -v -x -e "$(git config user.email)" -e 'jaikiranjaikiran37@gmail.com' -e 'noreply@github.com' || true)
+  other=$(git log --format='%ae%n%ce' "$range" | sort -u | grep -v -x -e "$(git config user.email)" -e '231611281+MR-JK-37@users.noreply.github.com' -e 'jaikiranjaikiran37@gmail.com' -e 'tdhaarini032@gmail.com' -e 'noreply@github.com' || true)
   sig=$(git log --format='%B' "$range" | grep -iE 'co-authored-by:|claude-session|generated with|anthropic|claude\.ai' || true)
   if [ -n "$other" ] || [ -n "$sig" ]; then
     echo "pre-push BLOCKED: foreign identity or AI signature found in $range." >&2
