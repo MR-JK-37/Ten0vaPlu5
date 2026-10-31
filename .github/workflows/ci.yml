@@ -31,11 +31,12 @@ jobs:
           BASE_SHA: ${{ github.event.pull_request.base.sha }}
           HEAD_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
           OWNER_EMAIL: 231611281+MR-JK-37@users.noreply.github.com
+          OWNER_EMAIL_LEGACY: jaikiranjaikiran37@gmail.com
         run: |
           set -euo pipefail
           git log "${BASE_SHA:-HEAD~1}..$HEAD_SHA" --format='%ae%n%ce' | sort -u > /tmp/identities.txt || true
           cat /tmp/identities.txt
-          other=$(grep -v -x -e "$OWNER_EMAIL" -e 'noreply@github.com' /tmp/identities.txt || true)
+          other=$(grep -v -x -e "$OWNER_EMAIL" -e "$OWNER_EMAIL_LEGACY" -e 'noreply@github.com' /tmp/identities.txt || true)
           if [ -n "$other" ]; then
             echo "A commit in this range has an author/committer email other than the repo owner's:" >&2
             echo "$other" >&2
