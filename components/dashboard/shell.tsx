@@ -3,13 +3,14 @@
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import {
   LayoutDashboard, Users, Package, CreditCard, FileText, RefreshCw,
   Receipt, Wallet, Tag, Percent, BarChart2, UserCog, CheckSquare,
-  User, Bell, ChevronDown, Search, Home, CheckCircle2, AlertCircle, X, Shield, ExternalLink
+  User, Bell, ChevronDown, Search, Home, ExternalLink
 } from "lucide-react";
 import { Toaster, toast } from "sonner";
+import { signOut } from "@/lib/auth/actions";
 import type { NavItem } from "@/lib/rbac/nav";
 import type { CurrentUser } from "@/lib/rbac/roles";
 
@@ -57,6 +58,7 @@ export function DashboardShell({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
+  const router = useRouter();
   const portalType = getPortalType(nav);
   const config = PORTAL_CONFIG[portalType];
 
@@ -282,9 +284,11 @@ export function DashboardShell({
 
                   <div className="border-t border-gray-100 mt-1 pt-1">
                     <button
-                      onClick={() => {
-                        toast.success("Signed out successfully (Demo session reset)");
+                      onClick={async () => {
+                        await signOut();
+                        toast.success("Signed out successfully");
                         setShowProfileMenu(false);
+                        router.push("/login");
                       }}
                       className="w-full text-left px-3 py-2 text-xs font-semibold text-red-600 hover:bg-red-50 rounded-xl transition"
                     >

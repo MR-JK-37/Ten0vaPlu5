@@ -1,8 +1,9 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { Search, Plus } from "lucide-react";
+import { Search, Plus, Download, FileSpreadsheet } from "lucide-react";
 import { toast } from "sonner";
+import { downloadCSV } from "@/lib/export/csv";
 
 export default function StaffInvoicesPage() {
   const [invoices, setInvoices] = useState([
@@ -24,6 +25,36 @@ export default function StaffInvoicesPage() {
     });
   }, [invoices, search, statusFilter]);
 
+  const handleDownload = (inv: typeof invoices[0]) => {
+    const data = [
+      {
+        "Invoice No": inv.id,
+        "Customer": inv.customer,
+        "Amount": inv.amount,
+        "Due Date": inv.dueDate,
+        "Status": inv.status,
+        "Currency": "INR",
+        "Issue Date": "Nov 01, 2026",
+      },
+    ];
+    downloadCSV(inv.id, data);
+    toast.success(`Downloaded ${inv.id}.csv!`);
+  };
+
+  const handleExportAll = () => {
+    const data = filtered.map(inv => ({
+      "Invoice No": inv.id,
+      "Customer": inv.customer,
+      "Amount": inv.amount,
+      "Due Date": inv.dueDate,
+      "Status": inv.status,
+      "Currency": "INR",
+      "Issue Date": "Nov 01, 2026",
+    }));
+    downloadCSV("staff_invoices_report", data);
+    toast.success("Downloaded all invoices as CSV!");
+  };
+
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -32,13 +63,22 @@ export default function StaffInvoicesPage() {
           <h1 className="text-2xl font-bold text-gray-900 tracking-tight">Invoices</h1>
           <p className="text-gray-500 text-xs mt-1">Create or send invoices from subscriptions.</p>
         </div>
-        <button
-          onClick={() => setShowAddModal(true)}
-          className="flex items-center gap-2 bg-[#2563EB] hover:bg-[#1D4ED8] text-white px-4 py-2.5 rounded-xl text-xs font-semibold shadow-sm transition active:scale-95"
-        >
-          <Plus size={15} />
-          <span>Create Invoice</span>
-        </button>
+<div className="flex items-center gap-2">
+          <button
+            onClick={handleExportAll}
+            className="flex items-center gap-1.5 bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 px-3.5 py-2.5 rounded-xl text-xs font-semibold shadow-xs transition"
+          >
+            <FileSpreadsheet size={15} />
+            <span>Export CSV</span>
+          </button>
+          <button
+            onClick={() => setShowAddModal(true)}
+            className="flex items-center gap-2 bg-[#2563EB] hover:bg-[#1D4ED8] text-white px-4 py-2.5 rounded-xl text-xs font-semibold shadow-sm transition active:scale-95"
+          >
+            <Plus size={15} />
+            <span>Create Invoice</span>
+          </button>
+        </div>
       </div>
 
       <div className="bg-white rounded-2xl shadow-xs border border-blue-200/80 overflow-hidden">
@@ -73,7 +113,8 @@ export default function StaffInvoicesPage() {
                 <th className="px-5 py-3">Customer</th>
                 <th className="px-5 py-3">Amount</th>
                 <th className="px-5 py-3">Due Date</th>
-                <th className="px-5 py-3 text-right">Status</th>
+                <th className="px-5 py-3">Status</th>
+                <th className="px-5 py-3 text-right">Action</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-50 text-xs">
@@ -83,10 +124,19 @@ export default function StaffInvoicesPage() {
                   <td className="px-5 py-3.5 font-bold text-gray-900">{inv.customer}</td>
                   <td className="px-5 py-3.5 font-bold text-gray-900">{inv.amount}</td>
                   <td className="px-5 py-3.5 text-gray-500 font-medium">{inv.dueDate}</td>
-                  <td className="px-5 py-3.5 text-right">
+                  <td className="px-5 py-3.5">
                     <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold border ${inv.statusColor}`}>
                       {inv.status}
                     </span>
+                  </td>
+                  <td className="px-5 py-3.5 text-right">
+                    <button
+                      onClick={() => handleDownload(inv)}
+                      className="p-1.5 rounded-xl text-gray-400 hover:text-[#2563EB] hover:bg-blue-50 transition border border-transparent hover:border-blue-200"
+                      title="Download as CSV"
+                    >
+                      <Download className="w-4 h-4" />
+                    </button>
                   </td>
                 </tr>
               ))}

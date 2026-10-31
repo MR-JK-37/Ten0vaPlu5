@@ -24,8 +24,8 @@ export default function LandingPage() {
         spreadsheets, no missed renewals.
       </p>
       <div className="mt-8 flex justify-center gap-4">
-        <Link href="/admin" className={buttonVariants({ size: "lg" })}>
-          Open Dashboard
+        <Link href="/signup" className={buttonVariants({ size: "lg" })}>
+          Get started
         </Link>
         <Link href="/pricing" className={buttonVariants({ size: "lg", variant: "outline" })}>
           See pricing
