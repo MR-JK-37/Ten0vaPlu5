@@ -2,8 +2,11 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Brightloop - Subscription Management System",
-  description: "Subscription Management System",
+  title: "Ten0vaPlus - Subscription Management System",
+  description: "Ten0vaPlus Subscription Management System",
+  icons: {
+    icon: "/logo-symbol.png",
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
