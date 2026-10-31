@@ -193,9 +193,30 @@ run (not just "should work"); see the note under each ticked item for how it was
     CSV export downloaded and its contents checked line-by-line against the DB.
 - [x] Dashboard KPIs reconcile to raw SQL
   - Same verification as above.
-- [ ] Two-browser realtime Paid-flip test under 2s
-- [ ] Billing run streams progress live
-- [ ] Reconnect indicator / catch-up
+- [x] Two-browser realtime Paid-flip test under 2s
+  - Verified with Playwright: opened the customer portal invoices page (left open, not
+    reloaded), then recorded the full payment from a completely separate connection
+    (psql, simulating a staff action in another browser) -- the open page flipped the
+    invoice to "paid", removed the "Pay now" button, and incremented the notification
+    bell, all within the ~2s poll window and with no navigation.
+  - **Found and fixed a real bug in the process:** `ConnectionStatus` and
+    `NotificationBell` both called `.channel().subscribe()` immediately after
+    `createClient()`, before the session had hydrated from storage. The channel would
+    report `SUBSCRIBED` (so the "Live" badge showed green) but Realtime's RLS-aware
+    delivery silently filtered out every event, since the websocket had authenticated as
+    `anon` with no JWT yet -- a quiet failure with no error, easy to miss. Fixed by
+    awaiting `supabase.auth.getSession()` and calling `supabase.realtime.setAuth(token)`
+    before opening the channel. Confirmed the bug and the fix with a standalone Node
+    script against the real local stack before touching the UI code.
+- [x] Notification bell + toasts: payment confirmed (customer), payment received + quote
+      accepted (staff) -- wired via DB triggers (`notify_on_payment()`,
+      `notify_on_subscription_event()`) so they fire regardless of which code path wrote
+      the row. Verified above: the bell showed "Payment confirmed: Your payment for
+      INV-2026-00001 was confirmed." live.
+- [ ] Billing run streams progress live (still synchronous-await per the billing-run commit;
+      not yet converted to a live progress bar)
+- [ ] Reconnect indicator / catch-up (the Live/Reconnecting badge exists and reflects
+      channel state; killing the network and confirming recovery not yet tested)
 
 ## Performance & hygiene
 - [ ] p95 < 2s with 5k subs / 30k invoices
