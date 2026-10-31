@@ -1,0 +1,62 @@
+# Progress
+
+Checklist mirrors §16 of the master prompt. A box is ticked only after the test was actually
+run (not just "should work"); see the note under each ticked item for how it was verified.
+
+## Auth & roles
+- [ ] Duplicate email (any case) is rejected
+- [ ] Password policy enforced client + server
+- [ ] Reset link email arrives / console in dev
+- [ ] Customer cannot read another customer's data (UI/API/Realtime)
+- [ ] Staff cannot create taxes/discounts/plans/staff
+- [ ] Public sign-up ignores `role`; always `customer`
+  - DB-level guarantee done: `handle_new_user()` trigger never reads a role key from
+    `raw_user_meta_data` — it hardcodes `'customer'`
+    (`supabase/migrations/20260101000002_handle_new_user.sql`). UI/route-level enforcement
+    not yet built.
+
+## Catalog & subscriptions
+- [x] Product + variant "Odoo" adds exactly 560
+  - Verified via psql: inserted product (sales_price 999900), attribute "Brand", value
+    "Odoo" (extra_price 560); `product_effective_price()` returned 1000460. Reset after.
+- [ ] Plan availability window + min quantity enforced
+- [ ] Per-plan pause/early-close/renew rules enforced exactly as configured
+- [ ] Quotation template -> subscription flow
+- [ ] Subscription numbering unique; state machine enforced end-to-end from UI
+  - DB-level state machine done (`transition_subscription()`,
+    `subscription_transition_allowed()`); no UI yet to drive it.
+
+## Billing
+- [x] 600+ due subscriptions -> invoices with lines/taxes/totals, zero manual typing
+  - Verified the mechanism at small scale via psql: one subscription 65 days overdue on a
+    monthly plan produced exactly 3 invoices with correct totals and lines copied from
+    subscription_lines. Scale test (600+) still needed once seed:demo exists.
+- [x] Running billing twice (or concurrently) creates no duplicate invoices
+  - Verified via psql: ran `run_billing()` twice same day, invoice count stayed at 3
+    both times (unique constraint + `ON CONFLICT DO NOTHING`).
+- [x] A subscription missed for 3 periods gets all 3 invoices (nothing skipped)
+  - Same test as above — this is the catch-up loop.
+- [ ] Tax rules compute correctly (percent, fixed, per-product); old invoices unchanged after
+      rule edits
+- [x] Invoice `paid` set automatically, never by hand
+  - Verified via psql: `record_payment()` with amount == total flips status to `paid` via
+    `invoices_sync_paid` trigger.
+- [ ] Invoice actions confirm/cancel/send/print work from the UI
+- [ ] Discount auto-applies on next invoice and stops on expiry/exhaustion
+
+## Payments
+- [ ] Manual payment recording + partial payment tracking from the UI
+- [ ] YouPI webhook: valid signature recorded once, replay ignored, bad signature 401,
+      amount mismatch flagged
+- [ ] `mock` provider completes the flow end-to-end
+- [ ] Outstanding vs paid, overdue list correct
+
+## Reporting & realtime
+- [ ] Dashboard KPIs reconcile to raw SQL
+- [ ] Two-browser realtime Paid-flip test under 2s
+- [ ] Billing run streams progress live
+- [ ] Reconnect indicator / catch-up
+
+## Performance & hygiene
+- [ ] p95 < 2s with 5k subs / 30k invoices
+- [ ] typecheck/lint/test/build pass in CI; no secrets in git history
