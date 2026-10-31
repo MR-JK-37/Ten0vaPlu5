@@ -26,6 +26,11 @@ Each stays blocked on `mock`/local alternatives per AGENTS rule 4 — never stop
   end-to-end without it. Switching to `youpi` requires: cloning
   `https://github.com/youpi-pg/YouPI-PG`, running it (Docker Compose, per its repo), and
   exposing it via a Cloudflare Tunnel so `YOUPI_BASE_URL` is reachable from the deployed app.
+  The provider (`lib/payments/providers/youpi.ts`) and webhook handler
+  (`app/api/webhooks/youpi/route.ts`) are both implemented to the documented API shape and
+  the webhook has been verified with a simulated signed caller (bad signature -> 401, valid
+  signature + matching invoice/amount -> payment recorded + invoice paid, replayed
+  delivery-id -> deduped) — but neither has been exercised against the real gateway.
 - **Vercel deployment / public demo URL.** Not deployed yet. Needs a Vercel account linked to
   this GitHub repo and the hosted Supabase project's env vars set there.
 - **Android observer APK for real UPI verification.** Out of scope without a physical device;

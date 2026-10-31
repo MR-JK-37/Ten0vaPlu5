@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { transitionSubscription } from "@/lib/subscriptions/actions";
+import { transitionSubscription, renewSubscription } from "@/lib/subscriptions/actions";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 
@@ -19,10 +19,15 @@ export function StageActions({
   subscriptionId,
   status,
   plan,
+  audience = "staff",
 }: {
   subscriptionId: string;
   status: string;
   plan: PlanRules;
+  // Customers may only accept a quote, pause/resume, close early, or renew -- never
+  // send a quotation or activate, which are staff-side operations even though the
+  // database's ownership check would technically allow a customer to call them too.
+  audience?: "staff" | "customer";
 }) {
   const router = useRouter();
   const [pending, setPending] = useState(false);
@@ -37,14 +42,26 @@ export function StageActions({
     else router.refresh();
   }
 
+  async function doRenew() {
+    setPending(true);
+    setError(null);
+    const result = await renewSubscription(subscriptionId);
+    setPending(false);
+    if (result.error) setError(result.error);
+    else router.refresh();
+  }
+
   const actions: { label: string; to: string; variant?: "outline" | "destructive" }[] = [];
-  if (status === "draft") actions.push({ label: "Send quotation", to: "quotation" });
-  if (status === "draft" || status === "quotation") actions.push({ label: "Confirm", to: "confirmed" });
-  if (status === "confirmed") actions.push({ label: "Activate", to: "active" });
+  if (audience === "staff" && status === "draft") actions.push({ label: "Send quotation", to: "quotation" });
+  if (status === "quotation" || (audience === "staff" && status === "draft")) {
+    actions.push({ label: audience === "customer" ? "Accept quote" : "Confirm", to: "confirmed" });
+  }
+  if (audience === "staff" && status === "confirmed") actions.push({ label: "Activate", to: "active" });
   if (status === "active" && plan.allow_pause) actions.push({ label: "Pause", to: "paused" });
   if (status === "paused" && plan.allow_pause) actions.push({ label: "Resume", to: "active" });
   if (status === "active" && plan.allow_early_close)
     actions.push({ label: "Close early", to: "closed", variant: "destructive" });
+  const canRenew = (status === "active" || status === "paused") && plan.allow_renew;
 
   return (
     <div className="flex items-center gap-2">
@@ -62,6 +79,11 @@ export function StageActions({
           {a.label}
         </Button>
       ))}
+      {canRenew && (
+        <Button size="sm" variant="outline" disabled={pending} onClick={doRenew}>
+          Renew
+        </Button>
+      )}
       {error && <span className="text-xs text-destructive">{error}</span>}
     </div>
   );

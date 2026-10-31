@@ -20,7 +20,8 @@ export async function SubscriptionsTable({ basePath }: { basePath: string }) {
       customers(id, name, email, company),
       plans(name, price, billing_period, allow_pause, allow_early_close, allow_renew)
     `)
-    .order("created_at", { ascending: false });
+    .order("created_at", { ascending: false })
+    .limit(100);
 
   const customerBase = basePath.startsWith("/admin") ? "/admin/customers" : "/staff/customers";
 
