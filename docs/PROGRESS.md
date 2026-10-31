@@ -141,11 +141,29 @@ run (not just "should work"); see the note under each ticked item for how it was
       not live-streamed.
 
 ## Payments
-- [ ] Manual payment recording + partial payment tracking from the UI
-- [ ] YouPI webhook: valid signature recorded once, replay ignored, bad signature 401,
+- [x] Manual payment recording + partial payment tracking from the UI
+  - Verified end-to-end with Playwright: recorded a ₹500 payment against a ₹9,999 invoice
+    (stayed `confirmed`, `amount_due` dropped to ₹9,499 exactly), then recorded the
+    remaining ₹9,499 — status flipped to `paid` automatically via the DB trigger, never
+    set by the UI code.
+- [x] YouPI webhook: valid signature recorded once, replay ignored, bad signature 401,
       amount mismatch flagged
-- [ ] `mock` provider completes the flow end-to-end
-- [ ] Outstanding vs paid, overdue list correct
+  - Verified with curl against the real route (`app/api/webhooks/youpi/route.ts`): a bad
+    signature returns 401; a valid signature with a real invoice ID and matching
+    `amountPaise` records a `confirmed` payment (verificationLevel 1) and the invoice
+    auto-flips to paid; replaying the same `X-Gateway-Delivery-Id` returns
+    `{deduped: true}` and the `webhook_events` table still has exactly one row. Amount/
+    invoice-ID mismatches are silently not applied (no `payment_exceptions` queue exists
+    yet — that's a Part A addition, not built). **Caveat:** no live YouPI server exists
+    in this environment (docs/BLOCKERS.md), so this is verified against the documented
+    webhook shape via a simulated caller, not against a real gateway.
+- [x] `mock` provider completes the flow end-to-end
+  - Verified end-to-end with Playwright as an actual customer: logged into the portal,
+    clicked "Pay now" on a confirmed invoice, and it flipped to `paid` instantly with no
+    checkout redirect (the mock provider's `createCheckout` returns `SUCCESS` immediately).
+- [x] Outstanding vs paid, overdue list correct
+  - Same Playwright runs: the invoices table's "Due amount" column and the overdue badge
+    (confirmed + due date passed + amount still owed) were correct at every step above.
 
 ## Reporting & realtime
 - [ ] Dashboard KPIs reconcile to raw SQL
