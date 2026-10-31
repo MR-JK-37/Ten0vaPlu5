@@ -1146,6 +1146,17 @@ export type Database = {
         Args: never
         Returns: Database["public"]["Enums"]["app_role"]
       }
+      dashboard_kpis: {
+        Args: never
+        Returns: {
+          active_subscriptions: number
+          arr: number
+          mrr: number
+          outstanding: number
+          overdue_count: number
+          revenue_collected: number
+        }[]
+      }
       discount_is_eligible: {
         Args: { p_as_of: string; p_discount_id: string }
         Returns: boolean

@@ -68,8 +68,11 @@ run (not just "should work"); see the note under each ticked item for how it was
 
 ## Catalog & subscriptions
 - [x] Product + variant "Odoo" adds exactly 560
-  - Verified via psql: inserted product (sales_price 999900), attribute "Brand", value
-    "Odoo" (extra_price 560); `product_effective_price()` returned 1000460. Reset after.
+  - Verified twice: once via psql directly against `product_effective_price()` (returned
+    1000460 for a 999900 product), and again end-to-end through the real admin UI
+    (`/admin/products`, Playwright-driven): created "Brightloop CRM" at ₹9,999, added a
+    "Brand" attribute, added an "Odoo" value with extra price 560 — the UI shows
+    "Odoo (+₹560.00)".
 - [ ] Plan availability window + min quantity enforced
 - [ ] Per-plan pause/early-close/renew rules enforced exactly as configured
 - [ ] Quotation template -> subscription flow
