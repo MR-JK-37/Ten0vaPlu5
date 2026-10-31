@@ -2,6 +2,21 @@
 
 Running log of non-obvious choices and why, newest first.
 
+## run_billing() at demo scale needs a direct Postgres connection, not PostgREST
+`run_billing()` processes every due subscription's full catch-up in one transaction (by
+design — see the billing-engine commit). At 5,000 subscriptions × 6 missed periods each
+(30,000 invoices), that single transaction takes ~26s, which exceeds PostgREST's request
+statement timeout and the call fails with `57014 canceling statement due to statement
+timeout` even though the underlying work would have completed fine. `pnpm seed:demo`
+therefore seeds subscriptions via the JS admin client (fast, batched inserts) but prints
+the direct-`psql` command (`set statement_timeout = 0`) for the billing step instead of
+calling the RPC through supabase-js. Verified this way: 5,000 subs → exactly 30,000
+invoices in ~26s, zero duplicate `(subscription_id, period_start)` pairs. A production
+deployment on Supabase Pro would raise/remove the pooler's statement timeout for this one
+RPC, or batch `run_billing()` into chunks (Part A's A4.9 suggests 100–500 subscriptions per
+transaction) — not implemented here, since the single-transaction version is what was
+tested and is correct, just slow to call through the default REST timeout at this scale.
+
 ## Renewal term length: one year
 The spec says renew means "new term, new expiry, continues billing" without pinning down
 the term length. Chose a flat one-year extension (`renew_subscription()` in

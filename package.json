@@ -14,7 +14,7 @@
     "test:rls": "tsx --env-file=.env.local tests/rls/matrix.ts",
     "test:subscriptions": "tsx --env-file=.env.local tests/subscriptions/subscription-flow.ts",
     "seed:admin": "tsx --env-file=.env.local scripts/seed-admin.ts",
-    "seed:demo": "tsx scripts/seed-demo.ts"
+    "seed:demo": "tsx --env-file=.env.local scripts/seed-demo.ts"
   },
   "dependencies": {
     "@base-ui/react": "^1.9.0",
