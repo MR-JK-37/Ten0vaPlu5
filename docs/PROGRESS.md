@@ -84,10 +84,22 @@ run (not just "should work"); see the note under each ticked item for how it was
     (`subscription_transition_allowed()`); admin can now set the four booleans from the
     UI (verified above — created a plan with pause+renew+auto-close on, early-close off,
     and the table shows exactly those three badges).
-- [ ] Quotation template -> subscription flow
-- [ ] Subscription numbering unique; state machine enforced end-to-end from UI
-  - DB-level state machine done (`transition_subscription()`,
-    `subscription_transition_allowed()`); no UI yet to drive it.
+- [x] Quotation template -> subscription flow
+  - Admin creates quotation templates with base plan, validity period, and included product
+    lines via `/admin/templates`. Staff/Admin creates subscriptions from templates via
+    `createSubscription` action with `sourceType='template'`: copies plan, sets `template_id`,
+    computes `quote_valid_until = today + validity_days`, initializes status to `'quotation'`,
+    and snapshots template lines into `subscription_lines` with price and quantity.
+    Verified end-to-end in `tests/subscriptions/subscription-flow.ts` (`pnpm test:subscriptions`).
+- [x] Subscription numbering unique; state machine enforced end-to-end from UI
+  - Subscriptions receive atomic, sequential, unique identifiers formatted via DB sequence
+    `next_number('SUB', 5)` (`SUB-00001`, `SUB-00002`). State machine transition rules enforced
+    by Postgres `subscription_transition_allowed()`: legal moves (`draft` → `quotation` →
+    `confirmed` → `active` → `paused`/`closed`) succeed; illegal jumps (`draft` → `active`,
+    or `paused` when `allow_pause` is false) are rejected with Postgres exceptions; expired
+    quotations (`quote_valid_until < today`) cannot be confirmed. Driven end-to-end in UI by
+    `StageActions` across `/admin/subscriptions`, `/staff/subscriptions`, and customer detail.
+    Verified 12/12 assertions in `tests/subscriptions/subscription-flow.ts`.
 - [x] Admin catalog UI complete: products+variants, plans, taxes, discounts (with product
       targeting, so a discount can actually match something instead of being unreachable
       UI), staff/admin user management (create + deactivate/reactivate). Every one of these
