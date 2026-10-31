@@ -21,14 +21,11 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
             <Link href="/pricing" className="text-muted-foreground hover:text-foreground font-medium">
               Pricing
             </Link>
-            <Link href="/portal" className="text-muted-foreground hover:text-foreground font-medium">
-              Customer Portal
+            <Link href="/login" className={buttonVariants({ variant: "outline", size: "sm" })}>
+              Sign in
             </Link>
-            <Link href="/staff" className="text-muted-foreground hover:text-foreground font-medium">
-              Staff Portal
-            </Link>
-            <Link href="/admin" className={buttonVariants({ size: "sm" })}>
-              Admin Dashboard
+            <Link href="/signup" className={buttonVariants({ size: "sm" })}>
+              Get started
             </Link>
           </nav>
         </div>
