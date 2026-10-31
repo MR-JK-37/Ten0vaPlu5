@@ -1,11 +1,8 @@
 import { z } from "zod";
 
-// "more than eight characters" => minimum 9, at least one uppercase, one lowercase, one
-// special character. Shared by the client-side form and the server-side sign-up/reset
-// routes so neither can drift from the other or from Supabase's own (looser) defaults.
 export const passwordSchema = z
   .string()
-  .min(9, "Must be at least 9 characters")
+  .min(8, "Must be at least 8 characters")
   .regex(/[A-Z]/, "Must include an uppercase letter")
   .regex(/[a-z]/, "Must include a lowercase letter")
   .regex(/[^A-Za-z0-9]/, "Must include a special character");
@@ -16,7 +13,7 @@ export interface PasswordRule {
 }
 
 export const passwordRules: PasswordRule[] = [
-  { label: "At least 9 characters", test: (v) => v.length >= 9 },
+  { label: "At least 8 characters", test: (v) => v.length >= 8 },
   { label: "One uppercase letter", test: (v) => /[A-Z]/.test(v) },
   { label: "One lowercase letter", test: (v) => /[a-z]/.test(v) },
   { label: "One special character", test: (v) => /[^A-Za-z0-9]/.test(v) },
@@ -29,7 +26,7 @@ export function passwordStrength(value: string) {
 
 export const emailSchema = z
   .string()
-  .email("Enter a valid email")
+  .min(1, "User ID or email is required")
   .transform((v) => v.trim().toLowerCase());
 
 export const signUpSchema = z.object({

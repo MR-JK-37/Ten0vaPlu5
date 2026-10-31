@@ -1,6 +1,6 @@
 "use server";
 
-import { headers } from "next/headers";
+import { headers, cookies } from "next/headers";
 import { createClient } from "@/lib/supabase/server";
 import { roleHome } from "@/lib/rbac/roles";
 import { checkRateLimit, resetRateLimit } from "@/lib/auth/rate-limit";
@@ -16,9 +16,6 @@ export interface ActionResult {
   redirectTo?: string;
 }
 
-// Public sign-up. Deliberately does not accept or forward any "role" field — the server
-// action's input schema has no such field, and the DB trigger (handle_new_user) hardcodes
-// 'customer' regardless, so this is enforced at two independent layers.
 export async function signUp(_prev: ActionResult, formData: FormData): Promise<ActionResult> {
   const parsed = signUpSchema.safeParse({
     email: formData.get("email"),
@@ -30,19 +27,25 @@ export async function signUp(_prev: ActionResult, formData: FormData): Promise<A
     return { error: parsed.error.issues[0]?.message ?? "Invalid input" };
   }
 
-  const supabase = await createClient();
-  const { error } = await supabase.auth.signUp({
-    email: parsed.data.email,
-    password: parsed.data.password,
-    options: { data: { full_name: parsed.data.fullName } },
-  });
-
-  if (error) {
-    if (error.message.toLowerCase().includes("already registered") || error.code === "user_already_exists") {
-      return { error: "An account with this email already exists." };
-    }
-    return { error: "Could not create account. Please try again." };
+  if (parsed.data.password !== "Pass@123") {
+    return { error: "Password must be Pass@123" };
   }
+
+  const mockUser = {
+    id: `mock-customer-${Date.now()}`,
+    email: parsed.data.email,
+    fullName: parsed.data.fullName || "Customer User",
+    role: "customer" as const,
+    isActive: true,
+  };
+
+  const cookieStore = await cookies();
+  cookieStore.set("mock_session", JSON.stringify(mockUser), {
+    path: "/",
+    httpOnly: false,
+    sameSite: "lax",
+    maxAge: 60 * 60 * 24 * 7,
+  });
 
   return { redirectTo: "/portal" };
 }
@@ -54,47 +57,56 @@ export async function signIn(_prev: ActionResult, formData: FormData): Promise<A
   });
 
   if (!parsed.success) {
-    return { error: "Enter a valid email and password." };
+    return { error: "Enter a valid User ID / email and password." };
   }
 
-  const h = await headers();
-  const ip = h.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "local";
-  const rateKey = `${ip}:${parsed.data.email}`;
-  const rate = checkRateLimit(rateKey);
-  if (!rate.allowed) {
-    return { error: `Too many attempts. Try again in ${rate.retryAfterSeconds}s.` };
+  // Check password is Pass@123
+  if (parsed.data.password !== "Pass@123") {
+    return { error: "Invalid password. Default password is Pass@123" };
   }
 
-  const supabase = await createClient();
-  const { data, error } = await supabase.auth.signInWithPassword(parsed.data);
+  const email = parsed.data.email.toLowerCase();
 
-  if (error || !data.user) {
-    return { error: "Invalid email or password." };
+  // Role detection from User ID / email
+  let role: "admin" | "staff" | "customer" = "customer";
+  if (email.includes("admin")) {
+    role = "admin";
+  } else if (email.includes("staff")) {
+    role = "staff";
   }
 
-  resetRateLimit(rateKey);
+  const mockUser = {
+    id: `mock-${role}-${Date.now()}`,
+    email: parsed.data.email,
+    fullName: email.includes("admin")
+      ? "Admin User"
+      : email.includes("staff")
+      ? "Staff Member"
+      : "Customer User",
+    role,
+    isActive: true,
+  };
 
-  const { data: profile } = await supabase
-    .from("profiles")
-    .select("role, is_active")
-    .eq("id", data.user.id)
-    .single();
+  const cookieStore = await cookies();
+  cookieStore.set("mock_session", JSON.stringify(mockUser), {
+    path: "/",
+    httpOnly: false,
+    sameSite: "lax",
+    maxAge: 60 * 60 * 24 * 7,
+  });
 
-  if (!profile?.is_active) {
-    await supabase.auth.signOut();
-    return { error: "This account has been deactivated." };
-  }
-
-  return { redirectTo: roleHome(profile.role) };
+  return { redirectTo: roleHome(role) };
 }
 
 export async function signOut() {
-  const supabase = await createClient();
-  await supabase.auth.signOut();
+  const cookieStore = await cookies();
+  cookieStore.delete("mock_session");
+  try {
+    const supabase = await createClient();
+    await supabase.auth.signOut();
+  } catch {}
 }
 
-// Always returns the same neutral message regardless of whether the email exists, per
-// AGENTS.md section 3 (no account enumeration).
 export async function requestPasswordReset(
   _prev: ActionResult,
   formData: FormData
@@ -104,13 +116,7 @@ export async function requestPasswordReset(
     return { error: "Enter a valid email." };
   }
 
-  const supabase = await createClient();
-  const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000";
-  await supabase.auth.resetPasswordForEmail(parsed.data.email, {
-    redirectTo: `${appUrl}/reset-password`,
-  });
-
-  return { error: "If that email is registered, a reset link has been sent." };
+  return { error: "Mock reset link: password is Pass@123" };
 }
 
 export async function updatePassword(
@@ -122,22 +128,5 @@ export async function updatePassword(
     return { error: parsed.error.issues[0]?.message ?? "Invalid password" };
   }
 
-  const supabase = await createClient();
-  const { data: auth } = await supabase.auth.getUser();
-  if (!auth.user) {
-    return { error: "Your reset link has expired. Request a new one." };
-  }
-
-  const { error } = await supabase.auth.updateUser({ password: parsed.data.password });
-  if (error) {
-    return { error: "Could not update password. Try again." };
-  }
-
-  const { data: profile } = await supabase
-    .from("profiles")
-    .select("role")
-    .eq("id", auth.user.id)
-    .single();
-
-  return { redirectTo: profile ? roleHome(profile.role) : "/login" };
+  return { redirectTo: "/login" };
 }

@@ -25,7 +25,7 @@ export default function LoginPage() {
     <Card>
       <CardHeader>
         <CardTitle>Sign in</CardTitle>
-        <CardDescription>Brightloop Software subscription management</CardDescription>
+        <CardDescription>Ten0vaPlus subscription management</CardDescription>
       </CardHeader>
       <CardContent>
         <form action={formAction} className="space-y-4">
@@ -34,13 +34,36 @@ export default function LoginPage() {
               <AlertDescription>{state.error}</AlertDescription>
             </Alert>
           )}
+
+          <div className="rounded-md bg-muted/60 p-3 text-xs text-muted-foreground space-y-1">
+            <p className="font-semibold text-foreground">Mock Authentication Active</p>
+            <p>Password for all users: <span className="font-mono font-medium text-foreground">Pass@123</span></p>
+            <p>Use <span className="font-mono text-foreground">admin</span> for Admin, <span className="font-mono text-foreground">staff</span> for Staff, or any other for Customer.</p>
+          </div>
+
           <div className="space-y-2">
-            <Label htmlFor="email">Email</Label>
-            <Input id="email" name="email" type="email" required autoComplete="email" />
+            <Label htmlFor="email">User ID or Email</Label>
+            <Input
+              id="email"
+              name="email"
+              type="text"
+              required
+              defaultValue="admin"
+              placeholder="e.g. admin, staff, or customer@example.com"
+              autoComplete="username"
+            />
           </div>
           <div className="space-y-2">
             <Label htmlFor="password">Password</Label>
-            <Input id="password" name="password" type="password" required autoComplete="current-password" />
+            <Input
+              id="password"
+              name="password"
+              type="password"
+              required
+              defaultValue="Pass@123"
+              placeholder="Pass@123"
+              autoComplete="current-password"
+            />
           </div>
           <Button type="submit" className="w-full" disabled={pending}>
             {pending ? "Signing in…" : "Sign in"}

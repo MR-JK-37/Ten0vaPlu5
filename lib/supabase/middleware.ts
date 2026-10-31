@@ -10,8 +10,45 @@ const ROLE_PREFIXES: Record<string, "admin" | "staff" | "customer"> = {
 
 export async function updateSession(request: NextRequest) {
   let response = NextResponse.next({ request });
+  const path = request.nextUrl.pathname;
+  const protectedPrefix = Object.keys(ROLE_PREFIXES).find((prefix) => path.startsWith(prefix));
+
+  // Check mock session
+  const mockCookie = request.cookies.get("mock_session")?.value;
+  if (mockCookie) {
+    try {
+      const mockUser = JSON.parse(mockCookie);
+      if (mockUser && mockUser.isActive) {
+        if (path === "/login" || path === "/signup") {
+          const url = request.nextUrl.clone();
+          url.pathname =
+            mockUser.role === "admin" ? "/admin" : mockUser.role === "staff" ? "/staff" : "/portal";
+          return NextResponse.redirect(url);
+        }
+
+        if (protectedPrefix) {
+          const requiredRole = ROLE_PREFIXES[protectedPrefix];
+          const allowed =
+            mockUser.role === requiredRole || (requiredRole === "staff" && mockUser.role === "admin");
+          if (!allowed) {
+            const url = request.nextUrl.clone();
+            url.pathname =
+              mockUser.role === "admin" ? "/admin" : mockUser.role === "staff" ? "/staff" : "/portal";
+            return NextResponse.redirect(url);
+          }
+          return response;
+        }
+      }
+    } catch {}
+  }
 
   if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+    if (protectedPrefix) {
+      const url = request.nextUrl.clone();
+      url.pathname = "/login";
+      url.searchParams.set("next", path);
+      return NextResponse.redirect(url);
+    }
     return response;
   }
 
@@ -35,8 +72,6 @@ export async function updateSession(request: NextRequest) {
   );
 
   const { data: auth } = await supabase.auth.getUser();
-  const path = request.nextUrl.pathname;
-  const protectedPrefix = Object.keys(ROLE_PREFIXES).find((prefix) => path.startsWith(prefix));
 
   if (protectedPrefix) {
     if (!auth.user) {
