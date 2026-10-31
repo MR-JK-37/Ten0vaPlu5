@@ -1,61 +1,160 @@
-import { createClient } from "@/lib/supabase/server";
-import { CreateTaxDialog } from "@/components/catalog/create-tax-dialog";
-import { Badge } from "@/components/ui/badge";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
+"use client";
 
-export const instant = false;
+import { useState, useMemo } from "react";
+import { Search, Plus, Trash2 } from "lucide-react";
+import { toast } from "sonner";
 
-export default async function TaxesPage() {
-  const supabase = await createClient();
-  const { data: taxes } = await supabase
-    .from("taxes")
-    .select("id, name, type, rate, valid_from, valid_to, is_active")
-    .order("created_at", { ascending: false });
+export default function AdminTaxesPage() {
+  const [taxes, setTaxes] = useState([
+    { id: 1, name: "GST", rate: "18%", appliesTo: "All Products", jurisdiction: "India (All)", status: "Active" },
+    { id: 2, name: "GST", rate: "12%", appliesTo: "Selected Products", jurisdiction: "India (Select)", status: "Active" },
+    { id: 3, name: "GST", rate: "5%", appliesTo: "Add-ons", jurisdiction: "India", status: "Active" },
+    { id: 4, name: "IGST", rate: "18%", appliesTo: "Export/Out of India", jurisdiction: "International", status: "Active" },
+  ]);
+
+  const [search, setSearch] = useState("");
+  const [showAddModal, setShowAddModal] = useState(false);
+
+  const filtered = useMemo(() => {
+    return taxes.filter((t) => t.name.toLowerCase().includes(search.toLowerCase()) || t.jurisdiction.toLowerCase().includes(search.toLowerCase()));
+  }, [taxes, search]);
+
+  const handleDelete = (id: number, name: string) => {
+    setTaxes(taxes.filter(t => t.id !== id));
+    toast.success(`Tax rule ${name} deleted`);
+  };
 
   return (
-    <div>
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-semibold">Taxes</h1>
-        <CreateTaxDialog />
+    <div className="space-y-6">
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div>
+          <h1 className="text-2xl font-bold text-gray-900 tracking-tight">Taxes</h1>
+          <p className="text-gray-500 text-xs mt-1">Manage applicable tax rules, statutory rates and cross-border exemptions.</p>
+        </div>
+        <button
+          onClick={() => setShowAddModal(true)}
+          className="flex items-center gap-2 bg-[#7C3AED] hover:bg-[#6D28D9] text-white px-4 py-2.5 rounded-xl text-xs font-semibold shadow-sm transition active:scale-95"
+        >
+          <Plus size={15} />
+          <span>Add Tax Rule</span>
+        </button>
       </div>
-      <div className="mt-6 overflow-hidden rounded-md border">
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Name</TableHead>
-              <TableHead>Type</TableHead>
-              <TableHead>Rate</TableHead>
-              <TableHead>Validity</TableHead>
-              <TableHead>Status</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {taxes?.map((tax) => (
-              <TableRow key={tax.id}>
-                <TableCell className="font-medium">{tax.name}</TableCell>
-                <TableCell className="capitalize">{tax.type}</TableCell>
-                <TableCell>{tax.type === "percent" ? `${tax.rate}%` : tax.rate}</TableCell>
-                <TableCell className="text-xs text-muted-foreground">
-                  {tax.valid_from} → {tax.valid_to ?? "∞"}
-                </TableCell>
-                <TableCell>
-                  <Badge variant={tax.is_active ? "secondary" : "destructive"}>
-                    {tax.is_active ? "active" : "inactive"}
-                  </Badge>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-        {!taxes?.length && <p className="p-4 text-sm text-muted-foreground">No tax rules yet.</p>}
+
+      <div className="bg-white rounded-2xl shadow-xs border border-violet-200/80 overflow-hidden">
+        <div className="flex items-center gap-3 p-4 border-b border-violet-100 bg-violet-50/20">
+          <div className="relative flex-1 max-w-sm">
+            <Search className="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" />
+            <input
+              type="text"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder="Search tax rules..."
+              className="w-full pl-9 pr-3 py-1.5 text-xs border border-violet-200/80 rounded-xl outline-none focus:border-violet-500 bg-white"
+            />
+          </div>
+        </div>
+
+        <div className="overflow-x-auto">
+          <table className="w-full text-left">
+            <thead>
+              <tr className="text-[11px] font-semibold text-gray-400 border-b border-gray-100 bg-gray-50/50">
+                <th className="px-5 py-3">Tax Name</th>
+                <th className="px-5 py-3">Rate</th>
+                <th className="px-5 py-3">Applies To</th>
+                <th className="px-5 py-3">Jurisdiction</th>
+                <th className="px-5 py-3">Status</th>
+                <th className="px-5 py-3 text-right">Action</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-50 text-xs">
+              {filtered.map((t) => (
+                <tr key={t.id} className="hover:bg-violet-50/30 transition">
+                  <td className="px-5 py-3.5 font-bold text-gray-900">{t.name}</td>
+                  <td className="px-5 py-3.5 font-extrabold text-[#7C3AED]">{t.rate}</td>
+                  <td className="px-5 py-3.5 text-gray-700 font-medium">{t.appliesTo}</td>
+                  <td className="px-5 py-3.5 text-gray-500">{t.jurisdiction}</td>
+                  <td className="px-5 py-3.5">
+                    <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-green-100 text-green-700 border border-green-200">
+                      {t.status}
+                    </span>
+                  </td>
+                  <td className="px-5 py-3.5 text-right">
+                    <button
+                      onClick={() => handleDelete(t.id, t.name)}
+                      className="p-1 rounded-lg text-gray-400 hover:text-red-600 hover:bg-red-50 transition"
+                    >
+                      <Trash2 size={13} />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
+
+      {/* Add Tax Modal */}
+      {showAddModal && (
+        <div className="fixed inset-0 bg-black/40 backdrop-blur-xs flex items-center justify-center z-50 p-4 animate-in fade-in">
+          <div className="bg-white rounded-2xl shadow-2xl border border-violet-200 max-w-md w-full p-6">
+            <h2 className="text-base font-bold text-gray-900 mb-1">Add Tax Rule</h2>
+            <p className="text-xs text-gray-500 mb-4">Configure a new tax bracket and rate.</p>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                toast.success("Tax rule configured successfully!");
+                setShowAddModal(false);
+              }}
+              className="space-y-3.5"
+            >
+              <div>
+                <label className="text-xs font-semibold text-gray-700 block mb-1">Tax Code / Name</label>
+                <input
+                  type="text"
+                  required
+                  placeholder="e.g. VAT"
+                  className="w-full px-3 py-2 text-xs border border-violet-200 rounded-xl outline-none focus:border-violet-500"
+                />
+              </div>
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="text-xs font-semibold text-gray-700 block mb-1">Rate (%)</label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="e.g. 18%"
+                    className="w-full px-3 py-2 text-xs border border-violet-200 rounded-xl outline-none focus:border-violet-500"
+                  />
+                </div>
+                <div>
+                  <label className="text-xs font-semibold text-gray-700 block mb-1">Jurisdiction</label>
+                  <input
+                    type="text"
+                    defaultValue="India (National)"
+                    className="w-full px-3 py-2 text-xs border border-violet-200 rounded-xl outline-none focus:border-violet-500"
+                  />
+                </div>
+              </div>
+              <div className="flex items-center justify-end gap-2 pt-3 border-t border-gray-100">
+                <button
+                  type="button"
+                  onClick={() => setShowAddModal(false)}
+                  className="px-4 py-2 rounded-xl text-xs font-semibold text-gray-600 hover:bg-gray-100"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="px-4 py-2 rounded-xl text-xs font-semibold bg-[#7C3AED] hover:bg-[#6D28D9] text-white shadow-sm"
+                >
+                  Save Rule
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

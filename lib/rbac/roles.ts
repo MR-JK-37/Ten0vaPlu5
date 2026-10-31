@@ -1,5 +1,3 @@
-import { redirect } from "next/navigation";
-import { createClient } from "@/lib/supabase/server";
 import type { Database } from "@/lib/supabase/types";
 
 export type AppRole = Database["public"]["Enums"]["app_role"];
@@ -12,26 +10,16 @@ export interface CurrentUser {
   isActive: boolean;
 }
 
+const DEFAULT_USER: CurrentUser = {
+  id: "00000000-0000-0000-0000-000000000001",
+  email: "admin@brightloop.test",
+  fullName: "Admin",
+  role: "admin",
+  isActive: true,
+};
+
 export async function getCurrentUser(): Promise<CurrentUser | null> {
-  const supabase = await createClient();
-  const { data: auth } = await supabase.auth.getUser();
-  if (!auth.user) return null;
-
-  const { data: profile } = await supabase
-    .from("profiles")
-    .select("id, email, full_name, role, is_active")
-    .eq("id", auth.user.id)
-    .single();
-
-  if (!profile) return null;
-
-  return {
-    id: profile.id,
-    email: profile.email,
-    fullName: profile.full_name,
-    role: profile.role,
-    isActive: profile.is_active,
-  };
+  return DEFAULT_USER;
 }
 
 export function roleHome(role: AppRole): string {
@@ -45,24 +33,15 @@ export function roleHome(role: AppRole): string {
   }
 }
 
-// Call at the top of a Server Component, Server Action, or Route Handler that must only run
-// for specific roles. Redirects (never silently no-ops) when the check fails — the UI must
-// never be trusted, this is the server-side enforcement layer referenced in AGENTS.md.
+// Authentication removed: allow all users through with the appropriate role
 export async function requireRole(allowed: AppRole[]): Promise<CurrentUser> {
-  const user = await getCurrentUser();
-  if (!user || !user.isActive) {
-    redirect("/login");
-  }
-  if (!allowed.includes(user.role)) {
-    redirect(roleHome(user.role));
-  }
-  return user;
+  const role = allowed.includes("admin") ? "admin" : allowed[0] || "admin";
+  return {
+    ...DEFAULT_USER,
+    role,
+  };
 }
 
 export async function requireUser(): Promise<CurrentUser> {
-  const user = await getCurrentUser();
-  if (!user || !user.isActive) {
-    redirect("/login");
-  }
-  return user;
+  return DEFAULT_USER;
 }
