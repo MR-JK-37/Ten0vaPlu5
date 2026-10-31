@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import {
   LayoutDashboard, Users, Package, CreditCard, FileText, RefreshCw,
@@ -35,9 +36,9 @@ const ICON_MAP: Record<string, React.ReactNode> = {
 };
 
 const PORTAL_CONFIG = {
-  admin: { label: "Brightloop", sub: "Admin Portal", initials: "AU", name: "Admin User", roleBadge: "Admin" },
-  staff: { label: "Brightloop", sub: "Staff Portal", initials: "PS", name: "Priya Sharma", roleBadge: "Staff" },
-  customer: { label: "Brightloop", sub: "Customer Portal", initials: "RK", name: "Rahul Kumar", roleBadge: "Customer" },
+  admin: { label: "Ten0vaPlus", sub: "Admin Portal", initials: "AU", name: "Admin User", roleBadge: "Admin" },
+  staff: { label: "Ten0vaPlus", sub: "Staff Portal", initials: "PS", name: "Priya Sharma", roleBadge: "Staff" },
+  customer: { label: "Ten0vaPlus", sub: "Customer Portal", initials: "RK", name: "Rahul Kumar", roleBadge: "Customer" },
 };
 
 function getPortalType(nav: NavItem[]): "admin" | "staff" | "customer" {
@@ -100,8 +101,8 @@ export function DashboardShell({
       <aside className="w-56 shrink-0 flex flex-col border-r border-violet-700/20 shadow-md" style={{ backgroundColor: "#7C3AED" }}>
         {/* Logo */}
         <div className="flex items-center gap-3 px-5 py-5 border-b border-white/10">
-          <div className="w-9 h-9 rounded-xl bg-white flex items-center justify-center flex-shrink-0 shadow-sm">
-            <span className="text-base font-extrabold text-[#7C3AED]">B</span>
+          <div className="w-9 h-9 rounded-xl bg-white flex items-center justify-center flex-shrink-0 shadow-sm p-1.5 overflow-hidden">
+            <Image src="/logo-symbol.png" alt="Ten0vaPlus" width={28} height={28} className="w-full h-full object-contain" priority />
           </div>
           <div>
             <div className="text-white font-bold text-sm leading-tight tracking-wide">{config.label}</div>
