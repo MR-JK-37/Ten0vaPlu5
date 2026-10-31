@@ -14,6 +14,7 @@ export const adminNav: NavItem[] = [
   { href: "/admin/discounts", label: "Discounts" },
   { href: "/admin/customers", label: "Customers" },
   { href: "/admin/subscriptions", label: "Subscriptions" },
+  { href: "/admin/billing-runs", label: "Billing runs" },
   { href: "/admin/users", label: "Users" },
 ];
 

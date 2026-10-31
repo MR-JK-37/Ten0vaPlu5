@@ -113,7 +113,12 @@ run (not just "should work"); see the note under each ticked item for how it was
     subscription_lines. Scale test (600+) still needed once seed:demo exists.
 - [x] Running billing twice (or concurrently) creates no duplicate invoices
   - Verified via psql: ran `run_billing()` twice same day, invoice count stayed at 3
-    both times (unique constraint + `ON CONFLICT DO NOTHING`).
+    both times (unique constraint + `ON CONFLICT DO NOTHING`). Re-verified end-to-end
+    through the real admin UI (`/admin/billing-runs`): seeded a subscription 40 days
+    overdue, ran a dry-run (showed "would_create" for 2 catch-up periods, created
+    nothing), ran the real billing, got exactly 2 invoices, clicked "Run billing now"
+    again — still exactly 2 invoices, and the run history shows due=1/created=0 on the
+    second real run.
 - [x] A subscription missed for 3 periods gets all 3 invoices (nothing skipped)
   - Same test as above — this is the catch-up loop.
 - [ ] Tax rules compute correctly (percent, fixed, per-product); old invoices unchanged after
@@ -123,6 +128,10 @@ run (not just "should work"); see the note under each ticked item for how it was
     `invoices_sync_paid` trigger.
 - [ ] Invoice actions confirm/cancel/send/print work from the UI
 - [ ] Discount auto-applies on next invoice and stops on expiry/exhaustion
+- [x] Admin billing-run UI: "Run billing now" + dry-run + history, verified end-to-end
+      above. Live progress streaming (e.g. "412/600 invoiced") is deferred to the realtime
+      pass (§8) — today the button awaits completion synchronously, which is correct but
+      not live-streamed.
 
 ## Payments
 - [ ] Manual payment recording + partial payment tracking from the UI
