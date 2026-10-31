@@ -51,7 +51,7 @@ export default function PortalDiscountsPage() {
         {offers.map((offer, i) => (
           <div
             key={i}
-            className="bg-white rounded-2xl p-6 shadow-xs border border-violet-200/80 hover:border-violet-300 transition flex flex-col justify-between"
+            className="bg-white rounded-2xl p-6 shadow-xs border border-blue-200/80 hover:border-blue-300 transition flex flex-col justify-between"
           >
             <div>
               <div className="flex items-start gap-4 mb-4">
@@ -64,14 +64,14 @@ export default function PortalDiscountsPage() {
                 </div>
               </div>
 
-              <div className="bg-violet-50/30 border border-dashed border-violet-200 rounded-xl p-3.5 my-4 flex items-center justify-between">
+              <div className="bg-blue-50/30 border border-dashed border-blue-200 rounded-xl p-3.5 my-4 flex items-center justify-between">
                 <div>
                   <span className="text-[10px] text-gray-400 block uppercase font-bold tracking-wider">Promo Code:</span>
-                  <span className="font-mono text-sm font-extrabold text-[#7C3AED] tracking-wider">{offer.code}</span>
+                  <span className="font-mono text-sm font-extrabold text-[#2563EB] tracking-wider">{offer.code}</span>
                 </div>
                 <button
                   onClick={() => handleCopy(offer.code)}
-                  className="flex items-center gap-1.5 text-xs text-violet-700 bg-violet-50 hover:bg-violet-100 px-3 py-1.5 rounded-xl border border-violet-200/70 font-semibold transition"
+                  className="flex items-center gap-1.5 text-xs text-blue-700 bg-blue-50 hover:bg-blue-100 px-3 py-1.5 rounded-xl border border-blue-200/70 font-semibold transition"
                 >
                   {copiedCode === offer.code ? (
                     <>
@@ -98,7 +98,7 @@ export default function PortalDiscountsPage() {
                 className={`w-full font-semibold py-2.5 px-4 rounded-xl text-xs shadow-xs transition active:scale-95 ${
                   appliedCode === offer.code
                     ? "bg-emerald-600 text-white"
-                    : "bg-[#7C3AED] hover:bg-[#6D28D9] text-white"
+                    : "bg-[#2563EB] hover:bg-[#1D4ED8] text-white"
                 }`}
               >
                 {appliedCode === offer.code ? "✓ Offer Applied" : "Apply Offer"}

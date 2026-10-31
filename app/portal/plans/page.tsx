@@ -73,7 +73,7 @@ export default function PortalPlansPage() {
 
       {/* Monthly / Yearly Toggle */}
       <div className="flex justify-start">
-        <div className="bg-white p-1 rounded-2xl border border-violet-200/80 shadow-xs flex items-center gap-1">
+        <div className="bg-white p-1 rounded-2xl border border-blue-200/80 shadow-xs flex items-center gap-1">
           <button
             onClick={() => {
               setCycle("Monthly");
@@ -81,8 +81,8 @@ export default function PortalPlansPage() {
             }}
             className={`px-4 py-2 text-xs font-bold rounded-xl transition ${
               cycle === "Monthly"
-                ? "bg-[#7C3AED] text-white shadow-xs"
-                : "text-gray-600 hover:text-violet-700 hover:bg-violet-50"
+                ? "bg-[#2563EB] text-white shadow-xs"
+                : "text-gray-600 hover:text-blue-700 hover:bg-blue-50"
             }`}
           >
             Monthly
@@ -94,8 +94,8 @@ export default function PortalPlansPage() {
             }}
             className={`px-4 py-2 text-xs font-bold rounded-xl transition flex items-center gap-1.5 ${
               cycle === "Yearly"
-                ? "bg-[#7C3AED] text-white shadow-xs"
-                : "text-gray-600 hover:text-violet-700 hover:bg-violet-50"
+                ? "bg-[#2563EB] text-white shadow-xs"
+                : "text-gray-600 hover:text-blue-700 hover:bg-blue-50"
             }`}
           >
             <span>Yearly</span>
@@ -110,17 +110,17 @@ export default function PortalPlansPage() {
           <div
             key={i}
             className={`bg-white rounded-2xl p-6 shadow-xs border transition flex flex-col justify-between relative ${
-              p.isPopular ? "border-[#7C3AED] ring-2 ring-violet-500/20" : "border-violet-200/80 hover:border-violet-300"
+              p.isPopular ? "border-[#2563EB] ring-2 ring-blue-500/20" : "border-blue-200/80 hover:border-blue-300"
             }`}
           >
             {p.isPopular && (
-              <span className="absolute -top-3 right-6 bg-[#7C3AED] text-white text-[10px] font-extrabold px-3 py-0.5 rounded-full uppercase tracking-wider shadow-xs">
+              <span className="absolute -top-3 right-6 bg-[#2563EB] text-white text-[10px] font-extrabold px-3 py-0.5 rounded-full uppercase tracking-wider shadow-xs">
                 Most Popular
               </span>
             )}
             <div>
               <div className="flex items-center gap-2 mb-2">
-                <span className="w-2.5 h-2.5 rounded-full bg-[#7C3AED]" />
+                <span className="w-2.5 h-2.5 rounded-full bg-[#2563EB]" />
                 <h2 className="text-base font-bold text-gray-900">{p.name}</h2>
               </div>
               <div className="flex items-baseline gap-1 mt-3 mb-6">
@@ -145,8 +145,8 @@ export default function PortalPlansPage() {
                 onClick={() => handleSelectPlan(p.name)}
                 className={`w-full py-2.5 px-4 rounded-xl text-xs font-semibold shadow-xs transition active:scale-95 ${
                   p.isPopular
-                    ? "bg-[#7C3AED] hover:bg-[#6D28D9] text-white"
-                    : "bg-violet-50 hover:bg-violet-100 text-violet-700 border border-violet-200"
+                    ? "bg-[#2563EB] hover:bg-[#1D4ED8] text-white"
+                    : "bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200"
                 }`}
               >
                 Choose Plan
@@ -159,10 +159,10 @@ export default function PortalPlansPage() {
       {/* Plan Confirmation Modal */}
       {selectedPlan && (
         <div className="fixed inset-0 bg-black/40 backdrop-blur-xs flex items-center justify-center z-50 p-4 animate-in fade-in">
-          <div className="bg-white rounded-2xl shadow-2xl border border-violet-200 max-w-sm w-full p-6 text-center">
+          <div className="bg-white rounded-2xl shadow-2xl border border-blue-200 max-w-sm w-full p-6 text-center">
             <h2 className="text-base font-bold text-gray-900 mb-2">Confirm Plan Change</h2>
             <p className="text-xs text-gray-600 mb-5">
-              Switch your active subscription to <strong className="text-[#7C3AED]">{selectedPlan} ({cycle})</strong>? Your next invoice will be adjusted accordingly.
+              Switch your active subscription to <strong className="text-[#2563EB]">{selectedPlan} ({cycle})</strong>? Your next invoice will be adjusted accordingly.
             </p>
             <div className="flex items-center justify-center gap-3">
               <button
@@ -173,7 +173,7 @@ export default function PortalPlansPage() {
               </button>
               <button
                 onClick={handleConfirmPlan}
-                className="px-4 py-2 rounded-xl text-xs font-semibold bg-[#7C3AED] hover:bg-[#6D28D9] text-white shadow-sm"
+                className="px-4 py-2 rounded-xl text-xs font-semibold bg-[#2563EB] hover:bg-[#1D4ED8] text-white shadow-sm"
               >
                 Confirm Upgrade
               </button>

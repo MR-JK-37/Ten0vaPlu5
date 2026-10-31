@@ -32,8 +32,8 @@ export default function PortalPaymentsPage() {
         </p>
       </div>
 
-      <div className="bg-white rounded-2xl shadow-xs border border-violet-200/80 overflow-hidden">
-        <div className="flex flex-wrap items-center gap-3 p-4 border-b border-violet-100 bg-violet-50/20">
+      <div className="bg-white rounded-2xl shadow-xs border border-blue-200/80 overflow-hidden">
+        <div className="flex flex-wrap items-center gap-3 p-4 border-b border-blue-100 bg-blue-50/20">
           <div className="relative flex-1 min-w-[200px]">
             <Search className="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" />
             <input
@@ -41,13 +41,13 @@ export default function PortalPaymentsPage() {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search payments by ID or invoice..."
-              className="w-full pl-9 pr-3 py-1.5 text-xs border border-violet-200/80 rounded-xl outline-none focus:border-violet-500 bg-white"
+              className="w-full pl-9 pr-3 py-1.5 text-xs border border-blue-200/80 rounded-xl outline-none focus:border-blue-500 bg-white"
             />
           </div>
           <select
             value={methodFilter}
             onChange={(e) => setMethodFilter(e.target.value)}
-            className="border border-violet-200/80 rounded-xl px-3 py-1.5 text-xs text-gray-700 bg-white outline-none focus:border-violet-500"
+            className="border border-blue-200/80 rounded-xl px-3 py-1.5 text-xs text-gray-700 bg-white outline-none focus:border-blue-500"
           >
             <option value="All">Method: All</option>
             <option value="UPI">UPI</option>
@@ -70,8 +70,8 @@ export default function PortalPaymentsPage() {
             </thead>
             <tbody className="divide-y divide-gray-50 text-xs">
               {filtered.map((p) => (
-                <tr key={p.id} className="hover:bg-violet-50/30 transition">
-                  <td className="px-5 py-3.5 font-bold text-[#7C3AED]">{p.id}</td>
+                <tr key={p.id} className="hover:bg-blue-50/30 transition">
+                  <td className="px-5 py-3.5 font-bold text-[#2563EB]">{p.id}</td>
                   <td className="px-5 py-3.5 text-gray-500 font-medium">{p.date}</td>
                   <td className="px-5 py-3.5 text-gray-700 font-semibold">{p.invoice}</td>
                   <td className="px-5 py-3.5 font-bold text-gray-900">{p.amount}</td>

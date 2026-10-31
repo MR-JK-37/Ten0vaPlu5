@@ -45,8 +45,8 @@ export default function PortalQuotationsPage() {
         </p>
       </div>
 
-      <div className="bg-white rounded-2xl shadow-xs border border-violet-200/80 overflow-hidden">
-        <div className="flex flex-wrap items-center gap-3 p-4 border-b border-violet-100 bg-violet-50/20">
+      <div className="bg-white rounded-2xl shadow-xs border border-blue-200/80 overflow-hidden">
+        <div className="flex flex-wrap items-center gap-3 p-4 border-b border-blue-100 bg-blue-50/20">
           <div className="relative flex-1 min-w-[200px]">
             <Search className="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" />
             <input
@@ -54,13 +54,13 @@ export default function PortalQuotationsPage() {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search quotations..."
-              className="w-full pl-9 pr-3 py-1.5 text-xs border border-violet-200/80 rounded-xl outline-none focus:border-violet-500 bg-white"
+              className="w-full pl-9 pr-3 py-1.5 text-xs border border-blue-200/80 rounded-xl outline-none focus:border-blue-500 bg-white"
             />
           </div>
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="border border-violet-200/80 rounded-xl px-3 py-1.5 text-xs text-gray-700 bg-white outline-none focus:border-violet-500"
+            className="border border-blue-200/80 rounded-xl px-3 py-1.5 text-xs text-gray-700 bg-white outline-none focus:border-blue-500"
           >
             <option value="All">Status: All</option>
             <option value="Sent">Sent</option>
@@ -83,8 +83,8 @@ export default function PortalQuotationsPage() {
             </thead>
             <tbody className="divide-y divide-gray-50 text-xs">
               {filtered.map((q) => (
-                <tr key={q.id} className="hover:bg-violet-50/30 transition">
-                  <td className="px-5 py-3.5 font-bold text-[#7C3AED]">{q.id}</td>
+                <tr key={q.id} className="hover:bg-blue-50/30 transition">
+                  <td className="px-5 py-3.5 font-bold text-[#2563EB]">{q.id}</td>
                   <td className="px-5 py-3.5 text-gray-500 font-medium">{q.date}</td>
                   <td className="px-5 py-3.5 text-gray-800 font-semibold">{q.product}</td>
                   <td className="px-5 py-3.5 font-bold text-gray-900">{q.amount}</td>
@@ -96,7 +96,7 @@ export default function PortalQuotationsPage() {
                   <td className="px-5 py-3.5 text-right">
                     <button
                       onClick={() => setSelectedQuote(q)}
-                      className="px-3 py-1 rounded-lg text-violet-700 bg-violet-50 hover:bg-violet-100 text-xs font-semibold border border-violet-200/70 transition"
+                      className="px-3 py-1 rounded-lg text-blue-700 bg-blue-50 hover:bg-blue-100 text-xs font-semibold border border-blue-200/70 transition"
                     >
                       View
                     </button>
@@ -111,7 +111,7 @@ export default function PortalQuotationsPage() {
       {/* Quote Review Modal */}
       {selectedQuote && (
         <div className="fixed inset-0 bg-black/40 backdrop-blur-xs flex items-center justify-center z-50 p-4 animate-in fade-in">
-          <div className="bg-white rounded-2xl shadow-2xl border border-violet-200 max-w-md w-full p-6 relative">
+          <div className="bg-white rounded-2xl shadow-2xl border border-blue-200 max-w-md w-full p-6 relative">
             <button
               onClick={() => setSelectedQuote(null)}
               className="absolute right-4 top-4 p-1.5 rounded-xl text-gray-400 hover:text-gray-700 hover:bg-gray-100"
@@ -119,7 +119,7 @@ export default function PortalQuotationsPage() {
               <X size={16} />
             </button>
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-xl bg-violet-100 text-[#7C3AED] flex items-center justify-center">
+              <div className="w-10 h-10 rounded-xl bg-blue-100 text-[#2563EB] flex items-center justify-center">
                 <FileText className="w-5 h-5" />
               </div>
               <div>
@@ -133,7 +133,7 @@ export default function PortalQuotationsPage() {
             <div className="bg-gray-50 rounded-xl p-3.5 space-y-2 text-xs mb-5 border border-gray-100">
               <div className="flex justify-between"><span className="text-gray-500">Service / Plan:</span><span className="font-bold text-gray-900">{selectedQuote.product}</span></div>
               <div className="flex justify-between"><span className="text-gray-500">Issuing Date:</span><span className="font-semibold text-gray-800">{selectedQuote.date}</span></div>
-              <div className="flex justify-between"><span className="text-gray-500">Quotation Total:</span><span className="font-bold text-[#7C3AED] text-sm">{selectedQuote.amount}</span></div>
+              <div className="flex justify-between"><span className="text-gray-500">Quotation Total:</span><span className="font-bold text-[#2563EB] text-sm">{selectedQuote.amount}</span></div>
             </div>
 
             <div className="flex items-center justify-end gap-2 pt-3 border-t border-gray-100">
@@ -153,7 +153,7 @@ export default function PortalQuotationsPage() {
                   </button>
                   <button
                     onClick={() => handleAcceptQuote(selectedQuote.id)}
-                    className="px-3.5 py-2 rounded-xl text-xs font-semibold bg-[#7C3AED] hover:bg-[#6D28D9] text-white shadow-sm"
+                    className="px-3.5 py-2 rounded-xl text-xs font-semibold bg-[#2563EB] hover:bg-[#1D4ED8] text-white shadow-sm"
                   >
                     Accept Quotation
                   </button>

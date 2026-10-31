@@ -22,13 +22,13 @@ export default function PortalReportsPage() {
           </p>
         </div>
         <div className="flex items-center gap-2">
-          <div className="flex items-center gap-2 bg-white border border-violet-200/80 rounded-xl px-3 py-1.5 text-xs text-gray-700 shadow-xs">
-            <Calendar className="w-3.5 h-3.5 text-[#7C3AED]" />
+          <div className="flex items-center gap-2 bg-white border border-blue-200/80 rounded-xl px-3 py-1.5 text-xs text-gray-700 shadow-xs">
+            <Calendar className="w-3.5 h-3.5 text-[#2563EB]" />
             <span className="font-semibold">{period}</span>
           </div>
           <button
             onClick={handleRefresh}
-            className="p-1.5 rounded-xl border border-violet-200/80 bg-white hover:bg-violet-50 text-gray-600 hover:text-violet-700 transition shadow-xs"
+            className="p-1.5 rounded-xl border border-blue-200/80 bg-white hover:bg-blue-50 text-gray-600 hover:text-blue-700 transition shadow-xs"
             title="Refresh metrics"
           >
             <RefreshCw size={15} />
@@ -38,15 +38,15 @@ export default function PortalReportsPage() {
 
       {/* 3 KPI Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div className="bg-white rounded-2xl p-5 shadow-xs border border-violet-200/80 hover:border-violet-300 transition">
+        <div className="bg-white rounded-2xl p-5 shadow-xs border border-blue-200/80 hover:border-blue-300 transition">
           <span className="text-xs text-gray-400 font-semibold uppercase tracking-wider">Total Billed</span>
           <div className="text-2xl font-extrabold text-gray-900 mt-1">₹7,080</div>
         </div>
-        <div className="bg-white rounded-2xl p-5 shadow-xs border border-violet-200/80 hover:border-violet-300 transition">
+        <div className="bg-white rounded-2xl p-5 shadow-xs border border-blue-200/80 hover:border-blue-300 transition">
           <span className="text-xs text-gray-400 font-semibold uppercase tracking-wider">Total Paid</span>
           <div className="text-2xl font-extrabold text-emerald-600 mt-1">₹7,080</div>
         </div>
-        <div className="bg-white rounded-2xl p-5 shadow-xs border border-violet-200/80 hover:border-violet-300 transition">
+        <div className="bg-white rounded-2xl p-5 shadow-xs border border-blue-200/80 hover:border-blue-300 transition">
           <span className="text-xs text-gray-400 font-semibold uppercase tracking-wider">Outstanding</span>
           <div className="text-2xl font-extrabold text-gray-900 mt-1">₹0</div>
         </div>
@@ -55,7 +55,7 @@ export default function PortalReportsPage() {
       {/* Charts Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Billing Trend Line Chart (7 cols) */}
-        <div className="lg:col-span-7 bg-white rounded-2xl p-5 shadow-xs border border-violet-200/80 flex flex-col justify-between">
+        <div className="lg:col-span-7 bg-white rounded-2xl p-5 shadow-xs border border-blue-200/80 flex flex-col justify-between">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-sm font-bold text-gray-900">Billing Trend</h2>
           </div>
@@ -71,8 +71,8 @@ export default function PortalReportsPage() {
 
             <defs>
               <linearGradient id="portalReportGrad" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#7c3aed" stopOpacity="0.25" />
-                <stop offset="100%" stopColor="#7c3aed" stopOpacity="0.0" />
+                <stop offset="0%" stopColor="#2563EB" stopOpacity="0.25" />
+                <stop offset="100%" stopColor="#2563EB" stopOpacity="0.0" />
               </linearGradient>
             </defs>
             <path
@@ -82,7 +82,7 @@ export default function PortalReportsPage() {
             <path
               d="M 60 128 C 130 110, 200 85, 270 75 C 340 65, 410 40, 480 25"
               fill="none"
-              stroke="#7C3AED"
+              stroke="#2563EB"
               strokeWidth="2.5"
             />
             {["May", "Jun", "Jul", "Aug", "Sep", "Oct"].map((m, idx) => (
@@ -92,7 +92,7 @@ export default function PortalReportsPage() {
         </div>
 
         {/* Payments by Method Donut (5 cols) */}
-        <div className="lg:col-span-5 bg-white rounded-2xl p-5 shadow-xs border border-violet-200/80 flex flex-col justify-between">
+        <div className="lg:col-span-5 bg-white rounded-2xl p-5 shadow-xs border border-blue-200/80 flex flex-col justify-between">
           <h2 className="text-sm font-bold text-gray-900 mb-2">Payments by Method</h2>
           <div className="relative flex items-center justify-center py-4">
             <svg viewBox="0 0 160 160" className="w-36 h-36 -rotate-90">

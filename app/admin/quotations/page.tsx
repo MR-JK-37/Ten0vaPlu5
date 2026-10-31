@@ -39,15 +39,15 @@ export default function AdminQuotationsPage() {
         </div>
         <button
           onClick={() => setShowAddModal(true)}
-          className="flex items-center gap-2 bg-[#7C3AED] hover:bg-[#6D28D9] text-white px-4 py-2.5 rounded-xl text-xs font-semibold shadow-sm transition active:scale-95"
+          className="flex items-center gap-2 bg-[#2563EB] hover:bg-[#1D4ED8] text-white px-4 py-2.5 rounded-xl text-xs font-semibold shadow-sm transition active:scale-95"
         >
           <Plus size={15} />
           <span>Create Quotation</span>
         </button>
       </div>
 
-      <div className="bg-white rounded-2xl shadow-xs border border-violet-200/80 overflow-hidden">
-        <div className="flex flex-wrap items-center gap-3 p-4 border-b border-violet-100 bg-violet-50/20">
+      <div className="bg-white rounded-2xl shadow-xs border border-blue-200/80 overflow-hidden">
+        <div className="flex flex-wrap items-center gap-3 p-4 border-b border-blue-100 bg-blue-50/20">
           <div className="relative flex-1 min-w-[200px]">
             <Search className="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" />
             <input
@@ -55,13 +55,13 @@ export default function AdminQuotationsPage() {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search quotations..."
-              className="w-full pl-9 pr-3 py-1.5 text-xs border border-violet-200/80 rounded-xl outline-none focus:border-violet-500 bg-white"
+              className="w-full pl-9 pr-3 py-1.5 text-xs border border-blue-200/80 rounded-xl outline-none focus:border-blue-500 bg-white"
             />
           </div>
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="border border-violet-200/80 rounded-xl px-3 py-1.5 text-xs text-gray-700 bg-white outline-none focus:border-violet-500"
+            className="border border-blue-200/80 rounded-xl px-3 py-1.5 text-xs text-gray-700 bg-white outline-none focus:border-blue-500"
           >
             <option value="All">Status: All</option>
             <option value="Accepted">Accepted</option>
@@ -85,8 +85,8 @@ export default function AdminQuotationsPage() {
             </thead>
             <tbody className="divide-y divide-gray-50 text-xs">
               {filtered.map((q) => (
-                <tr key={q.id} className="hover:bg-violet-50/30 transition">
-                  <td className="px-5 py-3.5 font-bold text-[#7C3AED]">{q.id}</td>
+                <tr key={q.id} className="hover:bg-blue-50/30 transition">
+                  <td className="px-5 py-3.5 font-bold text-[#2563EB]">{q.id}</td>
                   <td className="px-5 py-3.5 font-bold text-gray-900">{q.customer}</td>
                   <td className="px-5 py-3.5 font-bold text-gray-900">{q.amount}</td>
                   <td className="px-5 py-3.5 text-gray-500 font-medium">{q.validTill}</td>
@@ -99,7 +99,7 @@ export default function AdminQuotationsPage() {
                     <div className="flex items-center justify-end gap-1.5">
                       <button
                         onClick={() => toast.info(`Viewing quote: ${q.id}`)}
-                        className="px-2.5 py-1 rounded-lg text-violet-700 bg-violet-50 hover:bg-violet-100 text-[11px] font-semibold transition"
+                        className="px-2.5 py-1 rounded-lg text-blue-700 bg-blue-50 hover:bg-blue-100 text-[11px] font-semibold transition"
                       >
                         View
                       </button>
@@ -121,7 +121,7 @@ export default function AdminQuotationsPage() {
       {/* Add Quotation Modal */}
       {showAddModal && (
         <div className="fixed inset-0 bg-black/40 backdrop-blur-xs flex items-center justify-center z-50 p-4 animate-in fade-in">
-          <div className="bg-white rounded-2xl shadow-2xl border border-violet-200 max-w-md w-full p-6">
+          <div className="bg-white rounded-2xl shadow-2xl border border-blue-200 max-w-md w-full p-6">
             <h2 className="text-base font-bold text-gray-900 mb-1">Create Quotation</h2>
             <p className="text-xs text-gray-500 mb-4">Prepare an offer for customer review.</p>
             <form
@@ -138,7 +138,7 @@ export default function AdminQuotationsPage() {
                   type="text"
                   required
                   placeholder="e.g. Acme Corp"
-                  className="w-full px-3 py-2 text-xs border border-violet-200 rounded-xl outline-none focus:border-violet-500"
+                  className="w-full px-3 py-2 text-xs border border-blue-200 rounded-xl outline-none focus:border-blue-500"
                 />
               </div>
               <div className="grid grid-cols-2 gap-3">
@@ -148,7 +148,7 @@ export default function AdminQuotationsPage() {
                     type="text"
                     required
                     placeholder="e.g. 1,50,000"
-                    className="w-full px-3 py-2 text-xs border border-violet-200 rounded-xl outline-none focus:border-violet-500"
+                    className="w-full px-3 py-2 text-xs border border-blue-200 rounded-xl outline-none focus:border-blue-500"
                   />
                 </div>
                 <div>
@@ -156,7 +156,7 @@ export default function AdminQuotationsPage() {
                   <input
                     type="text"
                     defaultValue="Nov 20, 2026"
-                    className="w-full px-3 py-2 text-xs border border-violet-200 rounded-xl outline-none focus:border-violet-500"
+                    className="w-full px-3 py-2 text-xs border border-blue-200 rounded-xl outline-none focus:border-blue-500"
                   />
                 </div>
               </div>
@@ -170,7 +170,7 @@ export default function AdminQuotationsPage() {
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 rounded-xl text-xs font-semibold bg-[#7C3AED] hover:bg-[#6D28D9] text-white shadow-sm"
+                  className="px-4 py-2 rounded-xl text-xs font-semibold bg-[#2563EB] hover:bg-[#1D4ED8] text-white shadow-sm"
                 >
                   Send Quotation
                 </button>

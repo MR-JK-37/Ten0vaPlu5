@@ -52,15 +52,15 @@ export default function StaffCustomersPage() {
         </div>
         <button
           onClick={() => setShowAddModal(true)}
-          className="flex items-center gap-2 bg-[#7C3AED] hover:bg-[#6D28D9] text-white px-4 py-2.5 rounded-xl text-xs font-semibold shadow-sm transition active:scale-95"
+          className="flex items-center gap-2 bg-[#2563EB] hover:bg-[#1D4ED8] text-white px-4 py-2.5 rounded-xl text-xs font-semibold shadow-sm transition active:scale-95"
         >
           <Plus size={15} />
           <span>Add Customer</span>
         </button>
       </div>
 
-      <div className="bg-white rounded-2xl shadow-xs border border-violet-200/80 overflow-hidden">
-        <div className="flex flex-wrap items-center gap-3 p-4 border-b border-violet-100 bg-violet-50/20">
+      <div className="bg-white rounded-2xl shadow-xs border border-blue-200/80 overflow-hidden">
+        <div className="flex flex-wrap items-center gap-3 p-4 border-b border-blue-100 bg-blue-50/20">
           <div className="relative flex-1 min-w-[200px]">
             <Search className="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" />
             <input
@@ -68,10 +68,10 @@ export default function StaffCustomersPage() {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search assigned customers..."
-              className="w-full pl-9 pr-3 py-1.5 text-xs border border-violet-200/80 rounded-xl outline-none focus:border-violet-500 bg-white"
+              className="w-full pl-9 pr-3 py-1.5 text-xs border border-blue-200/80 rounded-xl outline-none focus:border-blue-500 bg-white"
             />
           </div>
-          <span className="text-xs font-semibold text-[#7C3AED] bg-violet-50 px-3 py-1.5 rounded-xl border border-violet-200">
+          <span className="text-xs font-semibold text-[#2563EB] bg-blue-50 px-3 py-1.5 rounded-xl border border-blue-200">
             Assigned to Me
           </span>
         </div>
@@ -90,10 +90,10 @@ export default function StaffCustomersPage() {
             </thead>
             <tbody className="divide-y divide-gray-50 text-xs">
               {filtered.map((c) => (
-                <tr key={c.id} className="hover:bg-violet-50/30 transition">
+                <tr key={c.id} className="hover:bg-blue-50/30 transition">
                   <td className="px-5 py-3.5 font-bold text-gray-900">
                     <div className="flex items-center gap-2.5">
-                      <span className="w-7 h-7 rounded-xl bg-violet-100 text-[#7C3AED] font-bold text-xs flex items-center justify-center shrink-0 border border-violet-200/60">
+                      <span className="w-7 h-7 rounded-xl bg-blue-100 text-[#2563EB] font-bold text-xs flex items-center justify-center shrink-0 border border-blue-200/60">
                         {c.initials}
                       </span>
                       <span>{c.name}</span>
@@ -110,7 +110,7 @@ export default function StaffCustomersPage() {
                   <td className="px-5 py-3.5 text-right">
                     <button
                       onClick={() => toast.info(`Viewing account history: ${c.name}`)}
-                      className="px-2.5 py-1 rounded-lg text-violet-700 bg-violet-50 hover:bg-violet-100 text-[11px] font-semibold transition border border-violet-200/70"
+                      className="px-2.5 py-1 rounded-lg text-blue-700 bg-blue-50 hover:bg-blue-100 text-[11px] font-semibold transition border border-blue-200/70"
                     >
                       View
                     </button>
@@ -125,7 +125,7 @@ export default function StaffCustomersPage() {
       {/* Add Customer Modal */}
       {showAddModal && (
         <div className="fixed inset-0 bg-black/40 backdrop-blur-xs flex items-center justify-center z-50 p-4 animate-in fade-in">
-          <div className="bg-white rounded-2xl shadow-2xl border border-violet-200 max-w-md w-full p-6">
+          <div className="bg-white rounded-2xl shadow-2xl border border-blue-200 max-w-md w-full p-6">
             <h2 className="text-base font-bold text-gray-900 mb-1">Add Assigned Customer</h2>
             <p className="text-xs text-gray-500 mb-4">Register a customer under your staff account portfolio.</p>
             <form onSubmit={handleAddCustomer} className="space-y-3.5">
@@ -137,7 +137,7 @@ export default function StaffCustomersPage() {
                   value={newCust.name}
                   onChange={(e) => setNewCust({ ...newCust, name: e.target.value })}
                   placeholder="e.g. Apex Tech Ltd"
-                  className="w-full px-3 py-2 text-xs border border-violet-200 rounded-xl outline-none focus:border-violet-500"
+                  className="w-full px-3 py-2 text-xs border border-blue-200 rounded-xl outline-none focus:border-blue-500"
                 />
               </div>
               <div>
@@ -148,7 +148,7 @@ export default function StaffCustomersPage() {
                   value={newCust.email}
                   onChange={(e) => setNewCust({ ...newCust, email: e.target.value })}
                   placeholder="e.g. contact@apex.in"
-                  className="w-full px-3 py-2 text-xs border border-violet-200 rounded-xl outline-none focus:border-violet-500"
+                  className="w-full px-3 py-2 text-xs border border-blue-200 rounded-xl outline-none focus:border-blue-500"
                 />
               </div>
               <div>
@@ -158,7 +158,7 @@ export default function StaffCustomersPage() {
                   value={newCust.contact}
                   onChange={(e) => setNewCust({ ...newCust, contact: e.target.value })}
                   placeholder="e.g. +91 98765 43210"
-                  className="w-full px-3 py-2 text-xs border border-violet-200 rounded-xl outline-none focus:border-violet-500"
+                  className="w-full px-3 py-2 text-xs border border-blue-200 rounded-xl outline-none focus:border-blue-500"
                 />
               </div>
               <div className="flex items-center justify-end gap-2 pt-3 border-t border-gray-100">
@@ -171,7 +171,7 @@ export default function StaffCustomersPage() {
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 rounded-xl text-xs font-semibold bg-[#7C3AED] hover:bg-[#6D28D9] text-white shadow-sm"
+                  className="px-4 py-2 rounded-xl text-xs font-semibold bg-[#2563EB] hover:bg-[#1D4ED8] text-white shadow-sm"
                 >
                   Save Customer
                 </button>

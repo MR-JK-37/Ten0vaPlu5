@@ -93,19 +93,19 @@ export function DashboardShell({
   };
 
   return (
-    <div className="flex min-h-screen bg-[#F6F5FB] text-gray-900 antialiased">
+    <div className="flex min-h-screen bg-[#F4F7FB] text-gray-900 antialiased">
       <Toaster richColors position="top-right" />
 
       {/* Sidebar */}
-      <aside className="w-56 shrink-0 flex flex-col border-r border-violet-700/20 shadow-md" style={{ backgroundColor: "#7C3AED" }}>
+      <aside className="w-56 shrink-0 flex flex-col border-r border-blue-700/20 shadow-md" style={{ backgroundColor: "#2563EB" }}>
         {/* Logo */}
         <div className="flex items-center gap-3 px-5 py-5 border-b border-white/10">
           <div className="w-9 h-9 rounded-xl bg-white flex items-center justify-center flex-shrink-0 shadow-sm">
-            <span className="text-base font-extrabold text-[#7C3AED]">B</span>
+            <span className="text-base font-extrabold text-[#2563EB]">B</span>
           </div>
           <div>
             <div className="text-white font-bold text-sm leading-tight tracking-wide">{config.label}</div>
-            <div className="text-violet-200 text-[11px] leading-tight font-medium mt-0.5">{config.sub}</div>
+            <div className="text-blue-200 text-[11px] leading-tight font-medium mt-0.5">{config.sub}</div>
           </div>
         </div>
 
@@ -140,7 +140,7 @@ export function DashboardShell({
             </div>
             <div className="min-w-0 flex-1">
               <div className="text-white text-xs font-semibold truncate">{user.fullName ?? config.name}</div>
-              <div className="text-violet-200 text-[10px] font-medium capitalize">{user.role}</div>
+              <div className="text-blue-200 text-[10px] font-medium capitalize">{user.role}</div>
             </div>
           </div>
         </div>
@@ -149,7 +149,7 @@ export function DashboardShell({
       {/* Main Container */}
       <div className="flex-1 flex flex-col min-w-0">
         {/* Top Header */}
-        <header className="bg-white border-b border-violet-100 flex items-center justify-between px-7 py-3 gap-4 sticky top-0 z-30 shadow-xs">
+        <header className="bg-white border-b border-blue-100 flex items-center justify-between px-7 py-3 gap-4 sticky top-0 z-30 shadow-xs">
           <form onSubmit={handleSearchSubmit} className="flex items-center gap-2 flex-1 max-w-md">
             <div className="relative flex-1">
               <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
@@ -158,7 +158,7 @@ export function DashboardShell({
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search customers, invoices, subscriptions..."
-                className="w-full pl-9 pr-3 py-1.5 text-xs border border-violet-100 rounded-xl bg-violet-50/30 outline-none focus:border-violet-500 focus:bg-white focus:ring-2 focus:ring-violet-200 transition-all placeholder:text-gray-400"
+                className="w-full pl-9 pr-3 py-1.5 text-xs border border-blue-100 rounded-xl bg-blue-50/30 outline-none focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-200 transition-all placeholder:text-gray-400"
               />
             </div>
           </form>
@@ -170,8 +170,8 @@ export function DashboardShell({
                 onClick={() => setShowNotifications(!showNotifications)}
                 className={`relative p-2 rounded-xl transition-all border ${
                   showNotifications
-                    ? "bg-violet-100 text-violet-700 border-violet-300"
-                    : "hover:bg-violet-50 text-gray-600 border-gray-100"
+                    ? "bg-blue-100 text-blue-700 border-blue-300"
+                    : "hover:bg-blue-50 text-gray-600 border-gray-100"
                 }`}
                 title="Notifications"
               >
@@ -182,18 +182,18 @@ export function DashboardShell({
               </button>
 
               {showNotifications && (
-                <div className="absolute right-0 top-11 w-80 bg-white rounded-2xl shadow-xl border border-violet-200/80 p-4 z-50 animate-in fade-in zoom-in-95 duration-100">
+                <div className="absolute right-0 top-11 w-80 bg-white rounded-2xl shadow-xl border border-blue-200/80 p-4 z-50 animate-in fade-in zoom-in-95 duration-100">
                   <div className="flex items-center justify-between pb-3 border-b border-gray-100">
                     <div className="flex items-center gap-2">
                       <span className="text-xs font-bold text-gray-900">Notifications</span>
-                      <span className="px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-violet-100 text-violet-700">2 New</span>
+                      <span className="px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-blue-100 text-blue-700">2 New</span>
                     </div>
                     <button
                       onClick={() => {
                         toast.success("All notifications marked as read");
                         setShowNotifications(false);
                       }}
-                      className="text-[11px] text-violet-600 hover:text-violet-700 font-semibold"
+                      className="text-[11px] text-blue-600 hover:text-blue-700 font-semibold"
                     >
                       Mark read
                     </button>
@@ -206,9 +206,9 @@ export function DashboardShell({
                           toast.info(`${n.title}: ${n.desc}`);
                           setShowNotifications(false);
                         }}
-                        className="py-2.5 px-2 hover:bg-violet-50/50 rounded-xl cursor-pointer transition flex items-start gap-2.5"
+                        className="py-2.5 px-2 hover:bg-blue-50/50 rounded-xl cursor-pointer transition flex items-start gap-2.5"
                       >
-                        <div className="w-2 h-2 rounded-full bg-violet-600 mt-1.5 shrink-0" />
+                        <div className="w-2 h-2 rounded-full bg-blue-600 mt-1.5 shrink-0" />
                         <div className="flex-1 min-w-0">
                           <p className="text-xs font-semibold text-gray-900 truncate">{n.title}</p>
                           <p className="text-[11px] text-gray-500 line-clamp-1">{n.desc}</p>
@@ -227,13 +227,13 @@ export function DashboardShell({
                 onClick={() => setShowProfileMenu(!showProfileMenu)}
                 className={`flex items-center gap-2.5 cursor-pointer rounded-xl px-3 py-1.5 border transition-all ${
                   showProfileMenu
-                    ? "bg-violet-50 border-violet-300 ring-2 ring-violet-100"
-                    : "hover:bg-violet-50/60 border-violet-100/80 bg-white"
+                    ? "bg-blue-50 border-blue-300 ring-2 ring-blue-100"
+                    : "hover:bg-blue-50/60 border-blue-100/80 bg-white"
                 }`}
               >
                 <div
                   className="w-7 h-7 rounded-full flex items-center justify-center text-white text-xs font-bold shadow-xs"
-                  style={{ backgroundColor: "#7C3AED" }}
+                  style={{ backgroundColor: "#2563EB" }}
                 >
                   {config.initials}
                 </div>
@@ -245,7 +245,7 @@ export function DashboardShell({
               </div>
 
               {showProfileMenu && (
-                <div className="absolute right-0 top-12 w-60 bg-white rounded-2xl shadow-xl border border-violet-200/80 p-2 z-50 animate-in fade-in zoom-in-95 duration-100">
+                <div className="absolute right-0 top-12 w-60 bg-white rounded-2xl shadow-xl border border-blue-200/80 p-2 z-50 animate-in fade-in zoom-in-95 duration-100">
                   <div className="px-3 py-2 border-b border-gray-100 mb-1">
                     <p className="text-xs font-bold text-gray-900">{user.fullName ?? config.name}</p>
                     <p className="text-[11px] text-gray-400">{user.email}</p>
@@ -258,7 +258,7 @@ export function DashboardShell({
                   <Link
                     href="/admin"
                     onClick={() => setShowProfileMenu(false)}
-                    className="flex items-center justify-between px-3 py-2 rounded-xl text-xs hover:bg-violet-50 font-medium text-gray-700 hover:text-violet-700 transition"
+                    className="flex items-center justify-between px-3 py-2 rounded-xl text-xs hover:bg-blue-50 font-medium text-gray-700 hover:text-blue-700 transition"
                   >
                     <span>Admin Portal</span>
                     <ExternalLink size={12} className="text-gray-400" />
@@ -267,7 +267,7 @@ export function DashboardShell({
                   <Link
                     href="/staff"
                     onClick={() => setShowProfileMenu(false)}
-                    className="flex items-center justify-between px-3 py-2 rounded-xl text-xs hover:bg-violet-50 font-medium text-gray-700 hover:text-violet-700 transition"
+                    className="flex items-center justify-between px-3 py-2 rounded-xl text-xs hover:bg-blue-50 font-medium text-gray-700 hover:text-blue-700 transition"
                   >
                     <span>Staff Portal</span>
                     <ExternalLink size={12} className="text-gray-400" />
@@ -276,7 +276,7 @@ export function DashboardShell({
                   <Link
                     href="/portal"
                     onClick={() => setShowProfileMenu(false)}
-                    className="flex items-center justify-between px-3 py-2 rounded-xl text-xs hover:bg-violet-50 font-medium text-gray-700 hover:text-violet-700 transition"
+                    className="flex items-center justify-between px-3 py-2 rounded-xl text-xs hover:bg-blue-50 font-medium text-gray-700 hover:text-blue-700 transition"
                   >
                     <span>Customer Portal</span>
                     <ExternalLink size={12} className="text-gray-400" />
@@ -300,7 +300,7 @@ export function DashboardShell({
         </header>
 
         {/* Page Content: wrapped in seamless padded area with no awkward gaps */}
-        <main className="flex-1 p-7 bg-[#F6F5FB] overflow-y-auto">
+        <main className="flex-1 p-7 bg-[#F4F7FB] overflow-y-auto">
           {children}
         </main>
       </div>

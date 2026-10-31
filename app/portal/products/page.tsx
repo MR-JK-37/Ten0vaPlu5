@@ -21,7 +21,7 @@ export default function PortalProductsPage() {
       name: "Bright Billing Software",
       category: "Software",
       icon: Laptop,
-      iconBg: "bg-violet-50 text-violet-600",
+      iconBg: "bg-blue-50 text-blue-600",
       desc: "Complete billing and subscription management solution.",
       features: ["Subscription billing", "Invoicing & payments", "Reports & analytics", "Multi-currency support", "Automated recurring schedules"],
       price: "₹1,000",
@@ -69,7 +69,7 @@ export default function PortalProductsPage() {
 
       {/* Filter and Search Bar */}
       <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
-        <div className="flex items-center gap-1.5 p-1 bg-white border border-violet-200/80 rounded-2xl shadow-xs">
+        <div className="flex items-center gap-1.5 p-1 bg-white border border-blue-200/80 rounded-2xl shadow-xs">
           {["All Products", "Software", "Tools", "Services"].map((tab) => (
             <button
               key={tab}
@@ -79,8 +79,8 @@ export default function PortalProductsPage() {
               }}
               className={`px-3 py-1.5 text-xs font-semibold rounded-xl transition ${
                 activeTab === tab
-                  ? "bg-[#7C3AED] text-white shadow-xs"
-                  : "text-gray-600 hover:text-violet-700 hover:bg-violet-50"
+                  ? "bg-[#2563EB] text-white shadow-xs"
+                  : "text-gray-600 hover:text-blue-700 hover:bg-blue-50"
               }`}
             >
               {tab}
@@ -94,7 +94,7 @@ export default function PortalProductsPage() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search products..."
-            className="w-full pl-9 pr-3 py-1.5 text-xs border border-violet-200/80 rounded-xl outline-none focus:border-violet-500 bg-white shadow-xs"
+            className="w-full pl-9 pr-3 py-1.5 text-xs border border-blue-200/80 rounded-xl outline-none focus:border-blue-500 bg-white shadow-xs"
           />
         </div>
       </div>
@@ -106,16 +106,16 @@ export default function PortalProductsPage() {
           return (
             <div
               key={i}
-              className="bg-white rounded-2xl p-6 shadow-xs border border-violet-200/80 hover:border-violet-300 transition flex flex-col justify-between"
+              className="bg-white rounded-2xl p-6 shadow-xs border border-blue-200/80 hover:border-blue-300 transition flex flex-col justify-between"
             >
               <div>
                 <div className="flex items-center gap-3 mb-3">
-                  <div className={`w-10 h-10 rounded-xl ${p.iconBg} flex items-center justify-center shrink-0 border border-violet-100`}>
+                  <div className={`w-10 h-10 rounded-xl ${p.iconBg} flex items-center justify-center shrink-0 border border-blue-100`}>
                     <Icon className="w-5 h-5" />
                   </div>
                   <div>
                     <h2 className="text-base font-bold text-gray-900">{p.name}</h2>
-                    <span className="text-[10px] uppercase font-bold text-violet-600 bg-violet-50 px-2 py-0.5 rounded-full">{p.category}</span>
+                    <span className="text-[10px] uppercase font-bold text-blue-600 bg-blue-50 px-2 py-0.5 rounded-full">{p.category}</span>
                   </div>
                 </div>
                 <p className="text-xs text-gray-500 mb-4">{p.desc}</p>
@@ -140,7 +140,7 @@ export default function PortalProductsPage() {
                 </div>
                 <button
                   onClick={() => setSelectedProduct(p)}
-                  className="w-full bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-semibold py-2.5 px-4 rounded-xl text-xs shadow-xs transition active:scale-95"
+                  className="w-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-semibold py-2.5 px-4 rounded-xl text-xs shadow-xs transition active:scale-95"
                 >
                   View Details
                 </button>
@@ -153,7 +153,7 @@ export default function PortalProductsPage() {
       {/* Product Details Modal */}
       {selectedProduct && (
         <div className="fixed inset-0 bg-black/40 backdrop-blur-xs flex items-center justify-center z-50 p-4 animate-in fade-in">
-          <div className="bg-white rounded-2xl shadow-2xl border border-violet-200 max-w-md w-full p-6 relative">
+          <div className="bg-white rounded-2xl shadow-2xl border border-blue-200 max-w-md w-full p-6 relative">
             <button
               onClick={() => setSelectedProduct(null)}
               className="absolute right-4 top-4 p-1.5 rounded-xl text-gray-400 hover:text-gray-700 hover:bg-gray-100"
@@ -162,9 +162,9 @@ export default function PortalProductsPage() {
             </button>
             <h2 className="text-lg font-bold text-gray-900 mb-1">{selectedProduct.name}</h2>
             <p className="text-xs text-gray-500 mb-4">{selectedProduct.desc}</p>
-            <div className="bg-violet-50/50 border border-violet-100 rounded-xl p-3.5 mb-4">
+            <div className="bg-blue-50/50 border border-blue-100 rounded-xl p-3.5 mb-4">
               <span className="text-[11px] text-gray-500 block font-medium">Subscription Tier Rate</span>
-              <div className="text-xl font-bold text-[#7C3AED] mt-0.5">
+              <div className="text-xl font-bold text-[#2563EB] mt-0.5">
                 {selectedProduct.price} <span className="text-xs font-normal text-gray-500">{selectedProduct.period}</span>
               </div>
             </div>
@@ -189,7 +189,7 @@ export default function PortalProductsPage() {
                   toast.success(`Request for ${selectedProduct.name} submitted! Sales will contact you.`);
                   setSelectedProduct(null);
                 }}
-                className="px-4 py-2 rounded-xl text-xs font-semibold bg-[#7C3AED] hover:bg-[#6D28D9] text-white shadow-sm"
+                className="px-4 py-2 rounded-xl text-xs font-semibold bg-[#2563EB] hover:bg-[#1D4ED8] text-white shadow-sm"
               >
                 Request Quotation
               </button>

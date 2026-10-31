@@ -62,7 +62,7 @@ export default function AdminCustomersPage() {
         </div>
         <button
           onClick={() => setShowAddModal(true)}
-          className="flex items-center gap-2 bg-[#7C3AED] hover:bg-[#6D28D9] text-white px-4 py-2.5 rounded-xl text-xs font-semibold shadow-sm transition active:scale-95"
+          className="flex items-center gap-2 bg-[#2563EB] hover:bg-[#1D4ED8] text-white px-4 py-2.5 rounded-xl text-xs font-semibold shadow-sm transition active:scale-95"
         >
           <Plus size={15} />
           <span>Add Customer</span>
@@ -70,9 +70,9 @@ export default function AdminCustomersPage() {
       </div>
 
       {/* Main Table Card with Outline */}
-      <div className="bg-white rounded-2xl shadow-xs border border-violet-200/80 overflow-hidden">
+      <div className="bg-white rounded-2xl shadow-xs border border-blue-200/80 overflow-hidden">
         {/* Filter Bar */}
-        <div className="flex flex-wrap items-center gap-3 p-4 border-b border-violet-100 bg-violet-50/20">
+        <div className="flex flex-wrap items-center gap-3 p-4 border-b border-blue-100 bg-blue-50/20">
           <div className="relative flex-1 min-w-[220px]">
             <Search className="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" />
             <input
@@ -80,13 +80,13 @@ export default function AdminCustomersPage() {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search customers..."
-              className="w-full pl-9 pr-3 py-1.5 text-xs border border-violet-200/70 rounded-xl bg-white outline-none focus:border-violet-500 focus:ring-2 focus:ring-violet-100"
+              className="w-full pl-9 pr-3 py-1.5 text-xs border border-blue-200/70 rounded-xl bg-white outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
             />
           </div>
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="border border-violet-200/70 rounded-xl px-3 py-1.5 text-xs text-gray-700 bg-white outline-none focus:border-violet-500"
+            className="border border-blue-200/70 rounded-xl px-3 py-1.5 text-xs text-gray-700 bg-white outline-none focus:border-blue-500"
           >
             <option value="All">Status: All</option>
             <option value="Active">Active</option>
@@ -109,7 +109,7 @@ export default function AdminCustomersPage() {
             </thead>
             <tbody className="divide-y divide-gray-50">
               {filtered.map((c) => (
-                <tr key={c.id} className="text-xs hover:bg-violet-50/30 transition">
+                <tr key={c.id} className="text-xs hover:bg-blue-50/30 transition">
                   <td className="px-5 py-3.5 font-bold text-gray-900">{c.name}</td>
                   <td className="px-5 py-3.5 text-gray-500">{c.email}</td>
                   <td className="px-5 py-3.5 text-gray-600">{c.contact}</td>
@@ -123,7 +123,7 @@ export default function AdminCustomersPage() {
                     <div className="flex items-center justify-end gap-1.5">
                       <button
                         onClick={() => toast.info(`Viewing customer profile: ${c.name}`)}
-                        className="px-2.5 py-1 rounded-lg text-violet-700 bg-violet-50 hover:bg-violet-100 text-[11px] font-semibold transition"
+                        className="px-2.5 py-1 rounded-lg text-blue-700 bg-blue-50 hover:bg-blue-100 text-[11px] font-semibold transition"
                       >
                         Edit
                       </button>
@@ -150,7 +150,7 @@ export default function AdminCustomersPage() {
         </div>
 
         {/* Pagination Bar */}
-        <div className="flex items-center justify-between px-5 py-3.5 border-t border-violet-100 bg-gray-50/30 text-xs text-gray-500">
+        <div className="flex items-center justify-between px-5 py-3.5 border-t border-blue-100 bg-gray-50/30 text-xs text-gray-500">
           <span>Showing 1–{filtered.length} of 248</span>
           <div className="flex gap-1.5">
             {[1, 2, 3].map((p) => (
@@ -162,8 +162,8 @@ export default function AdminCustomersPage() {
                 }}
                 className={`w-7 h-7 rounded-lg text-xs font-semibold transition ${
                   activePage === p
-                    ? "bg-[#7C3AED] text-white"
-                    : "border border-violet-200 text-gray-700 hover:bg-violet-50"
+                    ? "bg-[#2563EB] text-white"
+                    : "border border-blue-200 text-gray-700 hover:bg-blue-50"
                 }`}
               >
                 {p}
@@ -175,7 +175,7 @@ export default function AdminCustomersPage() {
                 setActivePage(50);
                 toast.info("Switched to page 50");
               }}
-              className="w-7 h-7 rounded-lg border border-violet-200 text-xs text-gray-700 hover:bg-violet-50 font-semibold"
+              className="w-7 h-7 rounded-lg border border-blue-200 text-xs text-gray-700 hover:bg-blue-50 font-semibold"
             >
               50
             </button>
@@ -186,7 +186,7 @@ export default function AdminCustomersPage() {
       {/* Add Customer Modal */}
       {showAddModal && (
         <div className="fixed inset-0 bg-black/40 backdrop-blur-xs flex items-center justify-center z-50 p-4 animate-in fade-in">
-          <div className="bg-white rounded-2xl shadow-2xl border border-violet-200 max-w-md w-full p-6">
+          <div className="bg-white rounded-2xl shadow-2xl border border-blue-200 max-w-md w-full p-6">
             <h2 className="text-base font-bold text-gray-900 mb-1">Add New Customer</h2>
             <p className="text-xs text-gray-500 mb-4">Enter customer account and contact information.</p>
             <form onSubmit={handleCreateCustomer} className="space-y-3.5">
@@ -198,7 +198,7 @@ export default function AdminCustomersPage() {
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   placeholder="e.g. Acme Innovations Ltd."
-                  className="w-full px-3 py-2 text-xs border border-violet-200 rounded-xl outline-none focus:border-violet-500 focus:ring-2 focus:ring-violet-100"
+                  className="w-full px-3 py-2 text-xs border border-blue-200 rounded-xl outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
                 />
               </div>
               <div>
@@ -209,7 +209,7 @@ export default function AdminCustomersPage() {
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   placeholder="e.g. billing@acme.in"
-                  className="w-full px-3 py-2 text-xs border border-violet-200 rounded-xl outline-none focus:border-violet-500 focus:ring-2 focus:ring-violet-100"
+                  className="w-full px-3 py-2 text-xs border border-blue-200 rounded-xl outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
                 />
               </div>
               <div>
@@ -219,7 +219,7 @@ export default function AdminCustomersPage() {
                   value={formData.contact}
                   onChange={(e) => setFormData({ ...formData, contact: e.target.value })}
                   placeholder="e.g. +91 98765 43210"
-                  className="w-full px-3 py-2 text-xs border border-violet-200 rounded-xl outline-none focus:border-violet-500 focus:ring-2 focus:ring-violet-100"
+                  className="w-full px-3 py-2 text-xs border border-blue-200 rounded-xl outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
                 />
               </div>
               <div className="flex items-center justify-end gap-2 pt-3 border-t border-gray-100">
@@ -232,7 +232,7 @@ export default function AdminCustomersPage() {
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 rounded-xl text-xs font-semibold bg-[#7C3AED] hover:bg-[#6D28D9] text-white shadow-sm transition"
+                  className="px-4 py-2 rounded-xl text-xs font-semibold bg-[#2563EB] hover:bg-[#1D4ED8] text-white shadow-sm transition"
                 >
                   Create Customer
                 </button>

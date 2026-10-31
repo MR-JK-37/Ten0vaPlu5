@@ -34,15 +34,15 @@ export default function AdminTaxesPage() {
         </div>
         <button
           onClick={() => setShowAddModal(true)}
-          className="flex items-center gap-2 bg-[#7C3AED] hover:bg-[#6D28D9] text-white px-4 py-2.5 rounded-xl text-xs font-semibold shadow-sm transition active:scale-95"
+          className="flex items-center gap-2 bg-[#2563EB] hover:bg-[#1D4ED8] text-white px-4 py-2.5 rounded-xl text-xs font-semibold shadow-sm transition active:scale-95"
         >
           <Plus size={15} />
           <span>Add Tax Rule</span>
         </button>
       </div>
 
-      <div className="bg-white rounded-2xl shadow-xs border border-violet-200/80 overflow-hidden">
-        <div className="flex items-center gap-3 p-4 border-b border-violet-100 bg-violet-50/20">
+      <div className="bg-white rounded-2xl shadow-xs border border-blue-200/80 overflow-hidden">
+        <div className="flex items-center gap-3 p-4 border-b border-blue-100 bg-blue-50/20">
           <div className="relative flex-1 max-w-sm">
             <Search className="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" />
             <input
@@ -50,7 +50,7 @@ export default function AdminTaxesPage() {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search tax rules..."
-              className="w-full pl-9 pr-3 py-1.5 text-xs border border-violet-200/80 rounded-xl outline-none focus:border-violet-500 bg-white"
+              className="w-full pl-9 pr-3 py-1.5 text-xs border border-blue-200/80 rounded-xl outline-none focus:border-blue-500 bg-white"
             />
           </div>
         </div>
@@ -69,9 +69,9 @@ export default function AdminTaxesPage() {
             </thead>
             <tbody className="divide-y divide-gray-50 text-xs">
               {filtered.map((t) => (
-                <tr key={t.id} className="hover:bg-violet-50/30 transition">
+                <tr key={t.id} className="hover:bg-blue-50/30 transition">
                   <td className="px-5 py-3.5 font-bold text-gray-900">{t.name}</td>
-                  <td className="px-5 py-3.5 font-extrabold text-[#7C3AED]">{t.rate}</td>
+                  <td className="px-5 py-3.5 font-extrabold text-[#2563EB]">{t.rate}</td>
                   <td className="px-5 py-3.5 text-gray-700 font-medium">{t.appliesTo}</td>
                   <td className="px-5 py-3.5 text-gray-500">{t.jurisdiction}</td>
                   <td className="px-5 py-3.5">
@@ -97,7 +97,7 @@ export default function AdminTaxesPage() {
       {/* Add Tax Modal */}
       {showAddModal && (
         <div className="fixed inset-0 bg-black/40 backdrop-blur-xs flex items-center justify-center z-50 p-4 animate-in fade-in">
-          <div className="bg-white rounded-2xl shadow-2xl border border-violet-200 max-w-md w-full p-6">
+          <div className="bg-white rounded-2xl shadow-2xl border border-blue-200 max-w-md w-full p-6">
             <h2 className="text-base font-bold text-gray-900 mb-1">Add Tax Rule</h2>
             <p className="text-xs text-gray-500 mb-4">Configure a new tax bracket and rate.</p>
             <form
@@ -114,7 +114,7 @@ export default function AdminTaxesPage() {
                   type="text"
                   required
                   placeholder="e.g. VAT"
-                  className="w-full px-3 py-2 text-xs border border-violet-200 rounded-xl outline-none focus:border-violet-500"
+                  className="w-full px-3 py-2 text-xs border border-blue-200 rounded-xl outline-none focus:border-blue-500"
                 />
               </div>
               <div className="grid grid-cols-2 gap-3">
@@ -124,7 +124,7 @@ export default function AdminTaxesPage() {
                     type="text"
                     required
                     placeholder="e.g. 18%"
-                    className="w-full px-3 py-2 text-xs border border-violet-200 rounded-xl outline-none focus:border-violet-500"
+                    className="w-full px-3 py-2 text-xs border border-blue-200 rounded-xl outline-none focus:border-blue-500"
                   />
                 </div>
                 <div>
@@ -132,7 +132,7 @@ export default function AdminTaxesPage() {
                   <input
                     type="text"
                     defaultValue="India (National)"
-                    className="w-full px-3 py-2 text-xs border border-violet-200 rounded-xl outline-none focus:border-violet-500"
+                    className="w-full px-3 py-2 text-xs border border-blue-200 rounded-xl outline-none focus:border-blue-500"
                   />
                 </div>
               </div>
@@ -146,7 +146,7 @@ export default function AdminTaxesPage() {
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 rounded-xl text-xs font-semibold bg-[#7C3AED] hover:bg-[#6D28D9] text-white shadow-sm"
+                  className="px-4 py-2 rounded-xl text-xs font-semibold bg-[#2563EB] hover:bg-[#1D4ED8] text-white shadow-sm"
                 >
                   Save Rule
                 </button>

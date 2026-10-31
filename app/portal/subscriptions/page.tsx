@@ -44,7 +44,7 @@ export default function PortalSubscriptionsPage() {
         </p>
       </div>
 
-      <div className="bg-white rounded-2xl shadow-xs border border-violet-200/80 overflow-visible">
+      <div className="bg-white rounded-2xl shadow-xs border border-blue-200/80 overflow-visible">
         <div className="overflow-x-auto">
           <table className="w-full text-left">
             <thead>
@@ -59,8 +59,8 @@ export default function PortalSubscriptionsPage() {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-50 text-xs">
-              <tr className="hover:bg-violet-50/30 transition">
-                <td className="px-5 py-4 font-bold text-[#7C3AED]">{sub.id}</td>
+              <tr className="hover:bg-blue-50/30 transition">
+                <td className="px-5 py-4 font-bold text-[#2563EB]">{sub.id}</td>
                 <td className="px-5 py-4 text-gray-900 font-bold">{sub.product}</td>
                 <td className="px-5 py-4 text-gray-600 font-medium">{sub.plan}</td>
                 <td className="px-5 py-4 text-gray-500">{sub.startDate}</td>
@@ -80,26 +80,26 @@ export default function PortalSubscriptionsPage() {
                 <td className="px-5 py-4 text-right relative">
                   <button
                     onClick={() => setShowMenu(!showMenu)}
-                    className="p-1.5 rounded-xl hover:bg-violet-50 text-gray-400 hover:text-[#7C3AED] border border-transparent hover:border-violet-200 transition"
+                    className="p-1.5 rounded-xl hover:bg-blue-50 text-gray-400 hover:text-[#2563EB] border border-transparent hover:border-blue-200 transition"
                   >
                     <MoreVertical className="w-4 h-4" />
                   </button>
 
                   {showMenu && (
-                    <div className="absolute right-5 top-12 z-40 w-48 bg-white rounded-2xl shadow-xl border border-violet-200 p-1.5 text-left text-xs animate-in fade-in zoom-in-95">
+                    <div className="absolute right-5 top-12 z-40 w-48 bg-white rounded-2xl shadow-xl border border-blue-200 p-1.5 text-left text-xs animate-in fade-in zoom-in-95">
                       <button
                         onClick={() => {
                           setShowMenu(false);
                           setShowModal("change");
                         }}
-                        className="w-full px-3 py-2 flex items-center gap-2.5 hover:bg-violet-50 rounded-xl text-gray-700 font-medium transition"
+                        className="w-full px-3 py-2 flex items-center gap-2.5 hover:bg-blue-50 rounded-xl text-gray-700 font-medium transition"
                       >
-                        <ArrowLeftRight className="w-3.5 h-3.5 text-violet-600" />
+                        <ArrowLeftRight className="w-3.5 h-3.5 text-blue-600" />
                         <span>Change Plan</span>
                       </button>
                       <button
                         onClick={handleTogglePause}
-                        className="w-full px-3 py-2 flex items-center gap-2.5 hover:bg-violet-50 rounded-xl text-gray-700 font-medium transition"
+                        className="w-full px-3 py-2 flex items-center gap-2.5 hover:bg-blue-50 rounded-xl text-gray-700 font-medium transition"
                       >
                         {status === "Active" ? (
                           <>
@@ -125,7 +125,7 @@ export default function PortalSubscriptionsPage() {
                           setShowMenu(false);
                           setShowModal("details");
                         }}
-                        className="w-full px-3 py-2 flex items-center gap-2.5 hover:bg-violet-50 rounded-xl text-gray-700 font-medium border-t border-gray-100 transition mt-1 pt-1"
+                        className="w-full px-3 py-2 flex items-center gap-2.5 hover:bg-blue-50 rounded-xl text-gray-700 font-medium border-t border-gray-100 transition mt-1 pt-1"
                       >
                         <Eye className="w-3.5 h-3.5 text-gray-400" />
                         <span>View Details</span>
@@ -142,10 +142,10 @@ export default function PortalSubscriptionsPage() {
       {/* Details / Change Modals */}
       {showModal === "details" && (
         <div className="fixed inset-0 bg-black/40 backdrop-blur-xs flex items-center justify-center z-50 p-4 animate-in fade-in">
-          <div className="bg-white rounded-2xl shadow-2xl border border-violet-200 max-w-sm w-full p-6 text-left">
+          <div className="bg-white rounded-2xl shadow-2xl border border-blue-200 max-w-sm w-full p-6 text-left">
             <h2 className="text-base font-bold text-gray-900 mb-2">Subscription Details</h2>
-            <div className="space-y-2 text-xs border border-violet-100 bg-violet-50/20 rounded-xl p-3 mb-4">
-              <div className="flex justify-between"><span className="text-gray-500">Subscription ID:</span><span className="font-bold text-[#7C3AED]">{sub.id}</span></div>
+            <div className="space-y-2 text-xs border border-blue-100 bg-blue-50/20 rounded-xl p-3 mb-4">
+              <div className="flex justify-between"><span className="text-gray-500">Subscription ID:</span><span className="font-bold text-[#2563EB]">{sub.id}</span></div>
               <div className="flex justify-between"><span className="text-gray-500">Service:</span><span className="font-bold text-gray-900">{sub.product}</span></div>
               <div className="flex justify-between"><span className="text-gray-500">Billing Cycle:</span><span className="font-medium text-gray-700">{sub.plan}</span></div>
               <div className="flex justify-between"><span className="text-gray-500">Rate:</span><span className="font-bold text-gray-900">₹1,000 + GST</span></div>
@@ -153,7 +153,7 @@ export default function PortalSubscriptionsPage() {
             </div>
             <button
               onClick={() => setShowModal(null)}
-              className="w-full bg-[#7C3AED] text-white py-2 rounded-xl text-xs font-semibold"
+              className="w-full bg-[#2563EB] text-white py-2 rounded-xl text-xs font-semibold"
             >
               Close
             </button>
@@ -163,7 +163,7 @@ export default function PortalSubscriptionsPage() {
 
       {showModal === "change" && (
         <div className="fixed inset-0 bg-black/40 backdrop-blur-xs flex items-center justify-center z-50 p-4 animate-in fade-in">
-          <div className="bg-white rounded-2xl shadow-2xl border border-violet-200 max-w-sm w-full p-6 text-left">
+          <div className="bg-white rounded-2xl shadow-2xl border border-blue-200 max-w-sm w-full p-6 text-left">
             <h2 className="text-base font-bold text-gray-900 mb-1">Change Subscription Tier</h2>
             <p className="text-xs text-gray-500 mb-4">Select the plan to switch to starting next cycle:</p>
             <div className="space-y-2 mb-4 text-xs">
@@ -172,7 +172,7 @@ export default function PortalSubscriptionsPage() {
                   toast.success("Switched to Starter Plan (₹1,000/mo)");
                   setShowModal(null);
                 }}
-                className="w-full p-2.5 rounded-xl border border-violet-100 hover:bg-violet-50 text-left font-medium text-gray-800"
+                className="w-full p-2.5 rounded-xl border border-blue-100 hover:bg-blue-50 text-left font-medium text-gray-800"
               >
                 Starter Tier (Up to 5 users) — ₹1,000/mo
               </button>
@@ -181,7 +181,7 @@ export default function PortalSubscriptionsPage() {
                   toast.success("Upgraded to Business Plan (₹2,000/mo)");
                   setShowModal(null);
                 }}
-                className="w-full p-2.5 rounded-xl border border-[#7C3AED] bg-violet-50 text-left font-bold text-[#7C3AED]"
+                className="w-full p-2.5 rounded-xl border border-[#2563EB] bg-blue-50 text-left font-bold text-[#2563EB]"
               >
                 Business Tier (Up to 25 users) — ₹2,000/mo (Current)
               </button>
@@ -190,7 +190,7 @@ export default function PortalSubscriptionsPage() {
                   toast.success("Upgraded to Enterprise Plan (₹5,000/mo)");
                   setShowModal(null);
                 }}
-                className="w-full p-2.5 rounded-xl border border-violet-100 hover:bg-violet-50 text-left font-medium text-gray-800"
+                className="w-full p-2.5 rounded-xl border border-blue-100 hover:bg-blue-50 text-left font-medium text-gray-800"
               >
                 Enterprise Tier (Unlimited) — ₹5,000/mo
               </button>

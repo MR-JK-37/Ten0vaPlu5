@@ -26,8 +26,8 @@ export default function StaffProductsPage() {
         <p className="text-gray-500 text-xs mt-1">Review catalog software packages, pricing and features to configure quotes.</p>
       </div>
 
-      <div className="bg-white rounded-2xl shadow-xs border border-violet-200/80 overflow-hidden">
-        <div className="flex items-center gap-3 p-4 border-b border-violet-100 bg-violet-50/20">
+      <div className="bg-white rounded-2xl shadow-xs border border-blue-200/80 overflow-hidden">
+        <div className="flex items-center gap-3 p-4 border-b border-blue-100 bg-blue-50/20">
           <div className="relative flex-1 max-w-sm">
             <Search className="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" />
             <input
@@ -35,7 +35,7 @@ export default function StaffProductsPage() {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search products..."
-              className="w-full pl-9 pr-3 py-1.5 text-xs border border-violet-200/80 rounded-xl outline-none focus:border-violet-500 bg-white"
+              className="w-full pl-9 pr-3 py-1.5 text-xs border border-blue-200/80 rounded-xl outline-none focus:border-blue-500 bg-white"
             />
           </div>
         </div>
@@ -54,10 +54,10 @@ export default function StaffProductsPage() {
             </thead>
             <tbody className="divide-y divide-gray-50 text-xs">
               {filtered.map((p) => (
-                <tr key={p.id} className="hover:bg-violet-50/30 transition">
+                <tr key={p.id} className="hover:bg-blue-50/30 transition">
                   <td className="px-5 py-3.5 font-bold text-gray-900">{p.name}</td>
                   <td className="px-5 py-3.5 text-gray-500 font-medium">{p.type}</td>
-                  <td className="px-5 py-3.5 font-bold text-[#7C3AED]">{p.sellingPrice}</td>
+                  <td className="px-5 py-3.5 font-bold text-[#2563EB]">{p.sellingPrice}</td>
                   <td className="px-5 py-3.5 text-gray-500">{p.costPrice}</td>
                   <td className="px-5 py-3.5">
                     <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-green-100 text-green-700 border border-green-200">
@@ -67,7 +67,7 @@ export default function StaffProductsPage() {
                   <td className="px-5 py-3.5 text-right">
                     <button
                       onClick={() => toast.info(`Product ${p.name}: Selling ${p.sellingPrice}, Cost ${p.costPrice}`)}
-                      className="px-2.5 py-1 rounded-lg text-violet-700 bg-violet-50 hover:bg-violet-100 text-[11px] font-semibold transition border border-violet-200/70"
+                      className="px-2.5 py-1 rounded-lg text-blue-700 bg-blue-50 hover:bg-blue-100 text-[11px] font-semibold transition border border-blue-200/70"
                     >
                       View
                     </button>

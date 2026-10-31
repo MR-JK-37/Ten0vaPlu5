@@ -73,7 +73,7 @@ export default function StaffTasksPage() {
         </div>
         <button
           onClick={() => setShowAddModal(true)}
-          className="flex items-center gap-2 bg-[#7C3AED] hover:bg-[#6D28D9] text-white px-4 py-2.5 rounded-xl text-xs font-semibold shadow-sm transition active:scale-95"
+          className="flex items-center gap-2 bg-[#2563EB] hover:bg-[#1D4ED8] text-white px-4 py-2.5 rounded-xl text-xs font-semibold shadow-sm transition active:scale-95"
         >
           <Plus size={15} />
           <span>Add Task</span>
@@ -81,9 +81,9 @@ export default function StaffTasksPage() {
       </div>
 
       {/* Main Table Card with Outline */}
-      <div className="bg-white rounded-2xl shadow-xs border border-violet-200/80 overflow-hidden">
+      <div className="bg-white rounded-2xl shadow-xs border border-blue-200/80 overflow-hidden">
         {/* Filter Bar */}
-        <div className="flex flex-wrap items-center gap-3 p-4 border-b border-violet-100 bg-violet-50/20">
+        <div className="flex flex-wrap items-center gap-3 p-4 border-b border-blue-100 bg-blue-50/20">
           <div className="relative flex-1 min-w-[200px]">
             <Search className="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" />
             <input
@@ -91,13 +91,13 @@ export default function StaffTasksPage() {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search tasks..."
-              className="w-full pl-9 pr-3 py-1.5 text-xs border border-violet-200/70 rounded-xl bg-white outline-none focus:border-violet-500 focus:ring-2 focus:ring-violet-100"
+              className="w-full pl-9 pr-3 py-1.5 text-xs border border-blue-200/70 rounded-xl bg-white outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
             />
           </div>
           <select
             value={priorityFilter}
             onChange={(e) => setPriorityFilter(e.target.value)}
-            className="border border-violet-200/70 rounded-xl px-3 py-1.5 text-xs text-gray-700 bg-white outline-none focus:border-violet-500"
+            className="border border-blue-200/70 rounded-xl px-3 py-1.5 text-xs text-gray-700 bg-white outline-none focus:border-blue-500"
           >
             <option value="All">All Priority</option>
             <option value="High">High Priority</option>
@@ -107,7 +107,7 @@ export default function StaffTasksPage() {
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="border border-violet-200/70 rounded-xl px-3 py-1.5 text-xs text-gray-700 bg-white outline-none focus:border-violet-500"
+            className="border border-blue-200/70 rounded-xl px-3 py-1.5 text-xs text-gray-700 bg-white outline-none focus:border-blue-500"
           >
             <option value="All">All Status</option>
             <option value="Overdue">Overdue</option>
@@ -132,13 +132,13 @@ export default function StaffTasksPage() {
             </thead>
             <tbody className="divide-y divide-gray-50 text-xs">
               {filteredTasks.map((t) => (
-                <tr key={t.id} className="hover:bg-violet-50/30 transition">
+                <tr key={t.id} className="hover:bg-blue-50/30 transition">
                   <td className="px-5 py-3.5">
                     <input
                       type="checkbox"
                       checked={t.done}
                       onChange={() => handleToggleDone(t.id)}
-                      className="w-4 h-4 rounded text-violet-600 border-violet-300 focus:ring-violet-400 cursor-pointer"
+                      className="w-4 h-4 rounded text-blue-600 border-blue-300 focus:ring-blue-400 cursor-pointer"
                     />
                   </td>
                   <td className="px-3 py-3.5 font-semibold text-gray-900">
@@ -159,7 +159,7 @@ export default function StaffTasksPage() {
                   <td className="px-5 py-3.5 text-right">
                     <button
                       onClick={() => handleToggleDone(t.id)}
-                      className="px-2.5 py-1 rounded-lg text-violet-700 bg-violet-50 hover:bg-violet-100 text-[11px] font-semibold transition"
+                      className="px-2.5 py-1 rounded-lg text-blue-700 bg-blue-50 hover:bg-blue-100 text-[11px] font-semibold transition"
                     >
                       {t.done ? "Undo" : "Complete"}
                     </button>
@@ -174,7 +174,7 @@ export default function StaffTasksPage() {
       {/* Add Task Modal */}
       {showAddModal && (
         <div className="fixed inset-0 bg-black/40 backdrop-blur-xs flex items-center justify-center z-50 p-4 animate-in fade-in">
-          <div className="bg-white rounded-2xl shadow-2xl border border-violet-200 max-w-md w-full p-6">
+          <div className="bg-white rounded-2xl shadow-2xl border border-blue-200 max-w-md w-full p-6">
             <h2 className="text-base font-bold text-gray-900 mb-1">Add New Task</h2>
             <p className="text-xs text-gray-500 mb-4">Create a task assignment for the staff workflow.</p>
             <form onSubmit={handleAddTask} className="space-y-3.5">
@@ -186,7 +186,7 @@ export default function StaffTasksPage() {
                   value={newTask.task}
                   onChange={(e) => setNewTask({ ...newTask, task: e.target.value })}
                   placeholder="e.g. Follow up on overdue invoice INV-01455"
-                  className="w-full px-3 py-2 text-xs border border-violet-200 rounded-xl outline-none focus:border-violet-500 focus:ring-2 focus:ring-violet-100"
+                  className="w-full px-3 py-2 text-xs border border-blue-200 rounded-xl outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
                 />
               </div>
               <div className="grid grid-cols-2 gap-3">
@@ -195,7 +195,7 @@ export default function StaffTasksPage() {
                   <select
                     value={newTask.relatedTo}
                     onChange={(e) => setNewTask({ ...newTask, relatedTo: e.target.value })}
-                    className="w-full px-3 py-2 text-xs border border-violet-200 rounded-xl outline-none focus:border-violet-500"
+                    className="w-full px-3 py-2 text-xs border border-blue-200 rounded-xl outline-none focus:border-blue-500"
                   >
                     <option>Invoice</option>
                     <option>Quotation</option>
@@ -209,7 +209,7 @@ export default function StaffTasksPage() {
                   <select
                     value={newTask.priority}
                     onChange={(e) => setNewTask({ ...newTask, priority: e.target.value })}
-                    className="w-full px-3 py-2 text-xs border border-violet-200 rounded-xl outline-none focus:border-violet-500"
+                    className="w-full px-3 py-2 text-xs border border-blue-200 rounded-xl outline-none focus:border-blue-500"
                   >
                     <option>High</option>
                     <option>Medium</option>
@@ -224,7 +224,7 @@ export default function StaffTasksPage() {
                   value={newTask.dueDate}
                   onChange={(e) => setNewTask({ ...newTask, dueDate: e.target.value })}
                   placeholder="e.g. Today, Tomorrow, or Nov 10"
-                  className="w-full px-3 py-2 text-xs border border-violet-200 rounded-xl outline-none focus:border-violet-500"
+                  className="w-full px-3 py-2 text-xs border border-blue-200 rounded-xl outline-none focus:border-blue-500"
                 />
               </div>
               <div className="flex items-center justify-end gap-2 pt-3 border-t border-gray-100">
@@ -237,7 +237,7 @@ export default function StaffTasksPage() {
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 rounded-xl text-xs font-semibold bg-[#7C3AED] hover:bg-[#6D28D9] text-white shadow-sm transition"
+                  className="px-4 py-2 rounded-xl text-xs font-semibold bg-[#2563EB] hover:bg-[#1D4ED8] text-white shadow-sm transition"
                 >
                   Create Task
                 </button>

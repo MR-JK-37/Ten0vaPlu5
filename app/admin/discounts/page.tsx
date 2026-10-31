@@ -34,15 +34,15 @@ export default function AdminDiscountsPage() {
         </div>
         <button
           onClick={() => setShowAddModal(true)}
-          className="flex items-center gap-2 bg-[#7C3AED] hover:bg-[#6D28D9] text-white px-4 py-2.5 rounded-xl text-xs font-semibold shadow-sm transition active:scale-95"
+          className="flex items-center gap-2 bg-[#2563EB] hover:bg-[#1D4ED8] text-white px-4 py-2.5 rounded-xl text-xs font-semibold shadow-sm transition active:scale-95"
         >
           <Plus size={15} />
           <span>Add Discount</span>
         </button>
       </div>
 
-      <div className="bg-white rounded-2xl shadow-xs border border-violet-200/80 overflow-hidden">
-        <div className="flex items-center gap-3 p-4 border-b border-violet-100 bg-violet-50/20">
+      <div className="bg-white rounded-2xl shadow-xs border border-blue-200/80 overflow-hidden">
+        <div className="flex items-center gap-3 p-4 border-b border-blue-100 bg-blue-50/20">
           <div className="relative flex-1 max-w-sm">
             <Search className="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" />
             <input
@@ -50,7 +50,7 @@ export default function AdminDiscountsPage() {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search discount codes..."
-              className="w-full pl-9 pr-3 py-1.5 text-xs border border-violet-200/80 rounded-xl outline-none focus:border-violet-500 bg-white"
+              className="w-full pl-9 pr-3 py-1.5 text-xs border border-blue-200/80 rounded-xl outline-none focus:border-blue-500 bg-white"
             />
           </div>
         </div>
@@ -70,9 +70,9 @@ export default function AdminDiscountsPage() {
             </thead>
             <tbody className="divide-y divide-gray-50 text-xs">
               {filtered.map((d, i) => (
-                <tr key={i} className="hover:bg-violet-50/30 transition">
+                <tr key={i} className="hover:bg-blue-50/30 transition">
                   <td className="px-5 py-3.5">
-                    <span className="font-mono font-bold text-xs bg-violet-50 text-[#7C3AED] border border-violet-200 px-2 py-1 rounded-lg">
+                    <span className="font-mono font-bold text-xs bg-blue-50 text-[#2563EB] border border-blue-200 px-2 py-1 rounded-lg">
                       {d.code}
                     </span>
                   </td>
@@ -103,7 +103,7 @@ export default function AdminDiscountsPage() {
       {/* Add Discount Modal */}
       {showAddModal && (
         <div className="fixed inset-0 bg-black/40 backdrop-blur-xs flex items-center justify-center z-50 p-4 animate-in fade-in">
-          <div className="bg-white rounded-2xl shadow-2xl border border-violet-200 max-w-md w-full p-6">
+          <div className="bg-white rounded-2xl shadow-2xl border border-blue-200 max-w-md w-full p-6">
             <h2 className="text-base font-bold text-gray-900 mb-1">Create Discount Code</h2>
             <p className="text-xs text-gray-500 mb-4">Add a new coupon or voucher code.</p>
             <form
@@ -120,7 +120,7 @@ export default function AdminDiscountsPage() {
                   type="text"
                   required
                   placeholder="e.g. FLASH20"
-                  className="w-full px-3 py-2 text-xs border border-violet-200 rounded-xl outline-none focus:border-violet-500 font-mono uppercase"
+                  className="w-full px-3 py-2 text-xs border border-blue-200 rounded-xl outline-none focus:border-blue-500 font-mono uppercase"
                 />
               </div>
               <div className="grid grid-cols-2 gap-3">
@@ -130,12 +130,12 @@ export default function AdminDiscountsPage() {
                     type="text"
                     required
                     placeholder="e.g. 20%"
-                    className="w-full px-3 py-2 text-xs border border-violet-200 rounded-xl outline-none focus:border-violet-500"
+                    className="w-full px-3 py-2 text-xs border border-blue-200 rounded-xl outline-none focus:border-blue-500"
                   />
                 </div>
                 <div>
                   <label className="text-xs font-semibold text-gray-700 block mb-1">Type</label>
-                  <select className="w-full px-3 py-2 text-xs border border-violet-200 rounded-xl outline-none focus:border-violet-500">
+                  <select className="w-full px-3 py-2 text-xs border border-blue-200 rounded-xl outline-none focus:border-blue-500">
                     <option>Percentage</option>
                     <option>Fixed Amount</option>
                   </select>
@@ -151,7 +151,7 @@ export default function AdminDiscountsPage() {
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 rounded-xl text-xs font-semibold bg-[#7C3AED] hover:bg-[#6D28D9] text-white shadow-sm"
+                  className="px-4 py-2 rounded-xl text-xs font-semibold bg-[#2563EB] hover:bg-[#1D4ED8] text-white shadow-sm"
                 >
                   Create Code
                 </button>

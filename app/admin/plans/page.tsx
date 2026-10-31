@@ -54,7 +54,7 @@ export default function AdminPlansPage() {
         </div>
         <button
           onClick={() => setShowAddModal(true)}
-          className="flex items-center gap-2 bg-[#7C3AED] hover:bg-[#6D28D9] text-white px-4 py-2.5 rounded-xl text-xs font-semibold shadow-sm transition active:scale-95"
+          className="flex items-center gap-2 bg-[#2563EB] hover:bg-[#1D4ED8] text-white px-4 py-2.5 rounded-xl text-xs font-semibold shadow-sm transition active:scale-95"
         >
           <Plus size={15} />
           <span>Add Plan</span>
@@ -62,7 +62,7 @@ export default function AdminPlansPage() {
       </div>
 
       {/* Tabs */}
-      <div className="flex items-center gap-1.5 p-1 bg-white border border-violet-200/80 rounded-2xl shadow-xs self-start w-fit">
+      <div className="flex items-center gap-1.5 p-1 bg-white border border-blue-200/80 rounded-2xl shadow-xs self-start w-fit">
         {["All Plans", "Monthly", "Yearly", "Daily", "Weekly"].map((tab) => (
           <button
             key={tab}
@@ -72,8 +72,8 @@ export default function AdminPlansPage() {
             }}
             className={`px-3 py-1.5 text-xs font-semibold rounded-xl transition ${
               activeTab === tab
-                ? "bg-[#7C3AED] text-white shadow-xs"
-                : "text-gray-600 hover:text-violet-700 hover:bg-violet-50"
+                ? "bg-[#2563EB] text-white shadow-xs"
+                : "text-gray-600 hover:text-blue-700 hover:bg-blue-50"
             }`}
           >
             {tab}
@@ -87,17 +87,17 @@ export default function AdminPlansPage() {
           <div
             key={p.id}
             className={`bg-white rounded-2xl p-6 shadow-xs border transition flex flex-col justify-between relative ${
-              p.isPopular ? "border-[#7C3AED] ring-2 ring-violet-500/20" : "border-violet-200/80 hover:border-violet-300"
+              p.isPopular ? "border-[#2563EB] ring-2 ring-blue-500/20" : "border-blue-200/80 hover:border-blue-300"
             }`}
           >
             {p.isPopular && (
-              <span className="absolute -top-3 right-6 bg-[#7C3AED] text-white text-[10px] font-extrabold px-3 py-0.5 rounded-full uppercase tracking-wider shadow-xs">
+              <span className="absolute -top-3 right-6 bg-[#2563EB] text-white text-[10px] font-extrabold px-3 py-0.5 rounded-full uppercase tracking-wider shadow-xs">
                 Most Popular
               </span>
             )}
             <div>
               <div className="flex items-center gap-2 mb-2">
-                <span className="w-2.5 h-2.5 rounded-full bg-[#7C3AED]" />
+                <span className="w-2.5 h-2.5 rounded-full bg-[#2563EB]" />
                 <h2 className="text-base font-bold text-gray-900">{p.name}</h2>
               </div>
               <div className="text-2xl font-extrabold text-gray-900 my-4">{p.price}</div>
@@ -116,7 +116,7 @@ export default function AdminPlansPage() {
               </span>
               <button
                 onClick={() => setEditingPlan(p.name)}
-                className="px-3 py-1.5 rounded-xl text-xs font-semibold bg-violet-50 hover:bg-violet-100 text-violet-700 border border-violet-200 transition"
+                className="px-3 py-1.5 rounded-xl text-xs font-semibold bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 transition"
               >
                 Edit
               </button>
@@ -128,7 +128,7 @@ export default function AdminPlansPage() {
       {/* Add Plan Modal */}
       {showAddModal && (
         <div className="fixed inset-0 bg-black/40 backdrop-blur-xs flex items-center justify-center z-50 p-4 animate-in fade-in">
-          <div className="bg-white rounded-2xl shadow-2xl border border-violet-200 max-w-md w-full p-6">
+          <div className="bg-white rounded-2xl shadow-2xl border border-blue-200 max-w-md w-full p-6">
             <h2 className="text-base font-bold text-gray-900 mb-1">Create Subscription Plan</h2>
             <p className="text-xs text-gray-500 mb-4">Define a new pricing level and feature tier.</p>
             <form
@@ -145,7 +145,7 @@ export default function AdminPlansPage() {
                   type="text"
                   required
                   placeholder="e.g. Pro Growth"
-                  className="w-full px-3 py-2 text-xs border border-violet-200 rounded-xl outline-none focus:border-violet-500"
+                  className="w-full px-3 py-2 text-xs border border-blue-200 rounded-xl outline-none focus:border-blue-500"
                 />
               </div>
               <div className="grid grid-cols-2 gap-3">
@@ -155,12 +155,12 @@ export default function AdminPlansPage() {
                     type="text"
                     required
                     placeholder="e.g. 2999"
-                    className="w-full px-3 py-2 text-xs border border-violet-200 rounded-xl outline-none focus:border-violet-500"
+                    className="w-full px-3 py-2 text-xs border border-blue-200 rounded-xl outline-none focus:border-blue-500"
                   />
                 </div>
                 <div>
                   <label className="text-xs font-semibold text-gray-700 block mb-1">Billing Period</label>
-                  <select className="w-full px-3 py-2 text-xs border border-violet-200 rounded-xl outline-none focus:border-violet-500">
+                  <select className="w-full px-3 py-2 text-xs border border-blue-200 rounded-xl outline-none focus:border-blue-500">
                     <option>Monthly</option>
                     <option>Yearly</option>
                   </select>
@@ -176,7 +176,7 @@ export default function AdminPlansPage() {
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 rounded-xl text-xs font-semibold bg-[#7C3AED] hover:bg-[#6D28D9] text-white shadow-sm"
+                  className="px-4 py-2 rounded-xl text-xs font-semibold bg-[#2563EB] hover:bg-[#1D4ED8] text-white shadow-sm"
                 >
                   Create Plan
                 </button>
@@ -189,7 +189,7 @@ export default function AdminPlansPage() {
       {/* Edit Plan Modal */}
       {editingPlan && (
         <div className="fixed inset-0 bg-black/40 backdrop-blur-xs flex items-center justify-center z-50 p-4 animate-in fade-in">
-          <div className="bg-white rounded-2xl shadow-2xl border border-violet-200 max-w-sm w-full p-6 text-center">
+          <div className="bg-white rounded-2xl shadow-2xl border border-blue-200 max-w-sm w-full p-6 text-center">
             <h2 className="text-base font-bold text-gray-900 mb-1">Edit Plan: {editingPlan}</h2>
             <p className="text-xs text-gray-500 mb-4">Adjust pricing or feature allotments.</p>
             <button
@@ -197,7 +197,7 @@ export default function AdminPlansPage() {
                 toast.success(`Plan ${editingPlan} updated!`);
                 setEditingPlan(null);
               }}
-              className="w-full bg-[#7C3AED] text-white py-2 rounded-xl text-xs font-semibold mb-2"
+              className="w-full bg-[#2563EB] text-white py-2 rounded-xl text-xs font-semibold mb-2"
             >
               Save Changes
             </button>

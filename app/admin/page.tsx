@@ -24,8 +24,8 @@ export default function AdminDashboardPage() {
       change: "+6.8%",
       isPositive: true,
       icon: Users,
-      color: "text-violet-600",
-      bg: "bg-violet-50",
+      color: "text-blue-600",
+      bg: "bg-blue-50",
     },
     {
       title: "Revenue (This Month)",
@@ -81,7 +81,7 @@ export default function AdminDashboardPage() {
           <select
             value={timeRange}
             onChange={(e) => handleTimeRangeChange(e.target.value)}
-            className="border border-violet-200/80 rounded-xl px-3 py-1.5 text-xs font-semibold text-gray-700 bg-white outline-none focus:border-violet-500 shadow-xs"
+            className="border border-blue-200/80 rounded-xl px-3 py-1.5 text-xs font-semibold text-gray-700 bg-white outline-none focus:border-blue-500 shadow-xs"
           >
             <option>This Year</option>
             <option>This Quarter</option>
@@ -91,7 +91,7 @@ export default function AdminDashboardPage() {
             onClick={() => {
               toast.success("Dashboard metrics refreshed");
             }}
-            className="p-1.5 rounded-xl border border-violet-200/80 bg-white hover:bg-violet-50 text-gray-600 hover:text-violet-700 transition shadow-xs"
+            className="p-1.5 rounded-xl border border-blue-200/80 bg-white hover:bg-blue-50 text-gray-600 hover:text-blue-700 transition shadow-xs"
             title="Refresh metrics"
           >
             <RefreshCw size={15} />
@@ -106,7 +106,7 @@ export default function AdminDashboardPage() {
           return (
             <div
               key={i}
-              className="bg-white rounded-2xl p-5 shadow-xs border border-violet-200/80 flex flex-col justify-between hover:border-violet-300 transition"
+              className="bg-white rounded-2xl p-5 shadow-xs border border-blue-200/80 flex flex-col justify-between hover:border-blue-300 transition"
             >
               <div className="flex items-center justify-between">
                 <div className={`w-9 h-9 rounded-xl ${kpi.bg} flex items-center justify-center shrink-0`}>
@@ -133,11 +133,11 @@ export default function AdminDashboardPage() {
       {/* Revenue & Subscriptions Charts */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Revenue Overview Line Chart (7 cols) */}
-        <div className="lg:col-span-7 bg-white rounded-2xl p-5 shadow-xs border border-violet-200/80 flex flex-col justify-between">
+        <div className="lg:col-span-7 bg-white rounded-2xl p-5 shadow-xs border border-blue-200/80 flex flex-col justify-between">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-sm font-bold text-gray-900">Revenue Overview</h2>
             <div className="flex items-center gap-4 text-xs font-medium text-gray-500">
-              <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-[#7C3AED]" /> Billed</span>
+              <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-[#2563EB]" /> Billed</span>
               <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-[#3B82F6]" /> Received</span>
             </div>
           </div>
@@ -151,11 +151,11 @@ export default function AdminDashboardPage() {
             <text x="35" y="40" fontSize="9" fill="#94a3b8" textAnchor="end">₹80L</text>
             <text x="35" y="10" fontSize="9" fill="#94a3b8" textAnchor="end">₹1.2Cr</text>
 
-            {/* Billed Curve (Purple) */}
+            {/* Billed Curve (Blue) */}
             <path
               d="M 55 140 C 110 120, 160 110, 210 95 C 260 85, 310 65, 360 55 C 410 45, 460 30, 500 20"
               fill="none"
-              stroke="#7C3AED"
+              stroke="#2563EB"
               strokeWidth="2.5"
             />
             {/* Received Curve (Blue) */}
@@ -172,7 +172,7 @@ export default function AdminDashboardPage() {
         </div>
 
         {/* Subscriptions by Status Donut (5 cols) */}
-        <div className="lg:col-span-5 bg-white rounded-2xl p-5 shadow-xs border border-violet-200/80 flex flex-col justify-between">
+        <div className="lg:col-span-5 bg-white rounded-2xl p-5 shadow-xs border border-blue-200/80 flex flex-col justify-between">
           <h2 className="text-sm font-bold text-gray-900 mb-2">Subscriptions by Status</h2>
           <div className="relative flex items-center justify-center py-4">
             <svg viewBox="0 0 160 160" className="w-36 h-36 -rotate-90">
@@ -183,7 +183,7 @@ export default function AdminDashboardPage() {
               {/* Draft: 4% */}
               <circle cx="80" cy="80" r="60" fill="none" stroke="#3b82f6" strokeWidth="20" strokeDasharray="15 377" strokeDashoffset="-328" />
               {/* Quoted: 3% */}
-              <circle cx="80" cy="80" r="60" fill="none" stroke="#8b5cf6" strokeWidth="20" strokeDasharray="11 377" strokeDashoffset="-343" />
+              <circle cx="80" cy="80" r="60" fill="none" stroke="#38bdf8" strokeWidth="20" strokeDasharray="11 377" strokeDashoffset="-343" />
               {/* Closed: 6% */}
               <circle cx="80" cy="80" r="60" fill="none" stroke="#ef4444" strokeWidth="20" strokeDasharray="23 377" strokeDashoffset="-354" />
             </svg>
@@ -196,7 +196,7 @@ export default function AdminDashboardPage() {
             <div className="flex justify-between items-center"><span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-emerald-500" /> Active</span><span className="font-semibold text-gray-800">1,024 (82%)</span></div>
             <div className="flex justify-between items-center"><span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-amber-500" /> Paused</span><span className="font-semibold text-gray-800">62 (5%)</span></div>
             <div className="flex justify-between items-center"><span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-blue-500" /> Draft</span><span className="font-semibold text-gray-800">48 (4%)</span></div>
-            <div className="flex justify-between items-center"><span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-purple-500" /> Quoted</span><span className="font-semibold text-gray-800">36 (3%)</span></div>
+            <div className="flex justify-between items-center"><span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-sky-500" /> Quoted</span><span className="font-semibold text-gray-800">36 (3%)</span></div>
             <div className="flex justify-between items-center"><span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-red-500" /> Closed</span><span className="font-semibold text-gray-800">78 (6%)</span></div>
           </div>
         </div>
@@ -205,10 +205,10 @@ export default function AdminDashboardPage() {
       {/* Recent Invoices & Upcoming Renewals */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Recent Invoices */}
-        <div className="bg-white rounded-2xl p-5 shadow-xs border border-violet-200/80">
+        <div className="bg-white rounded-2xl p-5 shadow-xs border border-blue-200/80">
           <div className="flex items-center justify-between mb-3">
             <h2 className="text-sm font-bold text-gray-900">Recent Invoices</h2>
-            <Link href="/admin/invoices" className="text-xs font-semibold text-violet-600 hover:text-violet-700">
+            <Link href="/admin/invoices" className="text-xs font-semibold text-blue-600 hover:text-blue-700">
               View All →
             </Link>
           </div>
@@ -223,8 +223,8 @@ export default function AdminDashboardPage() {
             </thead>
             <tbody className="divide-y divide-gray-50 text-xs">
               {recentInvoices.map((inv) => (
-                <tr key={inv.id} className="hover:bg-violet-50/30 transition">
-                  <td className="py-2.5 font-bold text-violet-700">{inv.id}</td>
+                <tr key={inv.id} className="hover:bg-blue-50/30 transition">
+                  <td className="py-2.5 font-bold text-blue-700">{inv.id}</td>
                   <td className="py-2.5 text-gray-800 font-medium">{inv.customer}</td>
                   <td className="py-2.5 font-bold text-gray-900">{inv.amount}</td>
                   <td className="py-2.5 text-right">
@@ -239,10 +239,10 @@ export default function AdminDashboardPage() {
         </div>
 
         {/* Upcoming Renewals */}
-        <div className="bg-white rounded-2xl p-5 shadow-xs border border-violet-200/80">
+        <div className="bg-white rounded-2xl p-5 shadow-xs border border-blue-200/80">
           <div className="flex items-center justify-between mb-3">
             <h2 className="text-sm font-bold text-gray-900">Upcoming Renewals</h2>
-            <Link href="/admin/subscriptions" className="text-xs font-semibold text-violet-600 hover:text-violet-700">
+            <Link href="/admin/subscriptions" className="text-xs font-semibold text-blue-600 hover:text-blue-700">
               View All →
             </Link>
           </div>
@@ -256,10 +256,10 @@ export default function AdminDashboardPage() {
             </thead>
             <tbody className="divide-y divide-gray-50 text-xs">
               {upcomingRenewals.map((r, i) => (
-                <tr key={i} className="hover:bg-violet-50/30 transition">
+                <tr key={i} className="hover:bg-blue-50/30 transition">
                   <td className="py-2.5 text-gray-900 font-bold">{r.customer}</td>
                   <td className="py-2.5 text-gray-600 font-medium">{r.plan}</td>
-                  <td className="py-2.5 text-right font-semibold text-violet-700">{r.date}</td>
+                  <td className="py-2.5 text-right font-semibold text-blue-700">{r.date}</td>
                 </tr>
               ))}
             </tbody>

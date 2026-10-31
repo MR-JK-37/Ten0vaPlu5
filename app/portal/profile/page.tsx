@@ -47,7 +47,7 @@ export default function PortalProfilePage() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Personal Information */}
-        <div className="bg-white rounded-2xl p-6 shadow-xs border border-violet-200/80 flex flex-col justify-between">
+        <div className="bg-white rounded-2xl p-6 shadow-xs border border-blue-200/80 flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between pb-4 border-b border-gray-100">
               <h2 className="text-base font-bold text-gray-900">Personal Information</h2>
@@ -56,7 +56,7 @@ export default function PortalProfilePage() {
                   setTempPersonal(personal);
                   setEditMode("personal");
                 }}
-                className="text-xs font-semibold text-violet-700 bg-violet-50 hover:bg-violet-100 border border-violet-200/70 px-3 py-1.5 rounded-xl transition flex items-center gap-1.5"
+                className="text-xs font-semibold text-blue-700 bg-blue-50 hover:bg-blue-100 border border-blue-200/70 px-3 py-1.5 rounded-xl transition flex items-center gap-1.5"
               >
                 <Edit3 size={12} />
                 <span>Edit</span>
@@ -64,7 +64,7 @@ export default function PortalProfilePage() {
             </div>
             <div className="mt-5 space-y-4">
               <div className="flex items-start gap-3">
-                <div className="w-8 h-8 rounded-xl bg-violet-50 text-violet-600 border border-violet-100 flex items-center justify-center shrink-0">
+                <div className="w-8 h-8 rounded-xl bg-blue-50 text-blue-600 border border-blue-100 flex items-center justify-center shrink-0">
                   <User className="w-4 h-4" />
                 </div>
                 <div>
@@ -73,7 +73,7 @@ export default function PortalProfilePage() {
                 </div>
               </div>
               <div className="flex items-start gap-3">
-                <div className="w-8 h-8 rounded-xl bg-violet-50 text-violet-600 border border-violet-100 flex items-center justify-center shrink-0">
+                <div className="w-8 h-8 rounded-xl bg-blue-50 text-blue-600 border border-blue-100 flex items-center justify-center shrink-0">
                   <Mail className="w-4 h-4" />
                 </div>
                 <div>
@@ -82,7 +82,7 @@ export default function PortalProfilePage() {
                 </div>
               </div>
               <div className="flex items-start gap-3">
-                <div className="w-8 h-8 rounded-xl bg-violet-50 text-violet-600 border border-violet-100 flex items-center justify-center shrink-0">
+                <div className="w-8 h-8 rounded-xl bg-blue-50 text-blue-600 border border-blue-100 flex items-center justify-center shrink-0">
                   <Phone className="w-4 h-4" />
                 </div>
                 <div>
@@ -95,7 +95,7 @@ export default function PortalProfilePage() {
         </div>
 
         {/* Business Information */}
-        <div className="bg-white rounded-2xl p-6 shadow-xs border border-violet-200/80 flex flex-col justify-between">
+        <div className="bg-white rounded-2xl p-6 shadow-xs border border-blue-200/80 flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between pb-4 border-b border-gray-100">
               <h2 className="text-base font-bold text-gray-900">Business Information</h2>
@@ -104,7 +104,7 @@ export default function PortalProfilePage() {
                   setTempBusiness(business);
                   setEditMode("business");
                 }}
-                className="text-xs font-semibold text-violet-700 bg-violet-50 hover:bg-violet-100 border border-violet-200/70 px-3 py-1.5 rounded-xl transition flex items-center gap-1.5"
+                className="text-xs font-semibold text-blue-700 bg-blue-50 hover:bg-blue-100 border border-blue-200/70 px-3 py-1.5 rounded-xl transition flex items-center gap-1.5"
               >
                 <Edit3 size={12} />
                 <span>Edit</span>
@@ -112,7 +112,7 @@ export default function PortalProfilePage() {
             </div>
             <div className="mt-5 space-y-4">
               <div className="flex items-start gap-3">
-                <div className="w-8 h-8 rounded-xl bg-violet-50 text-violet-600 border border-violet-100 flex items-center justify-center shrink-0">
+                <div className="w-8 h-8 rounded-xl bg-blue-50 text-blue-600 border border-blue-100 flex items-center justify-center shrink-0">
                   <Building2 className="w-4 h-4" />
                 </div>
                 <div>
@@ -121,7 +121,7 @@ export default function PortalProfilePage() {
                 </div>
               </div>
               <div className="flex items-start gap-3">
-                <div className="w-8 h-8 rounded-xl bg-violet-50 text-violet-600 border border-violet-100 flex items-center justify-center shrink-0">
+                <div className="w-8 h-8 rounded-xl bg-blue-50 text-blue-600 border border-blue-100 flex items-center justify-center shrink-0">
                   <FileText className="w-4 h-4" />
                 </div>
                 <div>
@@ -130,7 +130,7 @@ export default function PortalProfilePage() {
                 </div>
               </div>
               <div className="flex items-start gap-3">
-                <div className="w-8 h-8 rounded-xl bg-violet-50 text-violet-600 border border-violet-100 flex items-center justify-center shrink-0">
+                <div className="w-8 h-8 rounded-xl bg-blue-50 text-blue-600 border border-blue-100 flex items-center justify-center shrink-0">
                   <MapPin className="w-4 h-4" />
                 </div>
                 <div>
@@ -146,7 +146,7 @@ export default function PortalProfilePage() {
       {/* Edit Personal Modal */}
       {editMode === "personal" && (
         <div className="fixed inset-0 bg-black/40 backdrop-blur-xs flex items-center justify-center z-50 p-4 animate-in fade-in">
-          <div className="bg-white rounded-2xl shadow-2xl border border-violet-200 max-w-md w-full p-6">
+          <div className="bg-white rounded-2xl shadow-2xl border border-blue-200 max-w-md w-full p-6">
             <h2 className="text-base font-bold text-gray-900 mb-1">Edit Personal Details</h2>
             <p className="text-xs text-gray-500 mb-4">Update your primary contact information.</p>
             <form onSubmit={savePersonal} className="space-y-3.5">
@@ -157,7 +157,7 @@ export default function PortalProfilePage() {
                   required
                   value={tempPersonal.fullName}
                   onChange={(e) => setTempPersonal({ ...tempPersonal, fullName: e.target.value })}
-                  className="w-full px-3 py-2 text-xs border border-violet-200 rounded-xl outline-none focus:border-violet-500"
+                  className="w-full px-3 py-2 text-xs border border-blue-200 rounded-xl outline-none focus:border-blue-500"
                 />
               </div>
               <div>
@@ -167,7 +167,7 @@ export default function PortalProfilePage() {
                   required
                   value={tempPersonal.email}
                   onChange={(e) => setTempPersonal({ ...tempPersonal, email: e.target.value })}
-                  className="w-full px-3 py-2 text-xs border border-violet-200 rounded-xl outline-none focus:border-violet-500"
+                  className="w-full px-3 py-2 text-xs border border-blue-200 rounded-xl outline-none focus:border-blue-500"
                 />
               </div>
               <div>
@@ -176,7 +176,7 @@ export default function PortalProfilePage() {
                   type="text"
                   value={tempPersonal.phone}
                   onChange={(e) => setTempPersonal({ ...tempPersonal, phone: e.target.value })}
-                  className="w-full px-3 py-2 text-xs border border-violet-200 rounded-xl outline-none focus:border-violet-500"
+                  className="w-full px-3 py-2 text-xs border border-blue-200 rounded-xl outline-none focus:border-blue-500"
                 />
               </div>
               <div className="flex items-center justify-end gap-2 pt-3 border-t border-gray-100">
@@ -189,7 +189,7 @@ export default function PortalProfilePage() {
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 rounded-xl text-xs font-semibold bg-[#7C3AED] hover:bg-[#6D28D9] text-white shadow-sm transition"
+                  className="px-4 py-2 rounded-xl text-xs font-semibold bg-[#2563EB] hover:bg-[#1D4ED8] text-white shadow-sm transition"
                 >
                   Save Changes
                 </button>
@@ -202,7 +202,7 @@ export default function PortalProfilePage() {
       {/* Edit Business Modal */}
       {editMode === "business" && (
         <div className="fixed inset-0 bg-black/40 backdrop-blur-xs flex items-center justify-center z-50 p-4 animate-in fade-in">
-          <div className="bg-white rounded-2xl shadow-2xl border border-violet-200 max-w-md w-full p-6">
+          <div className="bg-white rounded-2xl shadow-2xl border border-blue-200 max-w-md w-full p-6">
             <h2 className="text-base font-bold text-gray-900 mb-1">Edit Business Details</h2>
             <p className="text-xs text-gray-500 mb-4">Update registered billing &amp; company entity.</p>
             <form onSubmit={saveBusiness} className="space-y-3.5">
@@ -213,7 +213,7 @@ export default function PortalProfilePage() {
                   required
                   value={tempBusiness.companyName}
                   onChange={(e) => setTempBusiness({ ...tempBusiness, companyName: e.target.value })}
-                  className="w-full px-3 py-2 text-xs border border-violet-200 rounded-xl outline-none focus:border-violet-500"
+                  className="w-full px-3 py-2 text-xs border border-blue-200 rounded-xl outline-none focus:border-blue-500"
                 />
               </div>
               <div>
@@ -223,7 +223,7 @@ export default function PortalProfilePage() {
                   required
                   value={tempBusiness.gst}
                   onChange={(e) => setTempBusiness({ ...tempBusiness, gst: e.target.value })}
-                  className="w-full px-3 py-2 text-xs border border-violet-200 rounded-xl outline-none focus:border-violet-500"
+                  className="w-full px-3 py-2 text-xs border border-blue-200 rounded-xl outline-none focus:border-blue-500"
                 />
               </div>
               <div>
@@ -232,7 +232,7 @@ export default function PortalProfilePage() {
                   type="text"
                   value={tempBusiness.address}
                   onChange={(e) => setTempBusiness({ ...tempBusiness, address: e.target.value })}
-                  className="w-full px-3 py-2 text-xs border border-violet-200 rounded-xl outline-none focus:border-violet-500"
+                  className="w-full px-3 py-2 text-xs border border-blue-200 rounded-xl outline-none focus:border-blue-500"
                 />
               </div>
               <div className="flex items-center justify-end gap-2 pt-3 border-t border-gray-100">
@@ -245,7 +245,7 @@ export default function PortalProfilePage() {
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 rounded-xl text-xs font-semibold bg-[#7C3AED] hover:bg-[#6D28D9] text-white shadow-sm transition"
+                  className="px-4 py-2 rounded-xl text-xs font-semibold bg-[#2563EB] hover:bg-[#1D4ED8] text-white shadow-sm transition"
                 >
                   Save Business Info
                 </button>

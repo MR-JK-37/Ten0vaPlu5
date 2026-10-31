@@ -36,8 +36,8 @@ export default function PortalInvoicesPage() {
         </p>
       </div>
 
-      <div className="bg-white rounded-2xl shadow-xs border border-violet-200/80 overflow-hidden">
-        <div className="flex flex-wrap items-center gap-3 p-4 border-b border-violet-100 bg-violet-50/20">
+      <div className="bg-white rounded-2xl shadow-xs border border-blue-200/80 overflow-hidden">
+        <div className="flex flex-wrap items-center gap-3 p-4 border-b border-blue-100 bg-blue-50/20">
           <div className="relative flex-1 min-w-[200px]">
             <Search className="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" />
             <input
@@ -45,13 +45,13 @@ export default function PortalInvoicesPage() {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search invoices..."
-              className="w-full pl-9 pr-3 py-1.5 text-xs border border-violet-200/80 rounded-xl outline-none focus:border-violet-500 bg-white"
+              className="w-full pl-9 pr-3 py-1.5 text-xs border border-blue-200/80 rounded-xl outline-none focus:border-blue-500 bg-white"
             />
           </div>
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="border border-violet-200/80 rounded-xl px-3 py-1.5 text-xs text-gray-700 bg-white outline-none focus:border-violet-500"
+            className="border border-blue-200/80 rounded-xl px-3 py-1.5 text-xs text-gray-700 bg-white outline-none focus:border-blue-500"
           >
             <option value="All">Status: All</option>
             <option value="Paid">Paid</option>
@@ -73,8 +73,8 @@ export default function PortalInvoicesPage() {
             </thead>
             <tbody className="divide-y divide-gray-50 text-xs">
               {filtered.map((inv) => (
-                <tr key={inv.id} className="hover:bg-violet-50/30 transition">
-                  <td className="px-5 py-3.5 font-bold text-[#7C3AED]">{inv.id}</td>
+                <tr key={inv.id} className="hover:bg-blue-50/30 transition">
+                  <td className="px-5 py-3.5 font-bold text-[#2563EB]">{inv.id}</td>
                   <td className="px-5 py-3.5 text-gray-500 font-medium">{inv.date}</td>
                   <td className="px-5 py-3.5 font-bold text-gray-900">{inv.amount}</td>
                   <td className="px-5 py-3.5 text-gray-500">{inv.dueDate}</td>
@@ -86,7 +86,7 @@ export default function PortalInvoicesPage() {
                   <td className="px-5 py-3.5 text-right">
                     <button
                       onClick={() => handleDownload(inv.id)}
-                      className="p-1.5 rounded-xl text-gray-400 hover:text-[#7C3AED] hover:bg-violet-50 transition border border-transparent hover:border-violet-200"
+                      className="p-1.5 rounded-xl text-gray-400 hover:text-[#2563EB] hover:bg-blue-50 transition border border-transparent hover:border-blue-200"
                       title="Download Invoice PDF"
                     >
                       <Download className="w-4 h-4" />

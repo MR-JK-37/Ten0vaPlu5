@@ -28,7 +28,7 @@ export default function PortalTaxesPage() {
             {taxes.map((t, i) => (
               <tr key={i} className="border-b border-gray-50 text-xs">
                 <td className="px-5 py-3.5 font-bold text-gray-900">{t.name}</td>
-                <td className="px-5 py-3.5 font-semibold text-violet-700">{t.rate}</td>
+                <td className="px-5 py-3.5 font-semibold text-blue-700">{t.rate}</td>
                 <td className="px-5 py-3.5 text-gray-700">{t.appliesTo}</td>
                 <td className="px-5 py-3.5 text-gray-500">{t.description}</td>
               </tr>

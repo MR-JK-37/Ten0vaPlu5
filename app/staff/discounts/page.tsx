@@ -25,8 +25,8 @@ export default function StaffDiscountsPage() {
         <p className="text-gray-500 text-xs mt-1">View available discounts and apply eligible promotional codes to quotes.</p>
       </div>
 
-      <div className="bg-white rounded-2xl shadow-xs border border-violet-200/80 overflow-hidden">
-        <div className="flex items-center gap-3 p-4 border-b border-violet-100 bg-violet-50/20">
+      <div className="bg-white rounded-2xl shadow-xs border border-blue-200/80 overflow-hidden">
+        <div className="flex items-center gap-3 p-4 border-b border-blue-100 bg-blue-50/20">
           <div className="relative flex-1 max-w-sm">
             <Search className="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" />
             <input
@@ -34,7 +34,7 @@ export default function StaffDiscountsPage() {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search discounts..."
-              className="w-full pl-9 pr-3 py-1.5 text-xs border border-violet-200/80 rounded-xl outline-none focus:border-violet-500 bg-white"
+              className="w-full pl-9 pr-3 py-1.5 text-xs border border-blue-200/80 rounded-xl outline-none focus:border-blue-500 bg-white"
             />
           </div>
         </div>
@@ -53,9 +53,9 @@ export default function StaffDiscountsPage() {
             </thead>
             <tbody className="divide-y divide-gray-50 text-xs">
               {filtered.map((d, i) => (
-                <tr key={i} className="hover:bg-violet-50/30 transition">
+                <tr key={i} className="hover:bg-blue-50/30 transition">
                   <td className="px-5 py-3.5">
-                    <span className="font-mono font-bold text-xs bg-violet-50 text-[#7C3AED] border border-violet-200 px-2 py-1 rounded-lg">
+                    <span className="font-mono font-bold text-xs bg-blue-50 text-[#2563EB] border border-blue-200 px-2 py-1 rounded-lg">
                       {d.code}
                     </span>
                   </td>

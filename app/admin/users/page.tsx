@@ -28,14 +28,14 @@ export default function AdminUsersPage() {
         </div>
         <button
           onClick={() => setShowAddModal(true)}
-          className="flex items-center gap-2 bg-[#7C3AED] hover:bg-[#6D28D9] text-white px-4 py-2.5 rounded-xl text-xs font-semibold shadow-sm transition active:scale-95"
+          className="flex items-center gap-2 bg-[#2563EB] hover:bg-[#1D4ED8] text-white px-4 py-2.5 rounded-xl text-xs font-semibold shadow-sm transition active:scale-95"
         >
           <Plus size={15} />
           <span>Add User</span>
         </button>
       </div>
 
-      <div className="bg-white rounded-2xl shadow-xs border border-violet-200/80 overflow-hidden">
+      <div className="bg-white rounded-2xl shadow-xs border border-blue-200/80 overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left">
             <thead>
@@ -49,11 +49,11 @@ export default function AdminUsersPage() {
             </thead>
             <tbody className="divide-y divide-gray-50 text-xs">
               {users.map((u) => (
-                <tr key={u.id} className="hover:bg-violet-50/30 transition">
+                <tr key={u.id} className="hover:bg-blue-50/30 transition">
                   <td className="px-5 py-3.5 font-bold text-gray-900">{u.name}</td>
                   <td className="px-5 py-3.5 text-gray-500 font-medium">{u.email}</td>
                   <td className="px-5 py-3.5">
-                    <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-violet-100 text-[#7C3AED] border border-violet-200 uppercase">
+                    <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-blue-100 text-[#2563EB] border border-blue-200 uppercase">
                       {u.role}
                     </span>
                   </td>
@@ -80,7 +80,7 @@ export default function AdminUsersPage() {
       {/* Add User Modal */}
       {showAddModal && (
         <div className="fixed inset-0 bg-black/40 backdrop-blur-xs flex items-center justify-center z-50 p-4 animate-in fade-in">
-          <div className="bg-white rounded-2xl shadow-2xl border border-violet-200 max-w-md w-full p-6">
+          <div className="bg-white rounded-2xl shadow-2xl border border-blue-200 max-w-md w-full p-6">
             <h2 className="text-base font-bold text-gray-900 mb-1">Add Portal User</h2>
             <p className="text-xs text-gray-500 mb-4">Grant account credentials and assign a role.</p>
             <form
@@ -97,7 +97,7 @@ export default function AdminUsersPage() {
                   type="text"
                   required
                   placeholder="e.g. John Doe"
-                  className="w-full px-3 py-2 text-xs border border-violet-200 rounded-xl outline-none focus:border-violet-500"
+                  className="w-full px-3 py-2 text-xs border border-blue-200 rounded-xl outline-none focus:border-blue-500"
                 />
               </div>
               <div>
@@ -106,12 +106,12 @@ export default function AdminUsersPage() {
                   type="email"
                   required
                   placeholder="e.g. john@brightloop.test"
-                  className="w-full px-3 py-2 text-xs border border-violet-200 rounded-xl outline-none focus:border-violet-500"
+                  className="w-full px-3 py-2 text-xs border border-blue-200 rounded-xl outline-none focus:border-blue-500"
                 />
               </div>
               <div>
                 <label className="text-xs font-semibold text-gray-700 block mb-1">Role</label>
-                <select className="w-full px-3 py-2 text-xs border border-violet-200 rounded-xl outline-none focus:border-violet-500">
+                <select className="w-full px-3 py-2 text-xs border border-blue-200 rounded-xl outline-none focus:border-blue-500">
                   <option value="staff">Staff</option>
                   <option value="admin">Admin</option>
                   <option value="customer">Customer</option>
@@ -127,7 +127,7 @@ export default function AdminUsersPage() {
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 rounded-xl text-xs font-semibold bg-[#7C3AED] hover:bg-[#6D28D9] text-white shadow-sm"
+                  className="px-4 py-2 rounded-xl text-xs font-semibold bg-[#2563EB] hover:bg-[#1D4ED8] text-white shadow-sm"
                 >
                   Create User
                 </button>

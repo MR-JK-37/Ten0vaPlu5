@@ -21,7 +21,7 @@ export default function StaffDashboardPage() {
     { id: 2, text: "Send quotation to GreenLeaf Co.", tag: "Today", tagColor: "bg-blue-100 text-blue-700 border-blue-200", done: false },
     { id: 3, text: "Confirm subscription for Metro Digital", tag: "Today", tagColor: "bg-blue-100 text-blue-700 border-blue-200", done: false },
     { id: 4, text: "Payment follow-up – Sunrise Tech (₹3,540)", tag: "Tomorrow", tagColor: "bg-orange-100 text-orange-700 border-orange-200", done: false },
-    { id: 5, text: "Prepare renewal for Nova Systems", tag: "Nov 07", tagColor: "bg-purple-100 text-purple-700 border-purple-200", done: false },
+    { id: 5, text: "Prepare renewal for Nova Systems", tag: "Nov 07", tagColor: "bg-blue-100 text-blue-700 border-blue-200", done: false },
   ]);
 
   const toggleTask = (id: number) => {
@@ -37,7 +37,7 @@ export default function StaffDashboardPage() {
   };
 
   const stats = [
-    { label: "Customers Assigned", value: "85", icon: Users, bg: "bg-violet-50 text-violet-600" },
+    { label: "Customers Assigned", value: "85", icon: Users, bg: "bg-blue-50 text-blue-600" },
     { label: "Quotations Awaiting Response", value: "12", icon: FileText, bg: "bg-amber-50 text-amber-600" },
     { label: "Active Subscriptions", value: "60", icon: RefreshCw, bg: "bg-emerald-50 text-emerald-600" },
     { label: "Invoices Pending Payment", value: "18", icon: Receipt, bg: "bg-blue-50 text-blue-600" },
@@ -72,14 +72,14 @@ export default function StaffDashboardPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900 tracking-tight">Good Morning, Priya! 👋</h1>
+          <h1 className="text-2xl font-bold text-gray-900 tracking-tight">Good Morning, Priya!</h1>
           <p className="text-gray-500 text-xs mt-1">Here&apos;s your daily work overview and assigned accounts.</p>
         </div>
         <button
           onClick={() => toast.success("Work overview refreshed")}
-          className="flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold bg-white border border-violet-200/80 hover:bg-violet-50 text-gray-700 shadow-xs transition"
+          className="flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold bg-white border border-blue-200/80 hover:bg-blue-50 text-gray-700 shadow-xs transition"
         >
-          <RefreshCw size={13} className="text-violet-600" />
+          <RefreshCw size={13} className="text-blue-600" />
           <span>Refresh Data</span>
         </button>
       </div>
@@ -91,7 +91,7 @@ export default function StaffDashboardPage() {
           return (
             <div
               key={i}
-              className="bg-white rounded-2xl p-4 shadow-xs border border-violet-200/80 flex flex-col justify-between hover:border-violet-300 transition"
+              className="bg-white rounded-2xl p-4 shadow-xs border border-blue-200/80 flex flex-col justify-between hover:border-blue-300 transition"
             >
               <div className={`w-8 h-8 rounded-xl ${s.bg} flex items-center justify-center mb-3 shrink-0`}>
                 <Icon size={16} />
@@ -108,12 +108,12 @@ export default function StaffDashboardPage() {
       {/* Middle Row: Work Overview Chart + My Tasks */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Work Overview Chart (7 cols) */}
-        <div className="lg:col-span-7 bg-white rounded-2xl p-5 shadow-xs border border-violet-200/80 flex flex-col justify-between">
+        <div className="lg:col-span-7 bg-white rounded-2xl p-5 shadow-xs border border-blue-200/80 flex flex-col justify-between">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-sm font-bold text-gray-900">Work Overview</h2>
             <div className="flex items-center gap-4 text-xs font-medium text-gray-500">
-              <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-[#7C3AED]" /> Quotations</span>
-              <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-[#3B82F6]" /> Invoices</span>
+              <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-[#2563EB]" /> Quotations</span>
+              <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-[#38BDF8]" /> Invoices</span>
               <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-[#10B981]" /> Payments</span>
             </div>
           </div>
@@ -127,10 +127,10 @@ export default function StaffDashboardPage() {
             <text x="25" y="35" fontSize="9" fill="#94a3b8" textAnchor="end">40</text>
             <text x="25" y="5" fontSize="9" fill="#94a3b8" textAnchor="end">50</text>
 
-            {/* Quotations: Purple line */}
-            <path d="M 50 115 C 120 110, 190 95, 260 70 C 330 65, 400 45, 480 35" fill="none" stroke="#7C3AED" strokeWidth="2.5" />
+            {/* Quotations: Blue line */}
+            <path d="M 50 115 C 120 110, 190 95, 260 70 C 330 65, 400 45, 480 35" fill="none" stroke="#2563EB" strokeWidth="2.5" />
             {/* Invoices: Blue line */}
-            <path d="M 50 120 C 120 115, 190 102, 260 85 C 330 80, 400 60, 480 50" fill="none" stroke="#3B82F6" strokeWidth="2.5" />
+            <path d="M 50 120 C 120 115, 190 102, 260 85 C 330 80, 400 60, 480 50" fill="none" stroke="#38BDF8" strokeWidth="2.5" />
             {/* Payments: Green line */}
             <path d="M 50 125 C 120 122, 190 112, 260 100 C 330 92, 400 80, 480 70" fill="none" stroke="#10B981" strokeWidth="2.5" />
 
@@ -141,10 +141,10 @@ export default function StaffDashboardPage() {
         </div>
 
         {/* My Tasks Panel (5 cols) */}
-        <div className="lg:col-span-5 bg-white rounded-2xl p-5 shadow-xs border border-violet-200/80 flex flex-col justify-between">
+        <div className="lg:col-span-5 bg-white rounded-2xl p-5 shadow-xs border border-blue-200/80 flex flex-col justify-between">
           <div className="flex items-center justify-between mb-3">
             <h2 className="text-sm font-bold text-gray-900">My Tasks ({tasks.filter(t => !t.done).length})</h2>
-            <Link href="/staff/tasks" className="text-xs font-semibold text-violet-600 hover:text-violet-700 flex items-center gap-1">
+            <Link href="/staff/tasks" className="text-xs font-semibold text-blue-600 hover:text-blue-700 flex items-center gap-1">
               <span>View All</span>
               <ArrowRight size={12} />
             </Link>
@@ -157,7 +157,7 @@ export default function StaffDashboardPage() {
                 className={`flex items-center justify-between p-2.5 rounded-xl border cursor-pointer transition ${
                   task.done
                     ? "bg-gray-50/70 border-gray-100 opacity-60"
-                    : "bg-violet-50/30 border-violet-100 hover:border-violet-300"
+                    : "bg-blue-50/30 border-blue-100 hover:border-blue-300"
                 }`}
               >
                 <div className="flex items-center gap-2.5 min-w-0">
@@ -165,7 +165,7 @@ export default function StaffDashboardPage() {
                     type="checkbox"
                     checked={task.done}
                     onChange={() => {}} // handled by parent onClick
-                    className="w-4 h-4 rounded text-violet-600 border-violet-300 focus:ring-violet-400 cursor-pointer"
+                    className="w-4 h-4 rounded text-blue-600 border-blue-300 focus:ring-blue-400 cursor-pointer"
                   />
                   <span className={`text-xs font-medium truncate ${task.done ? "line-through text-gray-400" : "text-gray-800"}`}>
                     {task.text}
@@ -183,10 +183,10 @@ export default function StaffDashboardPage() {
       {/* Bottom Row: Enquiries, Payments, Renewals */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Customer Enquiries */}
-        <div className="bg-white rounded-2xl p-5 shadow-xs border border-violet-200/80">
+        <div className="bg-white rounded-2xl p-5 shadow-xs border border-blue-200/80">
           <div className="flex items-center justify-between mb-3">
             <h2 className="text-sm font-bold text-gray-900">Recent Customer Enquiries</h2>
-            <button onClick={() => toast.info("Opening customer enquiry logs")} className="text-xs font-semibold text-violet-600 hover:text-violet-700">
+            <button onClick={() => toast.info("Opening customer enquiry logs")} className="text-xs font-semibold text-blue-600 hover:text-blue-700">
               View All →
             </button>
           </div>
@@ -200,7 +200,7 @@ export default function StaffDashboardPage() {
             </thead>
             <tbody className="divide-y divide-gray-50 text-xs">
               {enquiries.map((e, i) => (
-                <tr key={i} className="hover:bg-violet-50/30 transition">
+                <tr key={i} className="hover:bg-blue-50/30 transition">
                   <td className="py-2.5 font-bold text-gray-900">{e.name}</td>
                   <td className="py-2.5 text-gray-500 truncate max-w-[120px]">{e.enquiry}</td>
                   <td className="py-2.5 text-right">
@@ -215,10 +215,10 @@ export default function StaffDashboardPage() {
         </div>
 
         {/* Recent Payments */}
-        <div className="bg-white rounded-2xl p-5 shadow-xs border border-violet-200/80">
+        <div className="bg-white rounded-2xl p-5 shadow-xs border border-blue-200/80">
           <div className="flex items-center justify-between mb-3">
             <h2 className="text-sm font-bold text-gray-900">Recent Payments</h2>
-            <Link href="/staff/payments" className="text-xs font-semibold text-violet-600 hover:text-violet-700">
+            <Link href="/staff/payments" className="text-xs font-semibold text-blue-600 hover:text-blue-700">
               View All →
             </Link>
           </div>
@@ -232,9 +232,9 @@ export default function StaffDashboardPage() {
             </thead>
             <tbody className="divide-y divide-gray-50 text-xs">
               {recentPayments.map((p, i) => (
-                <tr key={i} className="hover:bg-violet-50/30 transition">
+                <tr key={i} className="hover:bg-blue-50/30 transition">
                   <td className="py-2.5 font-bold text-gray-900">{p.customer}</td>
-                  <td className="py-2.5 font-bold text-violet-700">{p.amount}</td>
+                  <td className="py-2.5 font-bold text-blue-700">{p.amount}</td>
                   <td className="py-2.5 text-right text-gray-500 font-medium">{p.method}</td>
                 </tr>
               ))}
@@ -243,10 +243,10 @@ export default function StaffDashboardPage() {
         </div>
 
         {/* Upcoming Renewals */}
-        <div className="bg-white rounded-2xl p-5 shadow-xs border border-violet-200/80">
+        <div className="bg-white rounded-2xl p-5 shadow-xs border border-blue-200/80">
           <div className="flex items-center justify-between mb-3">
             <h2 className="text-sm font-bold text-gray-900">Upcoming Renewals (10)</h2>
-            <Link href="/staff/subscriptions" className="text-xs font-semibold text-violet-600 hover:text-violet-700">
+            <Link href="/staff/subscriptions" className="text-xs font-semibold text-blue-600 hover:text-blue-700">
               View All →
             </Link>
           </div>
@@ -260,10 +260,10 @@ export default function StaffDashboardPage() {
             </thead>
             <tbody className="divide-y divide-gray-50 text-xs">
               {upcomingRenewals.map((r, i) => (
-                <tr key={i} className="hover:bg-violet-50/30 transition">
+                <tr key={i} className="hover:bg-blue-50/30 transition">
                   <td className="py-2.5 font-bold text-gray-900">{r.customer}</td>
                   <td className="py-2.5 text-gray-500 font-medium">{r.plan}</td>
-                  <td className="py-2.5 text-right font-bold text-violet-700">{r.date}</td>
+                  <td className="py-2.5 text-right font-bold text-blue-700">{r.date}</td>
                 </tr>
               ))}
             </tbody>
