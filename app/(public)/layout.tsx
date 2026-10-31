@@ -1,22 +1,30 @@
 import Link from "next/link";
+import Image from "next/image";
 import { buttonVariants } from "@/components/ui/button";
 
 export default function PublicLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex min-h-screen flex-col">
-      <header className="border-b">
-        <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-4">
-          <Link href="/" className="font-semibold">
-            Brightloop Software
+      <header className="border-b bg-white/80 backdrop-blur-sm sticky top-0 z-20">
+        <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-3">
+          <Link href="/" className="flex items-center gap-2">
+            <Image
+              src="/logo.png"
+              alt="Ten0vaPlus"
+              width={160}
+              height={32}
+              className="h-8 w-auto object-contain"
+              priority
+            />
           </Link>
           <nav className="flex items-center gap-4 text-sm">
-            <Link href="/pricing" className="text-muted-foreground hover:text-foreground">
+            <Link href="/pricing" className="text-muted-foreground hover:text-foreground font-medium">
               Pricing
             </Link>
-            <Link href="/portal" className="text-muted-foreground hover:text-foreground">
+            <Link href="/portal" className="text-muted-foreground hover:text-foreground font-medium">
               Customer Portal
             </Link>
-            <Link href="/staff" className="text-muted-foreground hover:text-foreground">
+            <Link href="/staff" className="text-muted-foreground hover:text-foreground font-medium">
               Staff Portal
             </Link>
             <Link href="/admin" className={buttonVariants({ size: "sm" })}>
