@@ -126,7 +126,14 @@ run (not just "should work"); see the note under each ticked item for how it was
 - [x] Invoice `paid` set automatically, never by hand
   - Verified via psql: `record_payment()` with amount == total flips status to `paid` via
     `invoices_sync_paid` trigger.
-- [ ] Invoice actions confirm/cancel/send/print work from the UI
+- [x] Invoice actions confirm/cancel/send/print work from the UI
+  - Verified end-to-end with Playwright: billed an overdue subscription (draft invoice),
+    clicked Confirm (status → confirmed, correctly showed an "overdue" badge since the due
+    date was already past), opened the print view (shows all lines/subtotal/discount/tax/
+    total/paid/due correctly), and confirmed the available actions change per status
+    (draft → Confirm+Cancel+Print; confirmed → Cancel+Send+Print). Send has no real SMTP
+    configured, so it logs to the server console and still records `sent_at` as real
+    state — not a no-op button.
 - [ ] Discount auto-applies on next invoice and stops on expiry/exhaustion
 - [x] Admin billing-run UI: "Run billing now" + dry-run + history, verified end-to-end
       above. Live progress streaming (e.g. "412/600 invoiced") is deferred to the realtime

@@ -15,6 +15,7 @@ export const adminNav: NavItem[] = [
   { href: "/admin/customers", label: "Customers" },
   { href: "/admin/subscriptions", label: "Subscriptions" },
   { href: "/admin/billing-runs", label: "Billing runs" },
+  { href: "/admin/invoices", label: "Invoices" },
   { href: "/admin/users", label: "Users" },
 ];
 
@@ -22,6 +23,7 @@ export const staffNav: NavItem[] = [
   { href: "/staff", label: "Dashboard" },
   { href: "/staff/customers", label: "Customers" },
   { href: "/staff/subscriptions", label: "Subscriptions" },
+  { href: "/staff/invoices", label: "Invoices" },
 ];
 
 export const portalNav: NavItem[] = [{ href: "/portal", label: "My subscriptions" }];
