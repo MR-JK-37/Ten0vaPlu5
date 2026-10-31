@@ -166,7 +166,19 @@ run (not just "should work"); see the note under each ticked item for how it was
     (confirmed + due date passed + amount still owed) were correct at every step above.
 
 ## Reporting & realtime
-- [ ] Dashboard KPIs reconcile to raw SQL
+- [x] Finance dashboard (admin + staff): MRR/ARR, revenue collected, outstanding, overdue
+      count, revenue-by-month chart, overdue ageing buckets (1-30/31-60/61-90/90+), CSV
+      export -- all from SQL aggregates (`dashboard_kpis()`, `invoice_ageing_buckets()`,
+      `revenue_by_month()`), never client-side sums over fetched rows
+  - Verified with Playwright against seeded data: 3 confirmed unpaid invoices due
+    2026-09-04/10-05/11-04 (today 2026-10-31) → Outstanding correctly includes all three
+    (₹29,997 = 3×₹9,999) while the ageing table correctly shows only the two that are
+    actually overdue (31-60 and 1-30 buckets; the 11-04 one isn't due yet, so it's
+    excluded from ageing exactly as it should be) — confirms ageing and outstanding use
+    different, each-correct definitions rather than one copy-pasted into the other.
+    CSV export downloaded and its contents checked line-by-line against the DB.
+- [x] Dashboard KPIs reconcile to raw SQL
+  - Same verification as above.
 - [ ] Two-browser realtime Paid-flip test under 2s
 - [ ] Billing run streams progress live
 - [ ] Reconnect indicator / catch-up

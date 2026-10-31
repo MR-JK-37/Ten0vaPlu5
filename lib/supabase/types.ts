@@ -1161,6 +1161,14 @@ export type Database = {
         Args: { p_as_of: string; p_discount_id: string }
         Returns: boolean
       }
+      invoice_ageing_buckets: {
+        Args: never
+        Returns: {
+          bucket: string
+          invoice_count: number
+          total_due: number
+        }[]
+      }
       invoice_cancel: {
         Args: { p_invoice_id: string }
         Returns: {
@@ -1266,6 +1274,13 @@ export type Database = {
           isOneToOne: true
           isSetofReturn: false
         }
+      }
+      revenue_by_month: {
+        Args: { p_months?: number }
+        Returns: {
+          month: string
+          revenue: number
+        }[]
       }
       run_billing: {
         Args: { p_as_of?: string; p_dry_run?: boolean }
