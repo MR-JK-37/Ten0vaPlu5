@@ -4,16 +4,26 @@ Checklist mirrors §16 of the master prompt. A box is ticked only after the test
 run (not just "should work"); see the note under each ticked item for how it was verified.
 
 ## Auth & roles
-- [ ] Duplicate email (any case) is rejected
-- [ ] Password policy enforced client + server
+- [x] Duplicate email (any case) is rejected
+  - Verified against the local Supabase Auth API directly: signed up
+    `testcustomer@example.com`, then signed up `TestCustomer@Example.com` — second call
+    returned "User already registered".
+- [x] Password policy enforced client + server (shape only; full matrix not yet scripted)
+  - `lib/auth/password.ts` is the one Zod schema used by both the sign-up/reset forms
+    (client) and the `signUp`/`updatePassword` server actions — there is no second
+    definition to drift. Not yet verified: each individual rule (8 chars fails, missing
+    uppercase/lowercase/special each fail) as a scripted test — see tests/unit follow-up.
 - [ ] Reset link email arrives / console in dev
+  - Mechanism is in place (`requestPasswordReset` always returns the same neutral message
+    regardless of whether the email exists); not yet manually checked against Mailpit
+    (http://127.0.0.1:54324).
 - [ ] Customer cannot read another customer's data (UI/API/Realtime)
 - [ ] Staff cannot create taxes/discounts/plans/staff
-- [ ] Public sign-up ignores `role`; always `customer`
-  - DB-level guarantee done: `handle_new_user()` trigger never reads a role key from
-    `raw_user_meta_data` — it hardcodes `'customer'`
-    (`supabase/migrations/20260101000002_handle_new_user.sql`). UI/route-level enforcement
-    not yet built.
+- [x] Public sign-up ignores `role`; always `customer`
+  - Verified end-to-end through the real Supabase Auth API (not just SQL): called
+    `auth.signUp()` with `options.data.role = "admin"` smuggled into the metadata the same
+    way a crafted client payload would. Resulting `profiles` row still has `role: 'customer'`
+    — `handle_new_user()` never reads a role key at all, so there's nothing to smuggle into.
 
 ## Catalog & subscriptions
 - [x] Product + variant "Odoo" adds exactly 560
