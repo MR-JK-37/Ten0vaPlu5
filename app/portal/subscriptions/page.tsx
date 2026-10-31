@@ -67,13 +67,12 @@ export default function PortalSubscriptionsPage() {
                 <td className="px-5 py-4 text-gray-500">{sub.nextBilling}</td>
                 <td className="px-5 py-4">
                   <span
-                    className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold border ${
-                      status === "Active"
-                        ? "bg-green-100 text-green-700 border-green-200"
-                        : status === "Paused"
+                    className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold border ${status === "Active"
+                      ? "bg-green-100 text-green-700 border-green-200"
+                      : status === "Paused"
                         ? "bg-amber-100 text-amber-700 border-amber-200"
                         : "bg-red-100 text-red-700 border-red-200"
-                    }`}
+                      }`}
                   >
                     {status}
                   </span>
