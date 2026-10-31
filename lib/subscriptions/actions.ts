@@ -203,3 +203,13 @@ export async function transitionSubscription(
   revalidatePath("/portal");
   return error ? { error: error.message } : {};
 }
+
+export async function renewSubscription(subscriptionId: string) {
+  await requireUser();
+  const supabase = await createClient();
+  const { error } = await supabase.rpc("renew_subscription", { p_subscription_id: subscriptionId });
+  revalidatePath("/staff/subscriptions");
+  revalidatePath("/admin/subscriptions");
+  revalidatePath("/portal");
+  return error ? { error: error.message } : {};
+}

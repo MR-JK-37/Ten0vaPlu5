@@ -165,6 +165,20 @@ run (not just "should work"); see the note under each ticked item for how it was
   - Same Playwright runs: the invoices table's "Due amount" column and the overdue badge
     (confirmed + due date passed + amount still owed) were correct at every step above.
 
+## Customer portal self-service
+- [x] Accept quotation; pause/close/renew when the plan allows
+  - Added `renew_subscription()` (new migration) -- renewal didn't exist anywhere before
+    this, a real gap against the spec's explicit "pause/close/renew" requirement.
+    `StageActions` now takes an `audience` prop so the portal only offers customer-
+    appropriate actions (Accept quote, Pause/Resume, Close early, Renew) and never the
+    staff-side ones (Send quotation, Activate) that the DB would technically still allow
+    an owning customer to call.
+  - Verified end-to-end with Playwright as a real customer: accepted a quotation (status
+    quotation → confirmed, button correctly read "Accept quote" not "Confirm"); after
+    simulating staff activation, paused an active subscription (→ paused, button flipped
+    to "Resume"), and renewed it (expiry_date advanced from 2027-10-31 to 2028-10-31,
+    confirming the renewal is additive from the current expiry, not reset to a flat date).
+
 ## Reporting & realtime
 - [x] Finance dashboard (admin + staff): MRR/ARR, revenue collected, outstanding, overdue
       count, revenue-by-month chart, overdue ageing buckets (1-30/31-60/61-90/90+), CSV

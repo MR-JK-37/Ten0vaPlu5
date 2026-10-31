@@ -2,6 +2,14 @@
 
 Running log of non-obvious choices and why, newest first.
 
+## Renewal term length: one year
+The spec says renew means "new term, new expiry, continues billing" without pinning down
+the term length. Chose a flat one-year extension (`renew_subscription()` in
+`supabase/migrations/20260101000020_renew_subscription.sql`) regardless of billing period,
+since the domain examples (monthly vs yearly plans) suggest "term" is a commercial
+contract length distinct from the billing cadence. Revisit if a future requirement ties
+the term to `billing_period` instead.
+
 ## One-time git history rewrite to strip AI attribution trailers (A10.0)
 Author/committer identity on every existing commit was already the repo owner
 (`Ten0vaP!us <jaikiranjaikiran37@gmail.com>`, confirmed via `gh auth status` as GitHub

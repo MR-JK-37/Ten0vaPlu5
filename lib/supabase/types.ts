@@ -1275,6 +1275,32 @@ export type Database = {
           isSetofReturn: false
         }
       }
+      renew_subscription: {
+        Args: { p_subscription_id: string }
+        Returns: {
+          closed_reason: string | null
+          created_at: string
+          created_by: string | null
+          customer_id: string
+          expiry_date: string | null
+          id: string
+          next_billing_date: string | null
+          number: string
+          payment_terms: number
+          plan_id: string
+          quote_valid_until: string | null
+          start_date: string | null
+          status: Database["public"]["Enums"]["subscription_status"]
+          template_id: string | null
+          updated_at: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "subscriptions"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
       revenue_by_month: {
         Args: { p_months?: number }
         Returns: {
