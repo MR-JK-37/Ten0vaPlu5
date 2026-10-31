@@ -1,0 +1,18 @@
+#!/bin/sh
+# Blocks the push if any outgoing commit has an author/committer other than the repo
+# owner, or contains an AI-attribution signature. Belt-and-suspenders alongside the
+# commit-msg hook and the CI identity-check workflow.
+me=$(git config user.email)
+zero=0000000000000000000000000000000000000000
+while read lref lsha rref rsha; do
+  [ "$lsha" = "$zero" ] && continue
+  if [ "$rsha" = "$zero" ]; then range="$lsha"; else range="$rsha..$lsha"; fi
+  other=$(git log --format='%ae%n%ce' "$range" | sort -u | grep -v -x -e "$me" -e 'noreply@github.com' || true)
+  sig=$(git log --format='%B' "$range" | grep -iE 'co-authored-by:|claude-session|generated with|anthropic|claude\.ai' || true)
+  if [ -n "$other" ] || [ -n "$sig" ]; then
+    echo "pre-push BLOCKED: foreign identity or AI signature found in $range." >&2
+    [ -n "$other" ] && echo "Foreign identities: $other" >&2
+    [ -n "$sig" ] && echo "Signature lines: $sig" >&2
+    exit 1
+  fi
+done

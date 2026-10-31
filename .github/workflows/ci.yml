@@ -22,7 +22,7 @@ jobs:
           set -euo pipefail
           RANGE="${BASE_SHA:-HEAD~1}..$HEAD_SHA"
           git log "$RANGE" --format='%H%n%B' > /tmp/msgs.txt || true
-          if grep -qiE '(co-authored-by:.*(claude|anthropic|noreply@anthropic\.com))|generated with .*claude|claude-session|🤖' /tmp/msgs.txt; then
+          if grep -qiE 'co-authored-by:.*(claude|anthropic)|claude-session|generated with.*(claude|anthropic)|noreply@anthropic\.com|claude\.ai|🤖' /tmp/msgs.txt; then
             echo "A commit in this range contains AI attribution. This repo's policy is zero AI attribution." >&2
             exit 1
           fi
@@ -30,12 +30,15 @@ jobs:
         env:
           BASE_SHA: ${{ github.event.pull_request.base.sha }}
           HEAD_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+          OWNER_EMAIL: 231611281+MR-JK-37@users.noreply.github.com
         run: |
           set -euo pipefail
-          git log "${BASE_SHA:-HEAD~1}..$HEAD_SHA" --format='%an <%ae> | %cn <%ce>' | sort -u > /tmp/identities.txt || true
+          git log "${BASE_SHA:-HEAD~1}..$HEAD_SHA" --format='%ae%n%ce' | sort -u > /tmp/identities.txt || true
           cat /tmp/identities.txt
-          if grep -qiE 'claude|anthropic' /tmp/identities.txt; then
-            echo "A commit in this range has an AI author/committer identity." >&2
+          other=$(grep -v -x -e "$OWNER_EMAIL" -e 'noreply@github.com' /tmp/identities.txt || true)
+          if [ -n "$other" ]; then
+            echo "A commit in this range has an author/committer email other than the repo owner's:" >&2
+            echo "$other" >&2
             exit 1
           fi
 
